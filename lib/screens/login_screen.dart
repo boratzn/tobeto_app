@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       TextField(
-                        controller: usernameController,
+                        controller: passwordController,
                         decoration: InputDecoration(
                           prefixIconColor: lightColorScheme.primary,
                           suffixIconColor: lightColorScheme.primary,
