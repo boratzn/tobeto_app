@@ -28,19 +28,18 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 35),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.purple, width: 2),
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15),
                 ),
-                height: 400,
+                height: 410,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       SizedBox(
-                        width: 200,
-                        height: 90,
+                        width: 150,
+                        height: 100,
                         child: Image.asset(
                           "assets/tobeto-logo.png",
                         ),
@@ -81,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         minWidth: double.infinity,
                         child: const Text(
                           "GİRİŞ YAP",
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
                       ),
                       const Divider(color: Colors.black26),
@@ -91,6 +90,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(color: Colors.blue, fontSize: 16),
                         ),
                         onTap: () {},
+                      ),
+                      const SizedBox(
+                        height: 10,
                       )
                     ],
                   ),
