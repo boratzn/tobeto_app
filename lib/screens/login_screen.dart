@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tobeto_app/theme/app_theme.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,8 +17,11 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Image.asset(
-            "assets/login_background.jpg",
+          Positioned.fill(
+            child: Image.asset(
+              "assets/background.jpg",
+              fit: BoxFit.cover,
+            ),
           ),
           Center(
             child: Padding(
@@ -35,17 +39,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       SizedBox(
-                        width: double.infinity,
+                        width: 200,
                         height: 90,
                         child: Image.asset(
-                          "assets/tobeto_logo.jpeg",
-                          width: double.infinity,
+                          "assets/tobeto-logo.png",
                         ),
                       ),
                       TextField(
                         controller: usernameController,
                         decoration: InputDecoration(
-                          prefixIconColor: Colors.purple,
+                          prefixIconColor: lightColorScheme.primary,
                           prefixIcon: const Icon(Icons.person_pin),
                           hintText: "Kullanıcı Adı",
                           border: OutlineInputBorder(
@@ -56,8 +59,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextField(
                         controller: usernameController,
                         decoration: InputDecoration(
-                          prefixIconColor: Colors.purple,
-                          suffixIconColor: Colors.purple,
+                          prefixIconColor: lightColorScheme.primary,
+                          suffixIconColor: lightColorScheme.primary,
                           prefixIcon: const Icon(Icons.lock_outline),
                           suffixIcon: const Icon(Icons.remove_red_eye),
                           hintText: "Şifre",
@@ -71,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       MaterialButton(
                         height: 50,
-                        color: Colors.purple,
+                        color: lightColorScheme.primary,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
                         onPressed: () {},
