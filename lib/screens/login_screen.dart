@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 35),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.white.withOpacity(0.9),
                   borderRadius: BorderRadius.circular(15),
                 ),
                 height: 410,
@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: InputDecoration(
                           prefixIconColor: lightColorScheme.primary,
                           prefixIcon: const Icon(Icons.person_pin),
-                          hintText: "Kullanıcı Adı",
+                          label: const Text("Kullanıcı Adı"),
                           border: OutlineInputBorder(
                               borderSide: const BorderSide(),
                               borderRadius: BorderRadius.circular(15)),
@@ -58,11 +58,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextField(
                         controller: passwordController,
                         decoration: InputDecoration(
+                          label: const Text("Şifre"),
                           prefixIconColor: lightColorScheme.primary,
                           suffixIconColor: lightColorScheme.primary,
                           prefixIcon: const Icon(Icons.lock_outline),
-                          suffixIcon: const Icon(Icons.remove_red_eye),
-                          hintText: "Şifre",
+                          suffixIcon: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.visibility_off)),
                           border: OutlineInputBorder(
                               borderSide: const BorderSide(),
                               borderRadius: BorderRadius.circular(15)),
