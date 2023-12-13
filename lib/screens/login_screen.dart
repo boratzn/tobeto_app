@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tobeto_app/theme/app_theme.dart';
 
+import '../utils/utils.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -19,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              "assets/background.jpg",
+              "assets/images/background.jpg",
               fit: BoxFit.cover,
             ),
           ),
@@ -28,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 35),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9),
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 height: 410,
@@ -41,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: 150,
                         height: 100,
                         child: Image.asset(
-                          "assets/tobeto-logo.png",
+                          "assets/images/tobeto-logo.png",
                         ),
                       ),
                       TextField(
@@ -49,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: InputDecoration(
                           prefixIconColor: lightColorScheme.primary,
                           prefixIcon: const Icon(Icons.person_pin),
-                          label: const Text("Kullanıcı Adı"),
+                          label: loginScreenTexts("Kullanıcı Adı"),
                           border: OutlineInputBorder(
                               borderSide: const BorderSide(),
                               borderRadius: BorderRadius.circular(15)),
@@ -58,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextField(
                         controller: passwordController,
                         decoration: InputDecoration(
-                          label: const Text("Şifre"),
+                          label: loginScreenTexts("Şifre"),
                           prefixIconColor: lightColorScheme.primary,
                           suffixIconColor: lightColorScheme.primary,
                           prefixIcon: const Icon(Icons.lock_outline),
@@ -80,17 +82,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(10)),
                         onPressed: () {},
                         minWidth: double.infinity,
-                        child: const Text(
-                          "GİRİŞ YAP",
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
+                        child: loginScreenTexts("GİRİŞ YAP", 18, Colors.white),
                       ),
                       const Divider(color: Colors.black26),
                       InkWell(
-                        child: const Text(
-                          "Parolamı Unuttum",
-                          style: TextStyle(color: Colors.blue, fontSize: 16),
-                        ),
+                        child: loginScreenTexts(
+                            "Parolamı Unuttum", 18, Colors.blue),
                         onTap: () {},
                       ),
                       const SizedBox(
