@@ -18,4 +18,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - "assets/"
+    - "assets/images/"
+
+  fonts:
+    - family: "Tinos-Regular"  # Kullanmak istediğiniz fontun adı
+      fonts:
+        - asset: 'assets/fonts/Tinos-Regular.ttf'
