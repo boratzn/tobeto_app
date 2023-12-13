@@ -57,6 +57,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextField(
                         controller: passwordController,
+                        obscureText: true,
+                        obscuringCharacter: "*",
                         decoration: InputDecoration(
                           prefixIconColor: lightColorScheme.primary,
                           suffixIconColor: lightColorScheme.primary,
