@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_riverpod: ^2.4.9
 
 dev_dependencies:
   flutter_test:
@@ -21,6 +22,9 @@ flutter:
     - "assets/images/"
 
   fonts:
-    - family: "Tinos-Regular"  # Kullanmak istediğiniz fontun adı
+    - family: "Tinos" 
       fonts:
+        - asset: 'assets/fonts/Tinos-Bold.ttf'
+        - asset: 'assets/fonts/Tinos-BoldItalic.ttf'
+        - asset: 'assets/fonts/Tinos-Italic.ttf'
         - asset: 'assets/fonts/Tinos-Regular.ttf'
