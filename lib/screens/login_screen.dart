@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tobeto_app/providers/login_screen_provider.dart';
 import 'package:tobeto_app/theme/app_theme.dart';
 
 import '../utils/utils.dart';
@@ -47,30 +49,45 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       TextField(
+                        style: textStyle,
                         controller: usernameController,
                         decoration: InputDecoration(
                           prefixIconColor: lightColorScheme.primary,
                           prefixIcon: const Icon(Icons.person_pin),
-                          label: loginScreenTexts("Kullanıcı Adı"),
+                          label: loginScreenTexts("Kullanıcı Adı", 16),
                           border: OutlineInputBorder(
                               borderSide: const BorderSide(),
                               borderRadius: BorderRadius.circular(15)),
                         ),
                       ),
-                      TextField(
-                        controller: passwordController,
-                        decoration: InputDecoration(
-                          label: loginScreenTexts("Şifre"),
-                          prefixIconColor: lightColorScheme.primary,
-                          suffixIconColor: lightColorScheme.primary,
-                          prefixIcon: const Icon(Icons.lock_outline),
-                          suffixIcon: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.visibility_off)),
-                          border: OutlineInputBorder(
-                              borderSide: const BorderSide(),
-                              borderRadius: BorderRadius.circular(15)),
-                        ),
+                      Consumer(
+                        builder: (context, ref, child) {
+                          bool isHidePassword = ref.watch(loginScreenProvider);
+                          return TextField(
+                            style: textStyle,
+                            controller: passwordController,
+                            obscureText: isHidePassword,
+                            obscuringCharacter: "*",
+                            decoration: InputDecoration(
+                              label: loginScreenTexts("Şifre", 16),
+                              prefixIconColor: lightColorScheme.primary,
+                              suffixIconColor: lightColorScheme.primary,
+                              prefixIcon: const Icon(Icons.lock_outline),
+                              suffixIcon: IconButton(
+                                  onPressed: () {
+                                    ref
+                                        .read(loginScreenProvider.notifier)
+                                        .changeState();
+                                  },
+                                  icon: isHidePassword
+                                      ? const Icon(Icons.visibility_off)
+                                      : const Icon(Icons.visibility)),
+                              border: OutlineInputBorder(
+                                  borderSide: const BorderSide(),
+                                  borderRadius: BorderRadius.circular(15)),
+                            ),
+                          );
+                        },
                       ),
                       const SizedBox(
                         height: 15,
