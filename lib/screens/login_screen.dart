@@ -18,8 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
+    return Stack(
         children: [
           Positioned.fill(
             child: Image.asset(
@@ -46,15 +45,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 100,
                         child: Image.asset(
                           "assets/images/tobeto-logo.png",
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                       TextField(
                         style: textStyle,
                         controller: usernameController,
                         decoration: InputDecoration(
-                          prefixIconColor: lightColorScheme.primary,
+                          prefixIconColor: Theme.of(context).colorScheme.primary,
                           prefixIcon: const Icon(Icons.person_pin),
-                          label: loginScreenTexts("Kullanıcı Adı", 16),
+                          label: generalTexts("Kullanıcı Adı",context, 16,),
                           border: OutlineInputBorder(
                               borderSide: const BorderSide(),
                               borderRadius: BorderRadius.circular(15)),
@@ -69,9 +69,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             obscureText: isHidePassword,
                             obscuringCharacter: "*",
                             decoration: InputDecoration(
-                              label: loginScreenTexts("Şifre", 16),
-                              prefixIconColor: lightColorScheme.primary,
-                              suffixIconColor: lightColorScheme.primary,
+                              label: generalTexts("Şifre",context, 16,),
+                              prefixIconColor: Theme.of(context).colorScheme.primary,
+                              suffixIconColor: Theme.of(context).colorScheme.primary,
                               prefixIcon: const Icon(Icons.lock_outline),
                               suffixIcon: IconButton(
                                   onPressed: () {
@@ -99,12 +99,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(10)),
                         onPressed: () {},
                         minWidth: double.infinity,
-                        child: loginScreenTexts("GİRİŞ YAP", 18, Colors.white),
+                        child: const Text("GİRİŞ YAP",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Tinos',
+                              fontSize: 18),
+                        )
                       ),
                       const Divider(color: Colors.black26),
                       InkWell(
-                        child: loginScreenTexts(
-                            "Parolamı Unuttum", 18, Colors.blue),
+                        child: generalTexts(
+                            "Parolamı Unuttum",context, 18,),
                         onTap: () {},
                       ),
                       const SizedBox(
@@ -117,7 +122,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           )
         ],
-      ),
-    );
+      );
   }
 }

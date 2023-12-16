@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
-Text loginScreenTexts(String text,
-    [double fontSize = 14, Color color = Colors.black]) {
+Text generalTexts(String text, BuildContext context, [double fontSize = 14]) {
   return Text(
     text,
-    style: TextStyle(fontFamily: 'Tinos', fontSize: fontSize, color: color),
+    style: TextStyle(
+        fontFamily: 'Tinos',
+        fontSize: fontSize,
+        color: Theme.of(context).colorScheme.onSurface),
   );
 }
 
