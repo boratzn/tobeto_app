@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -12,6 +11,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text("Profilim"),);
+      child: Text("Profilim"),
+    );
   }
 }

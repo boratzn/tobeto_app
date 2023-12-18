@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tobeto_app/screens/login_screen.dart';
 import 'package:tobeto_app/theme/app_theme.dart';
-import 'package:tobeto_app/widgets/drawer_menu.dart';
 
 void main() {
   runApp(const ProviderScope(child: MainApp()));
@@ -14,14 +13,11 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      
-      theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
-      darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
+      theme: lightMode,
+      darkTheme: darkMode,
       debugShowCheckedModeBanner: false,
-      home:  Scaffold( 
-        appBar: AppBar(title: const Text("Tobeto")),
-        drawer: const DrawerMenu(),
-        body: const LoginScreen(),
+      home: const Scaffold(
+        body: LoginScreen(),
       ),
     );
   }
