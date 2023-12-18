@@ -21,6 +21,7 @@
 
 ## Ekran Görüntüleri
 
-![Login Page](https://github.com/boratzn/tobeto_app/blob/main/screenshots/login_page.png)
-
-  
+![Login Page](https://github.com/boratzn/tobeto_app/blob/main/screenshots/light_login.png)
+![Login Page](https://github.com/boratzn/tobeto_app/blob/main/screenshots/dark_login.png)
+![Login Page](https://github.com/boratzn/tobeto_app/blob/main/screenshots/light_drawer.png)
+![Login Page](https://github.com/boratzn/tobeto_app/blob/main/screenshots/dark_drawer.png)
