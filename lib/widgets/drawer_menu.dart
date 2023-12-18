@@ -1,90 +1,110 @@
-//import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:tobeto_app/screens/home_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tobeto_app/utils/utils.dart';
 import 'package:tobeto_app/widgets/drawer_menu_item.dart';
+
+final pageIndexProvider = StateProvider<int>((ref) => 0);
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
+    void _onPressed(WidgetRef ref, int index) {
+      ref.read(pageIndexProvider.notifier).state = index;
+      Navigator.pop(context);
+    }
+
     return Drawer(
       backgroundColor: Theme.of(context).colorScheme.onPrimary,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Consumer(
+          builder: (context, ref, child) {
+            return ListView(
               children: [
-                SizedBox(
-                  width: 150,
-                  height: 100,
-                  child: Image.asset(
-                    "assets/images/tobeto-logo.png",
-                    color: Theme.of(context).colorScheme.primary,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 150,
+                      height: 100,
+                      child: Image.asset(
+                        "assets/images/tobeto-logo.png",
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.close)),
+                  ],
+                ),
+                DrawerMenuItem(
+                    title: "Anasayfa",
+                    onTap: () {
+                      _onPressed(ref, 0);
+                    }),
+                DrawerMenuItem(
+                  title: "Değerlendirmeler",
+                  onTap: () {
+                    _onPressed(ref, 1);
+                  },
+                ),
+                DrawerMenuItem(
+                  title: "Profilim",
+                  onTap: () {
+                    _onPressed(ref, 2);
+                  },
+                ),
+                DrawerMenuItem(
+                  title: "Katalog",
+                  onTap: () {
+                    _onPressed(ref, 3);
+                  },
+                ),
+                DrawerMenuItem(
+                  title: "Takvim",
+                  onTap: () {
+                    _onPressed(ref, 4);
+                  },
+                ),
+                Divider(
+                  color: Theme.of(context).dividerColor,
+                ),
+                ListTile(
+                  title: generalTexts(
+                    "Tobeto",
+                    context,
+                  ),
+                  trailing: IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.home)),
+                  onTap: () {},
+                ),
+                Card(
+                  color: Theme.of(context).cardTheme.color,
+                  child: ListTile(
+                    title: generalTexts(
+                      "Profil Adı",
+                      context,
+                    ),
+                    trailing: CircleAvatar(
+                      child: Icon(Icons.person,
+                          color: Theme.of(context).iconTheme.color),
+                    ),
+                    onTap: () {},
                   ),
                 ),
-                IconButton(onPressed: () {}, icon: Icon(Icons.close)),
+                ListTile(
+                  title: Text(
+                    "© 2022 Tobeto",
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                )
               ],
-            ),
-            DrawerMenuItem(
-              title: "Anasayfa",
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const HomeScreen()));
-              },
-            ),
-            DrawerMenuItem(
-              title: "Değerlendirmeler",
-              onTap: () {},
-            ),
-            DrawerMenuItem(
-              title: "Profilim",
-              onTap: () {},
-            ),
-            DrawerMenuItem(
-              title: "Katalog",
-              onTap: () {},
-            ),
-            DrawerMenuItem(
-              title: "Takvim",
-              onTap: () {},
-            ),
-            Divider(),
-            ListTile(
-              title: generalTexts(
-                "Tobeto",
-                context,
-                16,
-              ),
-              trailing:
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.home)),
-              onTap: () {},
-            ),
-            Card(
-              child: ListTile(
-                title: generalTexts(
-                  "Profil Adı",
-                  context,
-                  16,
-                ),
-                trailing: const CircleAvatar(),
-                onTap: () {},
-              ),
-            ),
-            ListTile(
-              title: generalTexts(
-                "© 2022 Tobeto",
-                context,
-                16,
-              ),
-            )
-          ],
+            );
+          },
         ),
       ),
     );
