@@ -6,6 +6,7 @@ import 'package:tobeto_app/screens/catalog_screen.dart';
 import 'package:tobeto_app/screens/home_screen.dart';
 import 'package:tobeto_app/screens/profile_screen.dart';
 import 'package:tobeto_app/screens/reviews_screen.dart';
+import 'package:tobeto_app/widgets/fab_widget.dart';
 
 import '../widgets/drawer_menu.dart';
 
@@ -29,7 +30,13 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: Image.asset(tobetoLogoPath, width: 200,)),
+        appBar: AppBar(
+            shadowColor: Colors.black,
+            title: Image.asset(
+              tobetoLogoPath,
+              width: 200,
+            ),
+            elevation: 1),
         endDrawer: const DrawerMenu(),
         body: Consumer(
           builder: (context, ref, child) {
@@ -37,7 +44,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
             return screens[index];
           },
         ),
-        backgroundColor: const Color(0xFFFFFFFF),
+        backgroundColor: const Color.fromARGB(255, 247, 244, 244),
+        floatingActionButton: const FabWidget(),
       ),
     );
   }
