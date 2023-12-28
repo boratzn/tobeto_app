@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tobeto_app/utils/utils.dart';
-import 'package:tobeto_app/widgets/drawer_menu_item.dart';
+import 'package:tobeto_app/widgets/index.dart';
 
 final pageIndexProvider = StateProvider<int>((ref) => 0);
 

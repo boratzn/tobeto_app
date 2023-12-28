@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tobeto_app/constants/constants.dart';
-import 'package:tobeto_app/screens/calendar_screen.dart';
-import 'package:tobeto_app/screens/catalog_screen.dart';
-import 'package:tobeto_app/screens/home_screen.dart';
-import 'package:tobeto_app/screens/profile_screen.dart';
-import 'package:tobeto_app/screens/reviews_screen.dart';
-import 'package:tobeto_app/widgets/fab_widget.dart';
-
-import '../widgets/drawer_menu.dart';
+import 'package:tobeto_app/screens/index.dart';
+import 'package:tobeto_app/widgets/index.dart';
 
 class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key});

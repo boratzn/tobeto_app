@@ -10,7 +10,7 @@ class HomePageContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Container(
         height: 190,
         decoration: BoxDecoration(
@@ -23,7 +23,7 @@ class HomePageContainer extends StatelessWidget {
                 bottomLeft: Radius.circular(50),
                 bottomRight: Radius.circular(50),
                 topRight: Radius.circular(50))),
-        width: double.infinity,
+        width: 300,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(

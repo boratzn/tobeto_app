@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tobeto_app/constants/constants.dart';
-import 'package:tobeto_app/screens/anketlerim.dart';
-import 'package:tobeto_app/screens/basvurularim.dart';
-import 'package:tobeto_app/screens/duyurular.dart';
-import 'package:tobeto_app/screens/egitimlerim.dart';
+import 'package:tobeto_app/screens/index.dart';
 
 class HomePageContainer1 extends StatefulWidget {
   const HomePageContainer1({
@@ -88,103 +85,105 @@ class _HomePageContainer1State extends State<HomePageContainer1> {
                 ),
               ),
             ),
-            Wrap(
-              spacing: 8.0, // Aralardaki boşluk
-              runSpacing: 8.0, // Satırlar arası boşluk
-              children: [
-                TextButton(
-                  onPressed: () {
-                    setState(() {
-                      currIndex = 0;
-                    });
-                  },
-                  child: currIndex == 0
-                      ? Container(
-                          decoration: const BoxDecoration(
-                              border: Border(bottom: BorderSide(width: 2.0))),
-                          child: const Text(
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        currIndex = 0;
+                      });
+                    },
+                    child: currIndex == 0
+                        ? Container(
+                            decoration: const BoxDecoration(
+                                border: Border(bottom: BorderSide(width: 2.0))),
+                            child: const Text(
+                              "Başvurularım",
+                              style: TextStyle(
+                                  fontSize: 22, color: Colors.black54),
+                            ),
+                          )
+                        : const Text(
                             "Başvurularım",
                             style:
                                 TextStyle(fontSize: 22, color: Colors.black54),
                           ),
-                        )
-                      : const Text(
-                          "Başvurularım",
-                          style: TextStyle(fontSize: 22, color: Colors.black54),
-                        ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {
-                      currIndex = 1;
-                    });
-                  },
-                  child: currIndex == 1
-                      ? Container(
-                          decoration: const BoxDecoration(
-                              border: Border(bottom: BorderSide(width: 2.0))),
-                          child: const Text(
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        currIndex = 1;
+                      });
+                    },
+                    child: currIndex == 1
+                        ? Container(
+                            decoration: const BoxDecoration(
+                                border: Border(bottom: BorderSide(width: 2.0))),
+                            child: const Text(
+                              "  Eğitimlerim  ",
+                              style: TextStyle(
+                                  fontSize: 22, color: Colors.black54),
+                            ),
+                          )
+                        : const Text(
                             "  Eğitimlerim  ",
                             style:
                                 TextStyle(fontSize: 22, color: Colors.black54),
                           ),
-                        )
-                      : const Text(
-                          "  Eğitimlerim  ",
-                          style: TextStyle(fontSize: 22, color: Colors.black54),
-                        ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {
-                      currIndex = 2;
-                    });
-                  },
-                  child: currIndex == 2
-                      ? Container(
-                          decoration: const BoxDecoration(
-                              border: Border(bottom: BorderSide(width: 2.0))),
-                          child: const Text(
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        currIndex = 2;
+                      });
+                    },
+                    child: currIndex == 2
+                        ? Container(
+                            decoration: const BoxDecoration(
+                                border: Border(bottom: BorderSide(width: 2.0))),
+                            child: const Text(
+                              "Duyuru ve Haberlerim",
+                              style: TextStyle(
+                                  fontSize: 22, color: Colors.black54),
+                            ),
+                          )
+                        : const Text(
                             "Duyuru ve Haberlerim",
                             style:
                                 TextStyle(fontSize: 22, color: Colors.black54),
                           ),
-                        )
-                      : const Text(
-                          "Duyuru ve Haberlerim",
-                          style: TextStyle(fontSize: 22, color: Colors.black54),
-                        ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {
-                      currIndex = 3;
-                    });
-                  },
-                  child: currIndex == 3
-                      ? Container(
-                          decoration: const BoxDecoration(
-                              border: Border(bottom: BorderSide(width: 2.0))),
-                          child: const Text(
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        currIndex = 3;
+                      });
+                    },
+                    child: currIndex == 3
+                        ? Container(
+                            decoration: const BoxDecoration(
+                                border: Border(bottom: BorderSide(width: 2.0))),
+                            child: const Text(
+                              "Anketlerim",
+                              style: TextStyle(
+                                  fontSize: 22, color: Colors.black54),
+                            ),
+                          )
+                        : const Text(
                             "Anketlerim",
                             style:
                                 TextStyle(fontSize: 22, color: Colors.black54),
                           ),
-                        )
-                      : const Text(
-                          "Anketlerim",
-                          style: TextStyle(fontSize: 22, color: Colors.black54),
-                        ),
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
             const SizedBox(
               height: 60,
             ),
-            SizedBox(
-              width: double.infinity,
-              child: screens[currIndex],
-            )
+            screens[currIndex]
           ],
         ),
       ),
