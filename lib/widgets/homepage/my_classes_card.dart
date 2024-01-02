@@ -23,7 +23,7 @@ class MyClassesCard extends StatelessWidget {
           width: 300,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.surface,
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.5), // Gölge rengi ve opaklığı
@@ -62,11 +62,14 @@ class MyClassesCard extends StatelessWidget {
                   ),
                   subtitle: Text(
                     date,
-                    style: const TextStyle(color: Colors.black54),
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: Theme.of(context).colorScheme.onSurface),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 12.0, vertical: 12),
                   child: SizedBox(
                     width: 300,
                     child: ElevatedButton(

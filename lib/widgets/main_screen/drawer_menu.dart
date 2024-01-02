@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tobeto_app/screens/index.dart';
 import 'package:tobeto_app/utils/utils.dart';
 import 'package:tobeto_app/widgets/index.dart';
 
@@ -16,7 +17,7 @@ class DrawerMenu extends StatelessWidget {
     }
 
     return Drawer(
-      backgroundColor: Theme.of(context).colorScheme.onPrimary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Consumer(
@@ -90,12 +91,23 @@ class DrawerMenu extends StatelessWidget {
                       context,
                     ),
                     trailing: CircleAvatar(
+                      backgroundColor: Colors.grey,
                       child: Icon(Icons.person,
                           color: Theme.of(context).iconTheme.color),
                     ),
                     onTap: () {},
                   ),
                 ),
+                ListTile(
+                    title: generalTexts("Çıkış Yap", context),
+                    onTap: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ));
+                    },
+                    trailing: Icon(Icons.exit_to_app)),
                 ListTile(
                   title: Text(
                     "© 2022 Tobeto",

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tobeto_app/constants/constants.dart';
-import 'package:tobeto_app/screens/index.dart';
+import 'package:tobeto_app/widgets/index.dart';
 
 class HomePageContainer1 extends StatefulWidget {
   const HomePageContainer1({
@@ -24,7 +24,7 @@ class _HomePageContainer1State extends State<HomePageContainer1> {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius:
             BorderRadius.circular(15), // Opsiyonel: Köşeleri yuvarlama
         boxShadow: [
@@ -43,7 +43,13 @@ class _HomePageContainer1State extends State<HomePageContainer1> {
           children: [
             Center(
               child: AspectRatio(
-                  aspectRatio: 4 / 1, child: Image.asset(iKLogoPath)),
+                  aspectRatio: 4 / 1,
+                  child: Image.asset(
+                    MediaQuery.of(context).platformBrightness ==
+                            Brightness.light
+                        ? iKLogoPath
+                        : iKDarkLogoPath,
+                  )),
             ),
             const SizedBox(height: 30),
             const Padding(
@@ -97,18 +103,21 @@ class _HomePageContainer1State extends State<HomePageContainer1> {
                     },
                     child: currIndex == 0
                         ? Container(
-                            decoration: const BoxDecoration(
-                                border: Border(bottom: BorderSide(width: 2.0))),
-                            child: const Text(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        width: 2.0,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface))),
+                            child: Text(
                               "Başvurularım",
-                              style: TextStyle(
-                                  fontSize: 22, color: Colors.black54),
+                              style: Theme.of(context).textTheme.bodySmall,
                             ),
                           )
-                        : const Text(
+                        : Text(
                             "Başvurularım",
-                            style:
-                                TextStyle(fontSize: 22, color: Colors.black54),
+                            style: Theme.of(context).textTheme.bodySmall,
                           ),
                   ),
                   TextButton(
@@ -119,18 +128,21 @@ class _HomePageContainer1State extends State<HomePageContainer1> {
                     },
                     child: currIndex == 1
                         ? Container(
-                            decoration: const BoxDecoration(
-                                border: Border(bottom: BorderSide(width: 2.0))),
-                            child: const Text(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        width: 2.0,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface))),
+                            child: Text(
                               "  Eğitimlerim  ",
-                              style: TextStyle(
-                                  fontSize: 22, color: Colors.black54),
+                              style: Theme.of(context).textTheme.bodySmall,
                             ),
                           )
-                        : const Text(
+                        : Text(
                             "  Eğitimlerim  ",
-                            style:
-                                TextStyle(fontSize: 22, color: Colors.black54),
+                            style: Theme.of(context).textTheme.bodySmall,
                           ),
                   ),
                   TextButton(
@@ -141,18 +153,21 @@ class _HomePageContainer1State extends State<HomePageContainer1> {
                     },
                     child: currIndex == 2
                         ? Container(
-                            decoration: const BoxDecoration(
-                                border: Border(bottom: BorderSide(width: 2.0))),
-                            child: const Text(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        width: 2.0,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface))),
+                            child: Text(
                               "Duyuru ve Haberlerim",
-                              style: TextStyle(
-                                  fontSize: 22, color: Colors.black54),
+                              style: Theme.of(context).textTheme.bodySmall,
                             ),
                           )
-                        : const Text(
+                        : Text(
                             "Duyuru ve Haberlerim",
-                            style:
-                                TextStyle(fontSize: 22, color: Colors.black54),
+                            style: Theme.of(context).textTheme.bodySmall,
                           ),
                   ),
                   TextButton(
@@ -163,18 +178,21 @@ class _HomePageContainer1State extends State<HomePageContainer1> {
                     },
                     child: currIndex == 3
                         ? Container(
-                            decoration: const BoxDecoration(
-                                border: Border(bottom: BorderSide(width: 2.0))),
-                            child: const Text(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        width: 2.0,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface))),
+                            child: Text(
                               "Anketlerim",
-                              style: TextStyle(
-                                  fontSize: 22, color: Colors.black54),
+                              style: Theme.of(context).textTheme.bodySmall,
                             ),
                           )
-                        : const Text(
+                        : Text(
                             "Anketlerim",
-                            style:
-                                TextStyle(fontSize: 22, color: Colors.black54),
+                            style: Theme.of(context).textTheme.bodySmall,
                           ),
                   ),
                 ],

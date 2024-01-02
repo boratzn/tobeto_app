@@ -27,7 +27,7 @@ class MyApplications extends StatelessWidget {
                 borderRadius: const BorderRadius.only(
                     bottomRight: Radius.circular(10),
                     topRight: Radius.circular(10)),
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.surface,
                 boxShadow: [
                   BoxShadow(
                     color:
