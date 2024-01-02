@@ -26,19 +26,28 @@ class _MainScreenState extends ConsumerState<MainScreen> {
       child: Scaffold(
         appBar: AppBar(
             shadowColor: Colors.black,
-            title: Image.asset(
-              tobetoLogoPath,
-              width: 200,
+            title: Hero(
+              tag: tobetoLogoPath,
+              child: Image.asset(
+                tobetoLogoPath,
+                width: 200,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
             elevation: 1),
         endDrawer: const DrawerMenu(),
         body: Consumer(
           builder: (context, ref, child) {
             final index = ref.watch(pageIndexProvider);
-            return screens[index];
+            return SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: [screens[index], const HomePageBottomContainer()],
+              ),
+            );
           },
         ),
-        backgroundColor: const Color.fromARGB(255, 247, 244, 244),
+        backgroundColor: Theme.of(context).colorScheme.surface,
         floatingActionButton: const FabWidget(),
       ),
     );

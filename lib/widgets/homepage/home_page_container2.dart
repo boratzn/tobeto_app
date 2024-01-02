@@ -39,10 +39,7 @@ class HomePageContainer extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                        Theme.of(context).primaryColor),
-                  ),
+                  style: Theme.of(context).elevatedButtonTheme.style,
                   onPressed: () {},
                   child: const Text(
                     "Başla",

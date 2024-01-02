@@ -30,13 +30,13 @@ class AnouncementsCard extends StatelessWidget {
                     topRight: Radius.circular(10),
                     bottomLeft: Radius.circular(3),
                     topLeft: Radius.circular(3)),
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.surface,
                 boxShadow: [
                   BoxShadow(
                     color:
                         Colors.grey.withOpacity(0.5), // Gölge rengi ve opaklığı
-                    spreadRadius: 5, // Gölge yayılma alanı
-                    blurRadius: 7, // Gölge bulanıklık yarıçapı
+                    spreadRadius: 3, // Gölge yayılma alanı
+                    blurRadius: 5, // Gölge bulanıklık yarıçapı
                     offset: const Offset(0, 3), // Gölge kaydırma miktarı (x, y)
                   ),
                 ],
@@ -51,11 +51,13 @@ class AnouncementsCard extends StatelessWidget {
                       children: [
                         Text(
                           "Duyuru",
-                          style: TextStyle(color: Color(0xFF00956E)),
+                          style:
+                              TextStyle(color: Color(0xFF00956E), fontSize: 15),
                         ),
                         Text(
                           "İstanbul Kodluyor",
-                          style: TextStyle(color: Color(0xFF00956E)),
+                          style:
+                              TextStyle(color: Color(0xFF00956E), fontSize: 15),
                         ),
                       ],
                     ),

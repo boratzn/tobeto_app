@@ -1,32 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:tobeto_app/constants/constants.dart';
 import 'package:tobeto_app/widgets/index.dart';
 
-class Educations extends StatelessWidget {
-  const Educations({super.key});
+class Anouncements extends StatelessWidget {
+  const Anouncements({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 370,
+      height: 190,
       width: MediaQuery.of(context).size.width,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          const MyClassesCard(
-            imagePath: ecmelPath,
-            title: "Dr. Ecmel Ayral'dan Hoşgeldin Mesajı",
-            date: "21 Eylül 2023 15:20",
-          ),
+          const AnouncementsCard(
+              title: "Yeni Grupların Discord'a Katılımı", date: "23.11.2023"),
           const SizedBox(
-            width: 25,
+            width: 45,
           ),
-          const MyClassesCard(
-              imagePath: ikImagePath,
-              title: "Eğitimlere Nasıl Katılırım?",
-              date: "8 Eylül 2023 17:06"),
+          const AnouncementsCard(
+              title: "Yeni Grupların Discord'a Katılımı", date: "23.11.2023"),
           const SizedBox(
-            width: 25,
+            width: 15,
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,

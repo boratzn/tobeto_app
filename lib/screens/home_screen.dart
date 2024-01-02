@@ -19,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 60,
           ),
           Text.rich(
+            style: Theme.of(context).textTheme.bodyMedium,
             textAlign: TextAlign.center,
             TextSpan(
               children: [
@@ -31,17 +32,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const TextSpan(
                   text: "'ya hoşgeldin \n Onur Erdem.",
-                  style: TextStyle(color: Colors.black, fontSize: 28),
                 ),
               ],
             ),
           ),
           const SizedBox(height: 20),
-          const Padding(
-            padding: EdgeInsets.all(16.0),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Text(
               "Yeni nesil öğrenme deneyimi ile Tobeto kariyer yoculuğunda senin yanında!",
-              style: TextStyle(color: Colors.black, fontSize: 22),
+              style: Theme.of(context).textTheme.bodySmall,
               textAlign: TextAlign.center,
             ),
           ),
@@ -87,7 +87,6 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 45,
           ),
-          const HomePageBottomContainer()
         ],
       ),
     );
