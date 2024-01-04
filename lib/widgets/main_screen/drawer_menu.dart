@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tobeto_app/providers/state_provider.dart';
 import 'package:tobeto_app/screens/index.dart';
 import 'package:tobeto_app/utils/utils.dart';
 import 'package:tobeto_app/widgets/index.dart';
-
-final pageIndexProvider = StateProvider<int>((ref) => 0);
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({super.key});
