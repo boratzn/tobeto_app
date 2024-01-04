@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tobeto_app/constants/constants.dart';
 import 'package:tobeto_app/providers/login_screen_provider.dart';
+import 'package:tobeto_app/providers/state_provider.dart';
 import 'package:tobeto_app/screens/main_screen.dart';
 
 import '../utils/utils.dart';
@@ -119,24 +120,29 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 15,
                       ),
                       //************************BUTON ********************************* */
-                      MaterialButton(
-                        height: 50,
-                        color: Theme.of(context).colorScheme.surfaceTint,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const MainScreen(),
-                              ));
+                      Consumer(
+                        builder: (context, ref, child) {
+                          return MaterialButton(
+                            height: 50,
+                            color: Theme.of(context).colorScheme.surfaceTint,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const MainScreen(),
+                                  ));
+                              ref.read(pageIndexProvider.notifier).state = 0;
+                            },
+                            minWidth: double.infinity,
+                            child: Text(
+                              "GİRİŞ YAP",
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                          );
                         },
-                        minWidth: double.infinity,
-                        child: Text(
-                          "GİRİŞ YAP",
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
                       ),
                       const Divider(color: Colors.black26),
                       InkWell(

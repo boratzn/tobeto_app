@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tobeto_app/constants/constants.dart';
+import 'package:tobeto_app/providers/state_provider.dart';
+import 'package:tobeto_app/screens/edit_screens/edit_screen.dart';
 import 'package:tobeto_app/screens/index.dart';
 import 'package:tobeto_app/widgets/index.dart';
 
@@ -17,7 +19,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     ReviewsScreen(),
     ProfileScreen(),
     CatalogScreen(),
-    CalendarScreen()
+    CalendarScreen(),
+    EditScreen()
   ];
 
   @override
@@ -39,11 +42,12 @@ class _MainScreenState extends ConsumerState<MainScreen> {
         body: Consumer(
           builder: (context, ref, child) {
             final index = ref.watch(pageIndexProvider);
-            return SingleChildScrollView(
+            return ListView(
               scrollDirection: Axis.vertical,
-              child: Column(
-                children: [screens[index], const HomePageBottomContainer()],
-              ),
+              children: [
+                screens[index],
+                index != 5 ? HomePageBottomContainer() : Center(),
+              ],
             );
           },
         ),

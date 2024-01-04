@@ -28,7 +28,7 @@ class HomePageBottomContainer extends StatelessWidget {
                   child: const Text(
                     "Bize Ulaşın",
                     style: TextStyle(
-                        color: Colors.black,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 18),
                   ))
