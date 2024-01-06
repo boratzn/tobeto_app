@@ -18,7 +18,7 @@ class SaveButtonWidget extends StatelessWidget {
                 color ?? Theme.of(context).colorScheme.primary)),
         onPressed: onTap,
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(8.0),
           child: Text(
             title ?? "Kaydet",
             style: Theme.of(context).textTheme.bodySmall!.copyWith(

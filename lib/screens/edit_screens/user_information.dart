@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:tobeto_app/constants/constants.dart';
+import 'package:tobeto_app/widgets/edit_screen/save_button_widget.dart';
 
-class UserInformations extends StatefulWidget {
-  const UserInformations({super.key});
+class UserInformation extends StatefulWidget {
+  const UserInformation({super.key});
 
   @override
-  State<UserInformations> createState() => _UserInformationsState();
+  State<UserInformation> createState() => _UserInformationsState();
 }
 
-class _UserInformationsState extends State<UserInformations> {
+class _UserInformationsState extends State<UserInformation> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -78,6 +79,7 @@ class _UserInformationsState extends State<UserInformations> {
             Text(
               "Adınız*",
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 20,
                     color: MediaQuery.of(context).platformBrightness ==
                             Brightness.light
                         ? Colors.black54
@@ -89,8 +91,8 @@ class _UserInformationsState extends State<UserInformations> {
             ),
             TextFormField(
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
-              initialValue: "User name",
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
+              initialValue: "",
               decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10))),
@@ -101,6 +103,7 @@ class _UserInformationsState extends State<UserInformations> {
             Text(
               "Soyadınız*",
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 20,
                     color: MediaQuery.of(context).platformBrightness ==
                             Brightness.light
                         ? Colors.black54
@@ -112,8 +115,8 @@ class _UserInformationsState extends State<UserInformations> {
             ),
             TextFormField(
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
-              initialValue: "Surname",
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
+              initialValue: "",
               decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10))),
@@ -124,6 +127,7 @@ class _UserInformationsState extends State<UserInformations> {
             Text(
               "Telefon Numaranız*",
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 20,
                     color: MediaQuery.of(context).platformBrightness ==
                             Brightness.light
                         ? Colors.black54
@@ -135,7 +139,7 @@ class _UserInformationsState extends State<UserInformations> {
             ),
             TextFormField(
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
               decoration: InputDecoration(
                   hintText: "+90 *** *** ** **",
                   border: OutlineInputBorder(
@@ -147,6 +151,7 @@ class _UserInformationsState extends State<UserInformations> {
             Text(
               "Doğum Tarihiniz*",
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 20,
                     color: MediaQuery.of(context).platformBrightness ==
                             Brightness.light
                         ? Colors.black54
@@ -158,7 +163,7 @@ class _UserInformationsState extends State<UserInformations> {
             ),
             TextFormField(
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
               decoration: InputDecoration(
                   suffixIcon: IconButton(
                       onPressed: () async {
@@ -186,6 +191,7 @@ class _UserInformationsState extends State<UserInformations> {
             Text(
               "TC Kimlik No*",
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 20,
                     color: MediaQuery.of(context).platformBrightness ==
                             Brightness.light
                         ? Colors.black54
@@ -197,7 +203,7 @@ class _UserInformationsState extends State<UserInformations> {
             ),
             TextFormField(
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
               initialValue: "",
               decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -214,6 +220,7 @@ class _UserInformationsState extends State<UserInformations> {
             Text(
               "E-Posta*",
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 20,
                     color: MediaQuery.of(context).platformBrightness ==
                             Brightness.light
                         ? Colors.black54
@@ -225,7 +232,7 @@ class _UserInformationsState extends State<UserInformations> {
             ),
             TextFormField(
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
               initialValue: "",
               decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -237,6 +244,7 @@ class _UserInformationsState extends State<UserInformations> {
             Text(
               "Ülke*",
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 20,
                     color: MediaQuery.of(context).platformBrightness ==
                             Brightness.light
                         ? Colors.black54
@@ -248,7 +256,7 @@ class _UserInformationsState extends State<UserInformations> {
             ),
             TextFormField(
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
               initialValue: "",
               decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -260,6 +268,7 @@ class _UserInformationsState extends State<UserInformations> {
             Text(
               "İl*",
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 20,
                     color: MediaQuery.of(context).platformBrightness ==
                             Brightness.light
                         ? Colors.black54
@@ -271,7 +280,7 @@ class _UserInformationsState extends State<UserInformations> {
             ),
             TextFormField(
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
               initialValue: "İstanbul",
               decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -283,6 +292,7 @@ class _UserInformationsState extends State<UserInformations> {
             Text(
               "İlçe*",
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 20,
                     color: MediaQuery.of(context).platformBrightness ==
                             Brightness.light
                         ? Colors.black54
@@ -294,7 +304,7 @@ class _UserInformationsState extends State<UserInformations> {
             ),
             TextFormField(
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
               initialValue: "",
               decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -306,6 +316,7 @@ class _UserInformationsState extends State<UserInformations> {
             Text(
               "Mahalle / Sokak*",
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 20,
                     color: MediaQuery.of(context).platformBrightness ==
                             Brightness.light
                         ? Colors.black54
@@ -318,7 +329,7 @@ class _UserInformationsState extends State<UserInformations> {
             TextFormField(
               maxLines: 5,
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
               initialValue: "",
               decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -330,6 +341,7 @@ class _UserInformationsState extends State<UserInformations> {
             Text(
               "Hakkımda*",
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 20,
                     color: MediaQuery.of(context).platformBrightness ==
                             Brightness.light
                         ? Colors.black54
@@ -342,7 +354,7 @@ class _UserInformationsState extends State<UserInformations> {
             TextFormField(
               maxLines: 5,
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
               initialValue: "",
               decoration: InputDecoration(
                   hintText: "Kendini kısaca tanıt",
@@ -352,18 +364,8 @@ class _UserInformationsState extends State<UserInformations> {
             SizedBox(
               height: MediaQuery.of(context).size.width / 15,
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: ElevatedButton(
-                  onPressed: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Text(
-                      "Kaydet",
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                  )),
+            SaveButtonWidget(
+              onTap: () {},
             ),
             const SizedBox(
               height: 10,

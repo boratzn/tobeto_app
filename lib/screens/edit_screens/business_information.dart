@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tobeto_app/constants/constants.dart';
 import 'package:tobeto_app/widgets/index.dart';
 
 class BusinessInformation extends StatefulWidget {
@@ -10,24 +11,29 @@ class BusinessInformation extends StatefulWidget {
 
 class _BusinessInformationState extends State<BusinessInformation> {
   bool checkBoxState = false;
+  String _selectedItem = "İstanbul";
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.width / 15,
+            ),
             Text(
               "Kurum Adı*",
-              style: Theme.of(context).textTheme.bodySmall,
+              style:
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20),
             ),
             const SizedBox(
               height: 5,
             ),
             TextFormField(
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
               initialValue: "",
               decoration: InputDecoration(
                   hintText: "Kampüs 365",
@@ -39,14 +45,15 @@ class _BusinessInformationState extends State<BusinessInformation> {
             ),
             Text(
               "Pozisyon*",
-              style: Theme.of(context).textTheme.bodySmall,
+              style:
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20),
             ),
             const SizedBox(
               height: 5,
             ),
             TextFormField(
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
               initialValue: "",
               decoration: InputDecoration(
                   hintText: "Flutter Developer",
@@ -58,14 +65,15 @@ class _BusinessInformationState extends State<BusinessInformation> {
             ),
             Text(
               "Sektör*",
-              style: Theme.of(context).textTheme.bodySmall,
+              style:
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20),
             ),
             const SizedBox(
               height: 5,
             ),
             TextFormField(
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
               decoration: InputDecoration(
                   hintText: "Yazılım",
                   border: OutlineInputBorder(
@@ -76,33 +84,47 @@ class _BusinessInformationState extends State<BusinessInformation> {
             ),
             Text(
               "Şehir Seçiniz*",
-              style: Theme.of(context).textTheme.bodySmall,
+              style:
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20),
             ),
             const SizedBox(
               height: 5,
             ),
-            TextFormField(
+            DropdownButton<String>(
+              menuMaxHeight: MediaQuery.of(context).size.height / 2,
+              isExpanded: true,
               style:
                   Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
-              initialValue: "",
-              decoration: InputDecoration(
-                  hintText: "İl Seçiniz",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+              value: _selectedItem,
+              onChanged: (String? newValue) {
+                setState(() {
+                  _selectedItem = newValue!;
+                });
+              },
+              items: iller.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(value),
+                  ),
+                );
+              }).toList(),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.width / 15,
             ),
             Text(
               "İş Başlangıcı*",
-              style: Theme.of(context).textTheme.bodySmall,
+              style:
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20),
             ),
             const SizedBox(
               height: 5,
             ),
             TextFormField(
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
               initialValue: "",
               decoration: InputDecoration(
                   hintText: "gg.aa.yyyy",
@@ -114,14 +136,15 @@ class _BusinessInformationState extends State<BusinessInformation> {
             ),
             Text(
               "İş Bitiş*",
-              style: Theme.of(context).textTheme.bodySmall,
+              style:
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20),
             ),
             const SizedBox(
               height: 5,
             ),
             TextFormField(
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
               decoration: InputDecoration(
                   hintText: "gg.aa.yyyy",
                   border: OutlineInputBorder(
@@ -153,7 +176,8 @@ class _BusinessInformationState extends State<BusinessInformation> {
             ),
             Text(
               "İş Açıklaması",
-              style: Theme.of(context).textTheme.bodySmall,
+              style:
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20),
             ),
             const SizedBox(
               height: 5,
@@ -161,7 +185,7 @@ class _BusinessInformationState extends State<BusinessInformation> {
             TextFormField(
               maxLines: 5,
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
               decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10))),

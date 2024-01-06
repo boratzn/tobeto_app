@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tobeto_app/constants/constants.dart';
 import 'package:tobeto_app/widgets/index.dart';
 
 class EducationInformation extends StatefulWidget {
@@ -31,6 +32,7 @@ class _EducationInformationState extends State<EducationInformation> {
               height: 5,
             ),
             DropdownButton<String>(
+              isExpanded: true,
               style:
                   Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
               value: _selectedItem,
@@ -39,8 +41,7 @@ class _EducationInformationState extends State<EducationInformation> {
                   _selectedItem = newValue!;
                 });
               },
-              items: <String>['Ön Lisans', 'Lisans', 'Yüksek Lisans', 'Doktora']
-                  .map<DropdownMenuItem<String>>((String value) {
+              items: grades.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),

@@ -13,7 +13,7 @@ class _SkillsInformationState extends State<SkillsInformation> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -22,14 +22,15 @@ class _SkillsInformationState extends State<SkillsInformation> {
             ),
             Text(
               "Yetkinlik*",
-              style: Theme.of(context).textTheme.bodySmall,
+              style:
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20),
             ),
             const SizedBox(
               height: 5,
             ),
             TextFormField(
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
               initialValue: "",
               decoration: InputDecoration(
                   hintText: "Seçiniz",

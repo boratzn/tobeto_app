@@ -27,10 +27,6 @@ class ExamsWidget extends StatelessWidget {
                   title,
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: MediaQuery.of(context).platformBrightness ==
-                                Brightness.light
-                            ? Colors.black54
-                            : Colors.grey,
                       ),
                 ),
               ),
@@ -38,20 +34,11 @@ class ExamsWidget extends StatelessWidget {
                 date,
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: MediaQuery.of(context).platformBrightness ==
-                              Brightness.light
-                          ? Colors.black54
-                          : Colors.grey,
                     ),
               ),
               Text(
                 score,
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      color: MediaQuery.of(context).platformBrightness ==
-                              Brightness.light
-                          ? Colors.black54
-                          : Colors.grey,
-                    ),
+                style: Theme.of(context).textTheme.bodySmall,
               ),
             ],
           ),
