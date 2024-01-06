@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tobeto_app/constants/constants.dart';
-import 'package:tobeto_app/screens/edit_screens/account_settings.dart';
-import 'package:tobeto_app/screens/edit_screens/business_information.dart';
-import 'package:tobeto_app/screens/edit_screens/education_information.dart';
-import 'package:tobeto_app/screens/edit_screens/skills_information.dart';
-import 'package:tobeto_app/screens/edit_screens/user_informations.dart';
+import 'package:tobeto_app/screens/edit_screens/language_informaiton.dart';
+import 'package:tobeto_app/screens/index.dart';
 
 class EditScreen extends StatefulWidget {
   const EditScreen({super.key});
@@ -68,13 +65,13 @@ class _EditScreenState extends State<EditScreen>
           child: TabBarView(
             controller: _tabController,
             children: const [
-              UserInformations(),
+              UserInformation(),
               BusinessInformation(),
               EducationInformation(),
               SkillsInformation(),
-              Center(child: Text('Tab 3 Content')),
-              Center(child: Text('Tab 3 Content')),
-              Center(child: Text('Tab 3 Content')),
+              CertificateInformation(),
+              SocialMediaInformation(),
+              LanguageInformation(),
               AccountSettings()
             ],
           ),

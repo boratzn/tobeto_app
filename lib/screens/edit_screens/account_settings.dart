@@ -30,7 +30,7 @@ class _AccountSettingsState extends State<AccountSettings> {
             ),
             TextFormField(
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
               decoration: InputDecoration(
                   hintText: "Eski Şifre",
                   border: OutlineInputBorder(
@@ -49,7 +49,7 @@ class _AccountSettingsState extends State<AccountSettings> {
             ),
             TextFormField(
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
               decoration: InputDecoration(
                   hintText: "Yeni Şifre",
                   border: OutlineInputBorder(
@@ -68,7 +68,7 @@ class _AccountSettingsState extends State<AccountSettings> {
             ),
             TextFormField(
               style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
               decoration: InputDecoration(
                   hintText: "Yeni Şifre Tekrar",
                   border: OutlineInputBorder(

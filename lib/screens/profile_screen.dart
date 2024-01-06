@@ -2,15 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tobeto_app/constants/constants.dart';
 import 'package:tobeto_app/providers/state_provider.dart';
-import 'package:tobeto_app/widgets/profile_screen/activity_map_container_widget.dart';
-import 'package:tobeto_app/widgets/profile_screen/activity_map_widget.dart';
-import 'package:tobeto_app/widgets/profile_screen/badge_widget.dart';
-import 'package:tobeto_app/widgets/profile_screen/certificate_widget.dart';
-import 'package:tobeto_app/widgets/profile_screen/exams_widget.dart';
-import 'package:tobeto_app/widgets/profile_screen/information_widget.dart';
-import 'package:tobeto_app/widgets/profile_screen/languages_widget.dart';
-import 'package:tobeto_app/widgets/profile_screen/rating_container_widget.dart';
-import 'package:tobeto_app/widgets/profile_screen/skills_widget.dart';
+import 'package:tobeto_app/widgets/index.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -20,6 +12,9 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  String selectedOption = "Option 1";
+  GlobalKey iconKey = GlobalKey();
+  bool isShared = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -44,7 +39,69 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 },
               ),
               InkWell(
-                onTap: () {},
+                key: iconKey,
+                onTap: () {
+                  final RenderBox buttonBox =
+                      iconKey.currentContext!.findRenderObject() as RenderBox;
+                  final buttonPosition = buttonBox.localToGlobal(Offset.zero);
+                  showMenu(
+                    context: context,
+                    position: RelativeRect.fromLTRB(
+                      buttonPosition.dx, // x pozisyonu
+                      buttonPosition.dy, // y pozisyonu
+                      MediaQuery.of(context).size.width -
+                          buttonPosition.dx, // genişlik
+                      MediaQuery.of(context).size.height -
+                          buttonPosition.dy, // yükseklik
+                    ),
+                    items: [
+                      PopupMenuItem<String>(
+                        value: 'Option 1',
+                        child: ListTile(
+                          title: Text(
+                            "Profilimi paylaş",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(fontSize: 16),
+                          ),
+                          trailing: Switch(
+                            value: isShared,
+                            onChanged: (value) {
+                              setState(() {
+                                isShared = value;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      PopupMenuItem<String>(
+                          value: 'Option 2',
+                          child: ListTile(
+                            title: Text(
+                              "Profil Linki Kopyala",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(fontSize: 16),
+                            ),
+                            trailing: IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.copy_rounded,
+                                  color: Theme.of(context).colorScheme.primary,
+                                  size: 35,
+                                )),
+                          )),
+                    ],
+                  ).then((value) {
+                    setState(() {
+                      if (value != null) {
+                        selectedOption = value; // Seçilen seçeneği güncelle
+                      }
+                    });
+                  });
+                },
                 child: Image.asset(
                   shareImagePath,
                   height: 50,
