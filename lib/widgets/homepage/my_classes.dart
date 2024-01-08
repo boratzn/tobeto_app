@@ -48,7 +48,10 @@ class Educations extends StatelessWidget {
                 ),
                 child: IconButton(
                   onPressed: () {},
-                  icon: const Icon(Icons.arrow_forward_ios),
+                  icon: const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black54,
+                  ),
                 ),
               ),
               const SizedBox(
