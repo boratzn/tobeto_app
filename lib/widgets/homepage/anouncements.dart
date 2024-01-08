@@ -42,14 +42,17 @@ class Anouncements extends StatelessWidget {
                 ),
                 child: IconButton(
                   onPressed: () {},
-                  icon: const Icon(Icons.arrow_forward_ios),
+                  icon: const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black54,
+                  ),
                 ),
               ),
               const SizedBox(
                 height: 15,
               ),
-              Center(
-                child: const Text(
+              const Center(
+                child: Text(
                   "Daha Fazla Göster",
                   style: TextStyle(
                       color: Colors.grey,

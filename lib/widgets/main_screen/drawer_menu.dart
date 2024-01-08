@@ -38,7 +38,10 @@ class DrawerMenu extends StatelessWidget {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: const Icon(Icons.close)),
+                        icon: Icon(
+                          Icons.close,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        )),
                   ],
                 ),
                 DrawerMenuItem(
@@ -78,8 +81,7 @@ class DrawerMenu extends StatelessWidget {
                     "Tobeto",
                     context,
                   ),
-                  trailing: IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.home)),
+                  trailing: const Icon(Icons.home),
                   onTap: () {},
                 ),
                 Card(

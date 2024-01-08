@@ -23,29 +23,29 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned.fill(
-            child: Image.asset(
-              backgroundImagePath,
-              fit: BoxFit.cover,
-            ),
-          ),
+          // Positioned.fill(
+          //   child: Image.asset(
+          //     backgroundImagePath,
+          //     fit: BoxFit.cover,
+          //   ),
+          // ),
           Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 35),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Theme.of(context).colorScheme.surface.withOpacity(0),
                   borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey
-                          .withOpacity(0.5), // Gölge rengi ve opaklığı
-                      spreadRadius: 5, // Gölge yayılma alanı
-                      blurRadius: 7, // Gölge bulanıklık yarıçapı
-                      offset:
-                          const Offset(0, 3), // Gölge kaydırma miktarı (x, y)
-                    ),
-                  ],
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //     color: Colors.grey
+                  //         .withOpacity(0.5), // Gölge rengi ve opaklığı
+                  //     spreadRadius: 5, // Gölge yayılma alanı
+                  //     blurRadius: 7, // Gölge bulanıklık yarıçapı
+                  //     offset:
+                  //         const Offset(0, 3), // Gölge kaydırma miktarı (x, y)
+                  //   ),
+                  // ],
                 ),
                 height: 410,
                 child: Padding(
