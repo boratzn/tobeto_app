@@ -144,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                         },
                       ),
-                      const Divider(color: Colors.black26),
+                      Divider(color: Theme.of(context).colorScheme.primary),
                       InkWell(
                         child: Text(
                           "Parolamı Unuttum",

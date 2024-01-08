@@ -28,8 +28,9 @@ class MainApp extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               child: Center(
-                child: Lottie.asset('assets/animations/splash_animation.json',
-                    fit: BoxFit.fitWidth),
+                child: Lottie.asset(
+                  'assets/animations/splash_animation.json',
+                ),
               ),
             ),
           ),
