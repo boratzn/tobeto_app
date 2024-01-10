@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.bold),
                 ),
                 const TextSpan(
-                  text: "'ya hoşgeldin \n Onur Erdem.",
+                  text: "'ya hoşgeldin \n Kullanıcı.",
                 ),
               ],
             ),
