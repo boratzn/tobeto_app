@@ -17,13 +17,41 @@ class _ReviewButtonListState extends State<ReviewButtonList> {
   ];
   List<String> examsLinks = <String>[];
 
+  showAlertDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      alignment: Alignment.center,
+         title: const Text("Uyarı"),
+      content: const Padding(
+        padding: EdgeInsets.only(top: 15),
+     
+        child: Text(
+          "Lütfen bu sınava başlamak için web tarayıcıdan giriş yapın !",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 18),
+        ),
+      ),
+      actions: [
+        TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text("Tamam")),
+      ],
+    );
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
         width: 350,
         height: MediaQuery.of(context).size.height * 0.45,
-        child:  ListView.separated(
-          separatorBuilder: (context, index) => SizedBox(height: 10),
+        child: ListView.separated(
+            separatorBuilder: (context, index) => const SizedBox(height: 10),
             padding: const EdgeInsets.all(8),
             itemCount: exams.length,
             itemBuilder: (BuildContext context, int index) {
@@ -46,12 +74,13 @@ class _ReviewButtonListState extends State<ReviewButtonList> {
                           .textTheme
                           .bodySmall!
                           .copyWith(fontSize: 15),
-                        
                     ),
-                    trailing: ElevatedButton( style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.white)),
+                    trailing: ElevatedButton(
+                        style: const ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(Colors.white)),
                         onPressed: () {
-
-                          
+                          showAlertDialog(context);
                         },
                         child: const Text(
                           "Başla",
