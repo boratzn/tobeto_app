@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tobeto_app/constants/constants.dart';
 import 'package:tobeto_app/providers/login_screen_provider.dart';
 import 'package:tobeto_app/providers/state_provider.dart';
+import 'package:tobeto_app/screens/create_account_screen.dart';
 import 'package:tobeto_app/screens/main_screen.dart';
+import 'package:tobeto_app/user_auth/firebase_auth_services.dart';
 
 import '../utils/utils.dart';
 
@@ -15,8 +18,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  var usernameController = TextEditingController();
+  var emailController = TextEditingController();
   var passwordController = TextEditingController();
+  var authService = FirebaseAuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +51,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   //   ),
                   // ],
                 ),
-                height: 410,
+                //height: 410,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
                         width: 150,
@@ -66,8 +70,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       //********************************KULLANICI ADI********************************
                       TextField(
+                        keyboardType: TextInputType.emailAddress,
                         style: Theme.of(context).textTheme.titleMedium,
-                        controller: usernameController,
+                        controller: emailController,
                         decoration: InputDecoration(
                           prefixIconColor:
                               Theme.of(context).colorScheme.primary,
@@ -80,6 +85,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderSide: const BorderSide(),
                               borderRadius: BorderRadius.circular(15)),
                         ),
+                      ),
+                      const SizedBox(
+                        height: 10,
                       ),
                       Consumer(
                         builder: (context, ref, child) {
@@ -117,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       ),
                       const SizedBox(
-                        height: 15,
+                        height: 30,
                       ),
                       //************************BUTON ********************************* */
                       Consumer(
@@ -129,12 +137,27 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const MainScreen(),
-                                  ));
-                              ref.read(pageIndexProvider.notifier).state = 0;
+                              try {
+                                authService.signInWithEmailAndPassword(
+                                    emailController.text,
+                                    passwordController.text);
+                                authService.auth
+                                    .authStateChanges()
+                                    .listen((User? user) {
+                                  if (user != null) {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const MainScreen(),
+                                        ));
+                                  }
+                                });
+
+                                ref.read(pageIndexProvider.notifier).state = 0;
+                              } on FirebaseAuthException catch (e) {
+                                debugPrint(e.message);
+                              }
                             },
                             minWidth: double.infinity,
                             child: Text(
@@ -144,16 +167,45 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                         },
                       ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       Divider(color: Theme.of(context).colorScheme.primary),
                       InkWell(
                         child: Text(
-                          "Parolamı Unuttum",
+                          "Şifremi Unuttum",
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
                         onTap: () {},
                       ),
-                      const SizedBox(
-                        height: 10,
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Henüz üye değil misin?",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(
+                                      color: MediaQuery.of(context)
+                                                  .platformBrightness ==
+                                              Brightness.light
+                                          ? Colors.black
+                                          : Colors.white)),
+                          TextButton(
+                            child: Text(
+                              "Kayıt Ol",
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const CreateAccount(),
+                                  ));
+                            },
+                          )
+                        ],
                       )
                     ],
                   ),

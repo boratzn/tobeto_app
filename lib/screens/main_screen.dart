@@ -46,7 +46,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
               scrollDirection: Axis.vertical,
               children: [
                 screens[index],
-                index != 5 ? HomePageBottomContainer() : Center(),
+                index != 5 ? const HomePageBottomContainer() : const Center(),
               ],
             );
           },

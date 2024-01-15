@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tobeto_app/blocs/user_data/user_data_bloc.dart';
 import 'package:tobeto_app/providers/state_provider.dart';
 import 'package:tobeto_app/screens/index.dart';
+import 'package:tobeto_app/user_auth/firebase_auth_services.dart';
 import 'package:tobeto_app/utils/utils.dart';
 import 'package:tobeto_app/widgets/index.dart';
 
@@ -10,7 +13,8 @@ class DrawerMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void _onPressed(WidgetRef ref, int index) {
+    var authService = FirebaseAuthService();
+    void onPressed(WidgetRef ref, int index) {
       ref.read(pageIndexProvider.notifier).state = index;
       Navigator.pop(context);
     }
@@ -47,30 +51,30 @@ class DrawerMenu extends StatelessWidget {
                 DrawerMenuItem(
                     title: "Anasayfa",
                     onTap: () {
-                      _onPressed(ref, 0);
+                      onPressed(ref, 0);
                     }),
                 DrawerMenuItem(
                   title: "Değerlendirmeler",
                   onTap: () {
-                    _onPressed(ref, 1);
+                    onPressed(ref, 1);
                   },
                 ),
                 DrawerMenuItem(
                   title: "Profilim",
                   onTap: () {
-                    _onPressed(ref, 2);
+                    onPressed(ref, 2);
                   },
                 ),
                 DrawerMenuItem(
                   title: "Katalog",
                   onTap: () {
-                    _onPressed(ref, 3);
+                    onPressed(ref, 3);
                   },
                 ),
                 DrawerMenuItem(
                   title: "Takvim",
                   onTap: () {
-                    _onPressed(ref, 4);
+                    onPressed(ref, 4);
                   },
                 ),
                 Divider(
@@ -84,31 +88,42 @@ class DrawerMenu extends StatelessWidget {
                   trailing: const Icon(Icons.home),
                   onTap: () {},
                 ),
-                Card(
-                  color: Theme.of(context).cardTheme.color,
-                  child: ListTile(
-                    title: generalTexts(
-                      "Profil Adı",
-                      context,
-                    ),
-                    trailing: CircleAvatar(
-                      backgroundColor: Colors.grey,
-                      child: Icon(Icons.person,
-                          color: Theme.of(context).iconTheme.color),
-                    ),
-                    onTap: () {},
-                  ),
+                BlocBuilder<UserDataBloc, UserDataState>(
+                  builder: (context, state) {
+                    if (state is UserDataLoading) {}
+                    if (state is UserDataLoaded) {
+                      return Card(
+                        color: Theme.of(context).cardTheme.color,
+                        child: ListTile(
+                          title: generalTexts(
+                            "${state.user!.firstName} ${state.user!.lastName}",
+                            context,
+                          ),
+                          trailing: CircleAvatar(
+                            backgroundColor: Colors.grey,
+                            child: Icon(Icons.person,
+                                color: Theme.of(context).iconTheme.color),
+                          ),
+                          onTap: () {},
+                        ),
+                      );
+                    }
+                    return ListTile(
+                      title: generalTexts("Kullanıcı bilgisi yok.", context),
+                    );
+                  },
                 ),
                 ListTile(
                     title: generalTexts("Çıkış Yap", context),
                     onTap: () {
+                      authService.signOut();
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const LoginScreen(),
                           ));
                     },
-                    trailing: Icon(Icons.exit_to_app)),
+                    trailing: const Icon(Icons.exit_to_app)),
                 ListTile(
                   title: Text(
                     "© 2022 Tobeto",
