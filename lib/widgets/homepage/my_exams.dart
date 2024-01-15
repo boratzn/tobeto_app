@@ -41,9 +41,10 @@ class MyExams extends StatelessWidget {
                       BoxShadow(
                         color: Colors.grey
                             .withOpacity(0.5), // Gölge rengi ve opaklığı
-                        spreadRadius: 5, // Gölge yayılma alanı
-                        blurRadius: 7, // Gölge bulanıklık yarıçapı
-                        offset: Offset(0, 3), // Gölge kaydırma miktarı (x, y)
+                        spreadRadius: 2, // Gölge yayılma alanı
+                        blurRadius: 4, // Gölge bulanıklık yarıçapı
+                        offset:
+                            const Offset(0, 3), // Gölge kaydırma miktarı (x, y)
                       ),
                     ],
                   ),

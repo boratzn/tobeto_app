@@ -9,7 +9,8 @@ class MySurveys extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-          color: Color(0xFFE6E6E6), borderRadius: BorderRadius.circular(15)),
+          color: const Color(0xFFE6E6E6),
+          borderRadius: BorderRadius.circular(15)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
