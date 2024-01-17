@@ -122,7 +122,7 @@ ThemeData darkMode = ThemeData(
   elevatedButtonTheme: const ElevatedButtonThemeData(
     style: ButtonStyle(
       elevation: MaterialStatePropertyAll(5),
-      backgroundColor: MaterialStatePropertyAll(Color(0xFF1D1B1E)),
+      backgroundColor: MaterialStatePropertyAll(Color(0xFF850BEC)),
     ),
   ),
 );

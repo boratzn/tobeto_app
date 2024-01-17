@@ -93,7 +93,7 @@ class DrawerMenu extends StatelessWidget {
                     if (state is UserDataLoading) {}
                     if (state is UserDataLoaded) {
                       return Card(
-                        color: Theme.of(context).cardTheme.color,
+                        color: Theme.of(context).colorScheme.surface,
                         child: ListTile(
                           title: generalTexts(
                             "${state.user!.firstName} ${state.user!.lastName}",

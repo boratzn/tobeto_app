@@ -14,8 +14,8 @@ class SaveButtonWidget extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       child: ElevatedButton(
         style: ButtonStyle(
-            backgroundColor: MaterialStatePropertyAll(
-                color ?? Theme.of(context).colorScheme.primary)),
+            backgroundColor:
+                MaterialStatePropertyAll(color ?? const Color(0xFF850BEC))),
         onPressed: onTap,
         child: Padding(
           padding: const EdgeInsets.all(8.0),

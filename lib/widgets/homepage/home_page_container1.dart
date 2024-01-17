@@ -37,7 +37,7 @@ class _HomePageContainer1State extends State<HomePageContainer1> {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

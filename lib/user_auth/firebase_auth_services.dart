@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tobeto_app/models/user.dart';
+import 'package:tobeto_app/utils/utils.dart';
 
 class FirebaseAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -15,11 +16,10 @@ class FirebaseAuthService {
           email: email, password: password);
       return credential.user;
     } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case 'weak-password':
-          throw Exception('Şifreniz çok güçsüz');
-        case 'email-already-in-use':
-          throw Exception('Bu emaile ait bir hesap zaten var.');
+      if (e.code == 'weak-password') {
+        showToast(message: "Zayıf Şifre");
+      } else {
+        showToast(message: "Bu emaile ait bir hesap zaten var.");
       }
     }
     return null;
@@ -32,16 +32,30 @@ class FirebaseAuthService {
           email: email, password: password);
       return credential.user;
     } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case 'invalid-email':
-          throw Exception('Geçersiz email adresi.');
-        case 'user-not-found':
-          throw Exception('Kullanıcı bulunamadı!');
-        case 'wrong-password':
-          throw Exception('Şifre hatalı!');
+      if (e.code == 'user-not-found' ||
+          e.code == 'wrong-password' ||
+          e.code == 'invalid-credential') {
+        showToast(message: "Geçersiz Email ve ya Şifre!");
+      } else {
+        showToast(
+            message:
+                "Giriş yaparken hata oluştu. Email ve şifrenizi kontrol edin.");
       }
     }
     return null;
+  }
+
+  Future<void> resetPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      showToast(message: "Mailinize şifre sıfırlama linki gönderildi.");
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-email') {
+        showToast(message: "Geçersiz E-Posta!");
+      } else {
+        showToast(message: "Kullanıcı Bulunamadı!");
+      }
+    }
   }
 
   Future<UserModel?> getUserData() async {

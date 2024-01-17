@@ -9,10 +9,11 @@ part 'user_data_state.dart';
 class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   final FirebaseAuthService _authService;
   UserDataBloc(this._authService) : super(UserDataInitial()) {
-    on<FetchData>(_signIn);
+    on<FetchData>(_fetchData);
   }
 
-  _signIn(FetchData event, Emitter<UserDataState> emit) async {
+  _fetchData(FetchData event, Emitter<UserDataState> emit) async {
+    emit(UserDataLoading());
     try {
       final userData = await _authService.getUserData();
       emit(UserDataLoaded(user: userData));

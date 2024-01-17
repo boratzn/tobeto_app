@@ -26,33 +26,36 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-            shadowColor: Colors.black,
-            title: Hero(
-              tag: tobetoLogoPath,
-              child: Image.asset(
-                tobetoLogoPath,
-                width: 200,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-            elevation: 1),
-        endDrawer: const DrawerMenu(),
-        body: Consumer(
-          builder: (context, ref, child) {
-            final index = ref.watch(pageIndexProvider);
-            return ListView(
+      child: Consumer(
+        builder: (context, ref, child) {
+          var index = ref.watch(pageIndexProvider);
+          return Scaffold(
+            appBar: AppBar(
+                title: Hero(
+                  tag: tobetoLogoPath,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      tobetoLogoPath,
+                      width: 150,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ),
+                shadowColor: Colors.black,
+                elevation: 1),
+            endDrawer: const DrawerMenu(),
+            body: ListView(
               scrollDirection: Axis.vertical,
               children: [
                 screens[index],
                 index != 5 ? const HomePageBottomContainer() : const Center(),
               ],
-            );
-          },
-        ),
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        floatingActionButton: const FabWidget(),
+            ),
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            floatingActionButton: const FabWidget(),
+          );
+        },
       ),
     );
   }

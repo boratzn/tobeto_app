@@ -12,18 +12,20 @@ class HomePageContainer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Container(
-        height: 190,
+        height: MediaQuery.of(context).size.height / 4,
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: colors,
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-            ),
-            borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(50),
-                bottomRight: Radius.circular(50),
-                topRight: Radius.circular(50))),
-        width: 300,
+          gradient: LinearGradient(
+            colors: colors,
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+          ),
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(50),
+            bottomRight: Radius.circular(50),
+            topRight: Radius.circular(50),
+          ),
+        ),
+        width: MediaQuery.of(context).size.width * 0.67,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
