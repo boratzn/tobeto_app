@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-const double buttonSize = 70;
-
 class FabWidget extends StatefulWidget {
   const FabWidget({super.key});
 
@@ -15,7 +13,7 @@ class _FabWidgetState extends State<FabWidget> {
   @override
   Widget build(BuildContext context) => SpeedDial(
         overlayColor: Colors.black12,
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: const Color(0xFF850BEC),
         foregroundColor: Colors.white,
         animatedIcon: AnimatedIcons.menu_close,
         children: [

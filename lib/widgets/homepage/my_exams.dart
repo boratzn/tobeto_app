@@ -12,6 +12,14 @@ class MyExams extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       child: Container(
         decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 3,
+              offset: const Offset(0, 3),
+            ),
+          ],
           borderRadius: BorderRadius.circular(10),
           color: Theme.of(context).colorScheme.surface,
         ),
@@ -31,20 +39,17 @@ class MyExams extends StatelessWidget {
                 height: 20,
               ),
               SizedBox(
-                width: 230,
+                width: 210,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.surface,
-                    borderRadius: BorderRadius.circular(
-                        15), // Opsiyonel: Köşeleri yuvarlama
+                    borderRadius: BorderRadius.circular(15),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey
-                            .withOpacity(0.5), // Gölge rengi ve opaklığı
-                        spreadRadius: 2, // Gölge yayılma alanı
-                        blurRadius: 4, // Gölge bulanıklık yarıçapı
-                        offset:
-                            const Offset(0, 3), // Gölge kaydırma miktarı (x, y)
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 4,
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),

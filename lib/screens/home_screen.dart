@@ -20,8 +20,11 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, state) {
         if (state is UserDataInitial) {
           context.read<UserDataBloc>().add(FetchData());
-          return const Center(
-            child: Text("Veri Yükleniyor"),
+          return const Padding(
+            padding: EdgeInsets.all(32.0),
+            child: Center(
+              child: Text("Veri Yükleniyor"),
+            ),
           );
         }
         if (state is UserDataLoading) {
@@ -34,8 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
             scrollDirection: Axis.vertical,
             child: Column(
               children: [
-                const SizedBox(
-                  height: 60,
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 20,
                 ),
                 Text.rich(
                   style: Theme.of(context).textTheme.bodyMedium,
@@ -70,10 +73,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const MyExams(),
                 const SizedBox(
-                  height: 10,
+                  height: 25,
                 ),
                 SizedBox(
-                  height: 220,
+                  height: MediaQuery.of(context).size.height / 4,
                   width: MediaQuery.of(context).size.width,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
@@ -97,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 8,
                       ),
                       HomePageContainer(
-                        title: "Profilini Oluştur",
+                        title: "Öğrenmeye Başla",
                         colors: [Color(0xFF3C0B8C), Color(0xFFD89CF6)],
                       ),
                     ],

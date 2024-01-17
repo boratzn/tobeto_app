@@ -182,7 +182,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   //************************BUTON ********************************* */
                   MaterialButton(
                     height: 50,
-                    color: Theme.of(context).colorScheme.surfaceTint,
+                    color: const Color(0xFF850BEC),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -203,6 +203,8 @@ class _CreateAccountState extends State<CreateAccount> {
                                 // Kullanıcı oturum açmamışsa, giriş sayfasına yönlendirme yapabilirsiniz.
                               } else {
                                 // Kullanıcı oturum açmışsa, ana sayfaya yönlendirme yapabilirsiniz.
+                                showCustomSnackBar(context);
+                                clearTextForms();
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
@@ -211,8 +213,6 @@ class _CreateAccountState extends State<CreateAccount> {
                               }
                             });
                           }
-                          showCustomSnackBar(context);
-                          clearTextForms();
                         } on FirebaseAuthException catch (e) {
                           debugPrint(e.message);
                         }
@@ -239,7 +239,12 @@ class _CreateAccountState extends State<CreateAccount> {
                         style: Theme.of(context)
                             .textTheme
                             .labelMedium!
-                            .copyWith(color: Colors.black),
+                            .copyWith(
+                                color:
+                                    MediaQuery.of(context).platformBrightness ==
+                                            Brightness.light
+                                        ? Colors.black
+                                        : Colors.white),
                       ),
                       TextButton(
                         child: Text(

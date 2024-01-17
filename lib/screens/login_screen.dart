@@ -6,6 +6,7 @@ import 'package:tobeto_app/providers/login_screen_provider.dart';
 import 'package:tobeto_app/providers/state_provider.dart';
 import 'package:tobeto_app/screens/create_account_screen.dart';
 import 'package:tobeto_app/screens/main_screen.dart';
+import 'package:tobeto_app/screens/reset_password_screen.dart';
 import 'package:tobeto_app/user_auth/firebase_auth_services.dart';
 
 import '../utils/utils.dart';
@@ -18,6 +19,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var authService = FirebaseAuthService();
@@ -54,93 +56,108 @@ class _LoginScreenState extends State<LoginScreen> {
                 //height: 410,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 150,
-                        height: 100,
-                        child: Hero(
-                          tag: tobetoLogoPath,
-                          child: Image.asset(
-                            tobetoLogoPath,
-                            color: Theme.of(context).colorScheme.primary,
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 150,
+                          height: 100,
+                          child: Hero(
+                            tag: tobetoLogoPath,
+                            child: Image.asset(
+                              tobetoLogoPath,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
                           ),
                         ),
-                      ),
-                      //********************************KULLANICI ADI********************************
-                      TextField(
-                        keyboardType: TextInputType.emailAddress,
-                        style: Theme.of(context).textTheme.titleMedium,
-                        controller: emailController,
-                        decoration: InputDecoration(
-                          prefixIconColor:
-                              Theme.of(context).colorScheme.primary,
-                          prefixIcon: const Icon(Icons.person_pin),
-                          label: generalTexts(
-                            "Kullanıcı Kodu",
-                            context,
+                        //********************************KULLANICI ADI********************************
+                        TextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          style: Theme.of(context).textTheme.titleMedium,
+                          controller: emailController,
+                          decoration: InputDecoration(
+                            prefixIconColor:
+                                Theme.of(context).colorScheme.primary,
+                            prefixIcon: const Icon(Icons.person_pin),
+                            label: generalTexts(
+                              "Kullanıcı Kodu",
+                              context,
+                            ),
+                            border: OutlineInputBorder(
+                                borderSide: const BorderSide(),
+                                borderRadius: BorderRadius.circular(15)),
                           ),
-                          border: OutlineInputBorder(
-                              borderSide: const BorderSide(),
-                              borderRadius: BorderRadius.circular(15)),
+                          validator: (value) {
+                            if (value == "") {
+                              return "Alanlar boş bırakılamaz";
+                            }
+                            return null;
+                          },
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Consumer(
-                        builder: (context, ref, child) {
-                          bool isHidePassword = ref.watch(loginScreenProvider);
-                          //************************ŞİFRE********************************
-                          return TextField(
-                            style: Theme.of(context).textTheme.titleMedium,
-                            controller: passwordController,
-                            obscureText: isHidePassword,
-                            obscuringCharacter: "*",
-                            decoration: InputDecoration(
-                              label: generalTexts(
-                                "Şifre",
-                                context,
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Consumer(
+                          builder: (context, ref, child) {
+                            bool isHidePassword =
+                                ref.watch(loginScreenProvider);
+                            //************************ŞİFRE********************************
+                            return TextFormField(
+                              style: Theme.of(context).textTheme.titleMedium,
+                              controller: passwordController,
+                              obscureText: isHidePassword,
+                              obscuringCharacter: "*",
+                              decoration: InputDecoration(
+                                label: generalTexts(
+                                  "Şifre",
+                                  context,
+                                ),
+                                prefixIconColor:
+                                    Theme.of(context).colorScheme.primary,
+                                suffixIconColor:
+                                    Theme.of(context).colorScheme.primary,
+                                prefixIcon: const Icon(Icons.lock_outline),
+                                suffixIcon: IconButton(
+                                    onPressed: () {
+                                      ref
+                                          .read(loginScreenProvider.notifier)
+                                          .changeState();
+                                    },
+                                    icon: isHidePassword
+                                        ? const Icon(Icons.visibility_off)
+                                        : const Icon(Icons.visibility)),
+                                border: OutlineInputBorder(
+                                    borderSide: const BorderSide(),
+                                    borderRadius: BorderRadius.circular(15)),
                               ),
-                              prefixIconColor:
-                                  Theme.of(context).colorScheme.primary,
-                              suffixIconColor:
-                                  Theme.of(context).colorScheme.primary,
-                              prefixIcon: const Icon(Icons.lock_outline),
-                              suffixIcon: IconButton(
-                                  onPressed: () {
-                                    ref
-                                        .read(loginScreenProvider.notifier)
-                                        .changeState();
-                                  },
-                                  icon: isHidePassword
-                                      ? const Icon(Icons.visibility_off)
-                                      : const Icon(Icons.visibility)),
-                              border: OutlineInputBorder(
-                                  borderSide: const BorderSide(),
-                                  borderRadius: BorderRadius.circular(15)),
-                            ),
-                          );
-                        },
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      //************************BUTON ********************************* */
-                      Consumer(
-                        builder: (context, ref, child) {
-                          return MaterialButton(
-                            height: 50,
-                            color: Theme.of(context).colorScheme.surfaceTint,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            onPressed: () {
-                              try {
+                              validator: (value) {
+                                if (value == "") {
+                                  return "Alanlar boş bırakılamaz";
+                                }
+                                return null;
+                              },
+                            );
+                          },
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        //************************BUTON ********************************* */
+                        Consumer(
+                          builder: (context, ref, child) {
+                            return MaterialButton(
+                              height: 50,
+                              color: const Color(0xFF850BEC),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              onPressed: () {
                                 authService.signInWithEmailAndPassword(
-                                    emailController.text,
-                                    passwordController.text);
+                                  emailController.text,
+                                  passwordController.text,
+                                );
                                 authService.auth
                                     .authStateChanges()
                                     .listen((User? user) {
@@ -155,59 +172,65 @@ class _LoginScreenState extends State<LoginScreen> {
                                 });
 
                                 ref.read(pageIndexProvider.notifier).state = 0;
-                              } on FirebaseAuthException catch (e) {
-                                debugPrint(e.message);
-                              }
-                            },
-                            minWidth: double.infinity,
-                            child: Text(
-                              "GİRİŞ YAP",
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                          );
-                        },
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Divider(color: Theme.of(context).colorScheme.primary),
-                      InkWell(
-                        child: Text(
-                          "Şifremi Unuttum",
-                          style: Theme.of(context).textTheme.labelMedium,
+                              },
+                              minWidth: double.infinity,
+                              child: Text(
+                                "GİRİŞ YAP",
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                            );
+                          },
                         ),
-                        onTap: () {},
-                      ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Divider(color: Theme.of(context).colorScheme.primary),
+                        InkWell(
+                          child: Text(
+                            "Şifremi Unuttum",
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ResetPasswordScreen(),
+                                ));
+                          },
+                        ),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Henüz üye değil misin?",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelMedium!
-                                  .copyWith(
-                                      color: MediaQuery.of(context)
-                                                  .platformBrightness ==
-                                              Brightness.light
-                                          ? Colors.black
-                                          : Colors.white)),
-                          TextButton(
-                            child: Text(
-                              "Kayıt Ol",
-                              style: Theme.of(context).textTheme.labelMedium,
-                            ),
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const CreateAccount(),
-                                  ));
-                            },
-                          )
-                        ],
-                      )
-                    ],
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Henüz üye değil misin?",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelMedium!
+                                    .copyWith(
+                                        color: MediaQuery.of(context)
+                                                    .platformBrightness ==
+                                                Brightness.light
+                                            ? Colors.black
+                                            : Colors.white)),
+                            TextButton(
+                              child: Text(
+                                "Kayıt Ol",
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CreateAccount(),
+                                    ));
+                              },
+                            )
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -217,4 +240,21 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
+  // customAlertDialog(String error) {
+  //   return showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         title: const Text("Uyarı"),
+  //         content: Text(error),
+  //         actions: [
+  //           ElevatedButton(
+  //               onPressed: () => Navigator.pop(context),
+  //               child: const Text("Tamam"))
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 }
