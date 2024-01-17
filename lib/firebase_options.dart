@@ -54,7 +54,8 @@ class DefaultFirebaseOptions {
     appId: '1:534118986766:android:78d40ef7120b6ca3a2385f',
     messagingSenderId: '534118986766',
     projectId: 'tobetoapp',
-    databaseURL: 'https://tobetoapp-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://tobetoapp-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'tobetoapp.appspot.com',
   );
 
@@ -63,7 +64,8 @@ class DefaultFirebaseOptions {
     appId: '1:534118986766:ios:087f01b1b0efb00aa2385f',
     messagingSenderId: '534118986766',
     projectId: 'tobetoapp',
-    databaseURL: 'https://tobetoapp-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://tobetoapp-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'tobetoapp.appspot.com',
     iosBundleId: 'com.example.tobetoApp',
   );
