@@ -8,12 +8,15 @@ const String countDownLogoPath = "assets/images/countdown.png";
 const String ecmelPath = "assets/images/ecmel.jpg";
 const String ikImagePath = "assets/images/ik.jpg";
 const String anketImagePath = "assets/images/anket.png";
-const String cvDateImagePath = "assets/images/profile_screen/cv-date.png";
+
+const String timeStartImagePath = "assets/images/timeStart.png";
+const String timeEndImagePath = "assets/images/timeEnd.png";
+
+//Profile Screen
 const String cvGithubImagePath = "assets/images/profile_screen/cv-github.png";
 const String cvLinkedinImagePath =
     "assets/images/profile_screen/cv-linkedn.png";
-
-//Profile Screen
+const String cvDateImagePath = "assets/images/profile_screen/cv-date.png";
 const String cvMailImagePath = "assets/images/profile_screen/cv-mail.png";
 const String cvNameImagePath = "assets/images/profile_screen/cv-name.png";
 const String cvPhoneImagePath = "assets/images/profile_screen/cv-phone.png";
@@ -54,6 +57,27 @@ const List<String> levels = [
   'Orta Seviye(B1,B2)',
   'İleri Seviye(C1,C2)',
   'Anadil'
+];
+
+const List<String> teachers = [
+  'Eğitmen Dojo',
+  'Gürkan İlişen',
+  'Roiva Eğitmen',
+  'Veli Bahçeci',
+  'İrem Balcı',
+  'Cem Bayraktaroğlu',
+  'Ahmet Çetinkaya',
+  'Denizhan Dursun',
+  'Halit Enes Kalaycı',
+  'Kadir Murat Başaren',
+  'Serkan Tekin',
+  'Aykut Baştuğ',
+  'Semih Karduz',
+  'Barbaros Ciga',
+  'Mehmet Emin Kortak',
+  'Engin Demiroğ',
+  'Ali Seyhan',
+  'Kader Yavuz'
 ];
 
 const List<String> languages = [

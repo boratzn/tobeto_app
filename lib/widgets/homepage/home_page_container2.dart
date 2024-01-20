@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 class HomePageContainer extends StatelessWidget {
   const HomePageContainer(
-      {super.key, required this.title, required this.colors});
+      {super.key, required this.title, required this.colors, this.onTap});
 
   final String title;
   final List<Color> colors;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class HomePageContainer extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: Theme.of(context).elevatedButtonTheme.style,
-                  onPressed: () {},
+                  onPressed: onTap,
                   child: const Text(
                     "Başla",
                     style: TextStyle(

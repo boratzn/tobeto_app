@@ -4,10 +4,19 @@ import 'package:tobeto_app/models/user.dart';
 import 'package:tobeto_app/utils/utils.dart';
 
 class FirebaseAuthService {
+  static FirebaseAuthService? _instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final databaseReference = FirebaseFirestore.instance;
+  final FirebaseFirestore _databaseReference = FirebaseFirestore.instance;
 
   FirebaseAuth get auth => _auth;
+  FirebaseFirestore get databaseReference => _databaseReference;
+
+  FirebaseAuthService._internal();
+
+  factory FirebaseAuthService() {
+    _instance ??= FirebaseAuthService._internal();
+    return _instance!;
+  }
 
   Future<User?> signUpWithEmailAndPassword(
       String email, String password) async {
@@ -59,10 +68,10 @@ class FirebaseAuthService {
   }
 
   Future<UserModel?> getUserData() async {
-    User? currUser = FirebaseAuth.instance.currentUser;
+    User? currUser = _auth.currentUser;
 
     if (currUser != null) {
-      var userDocs = await databaseReference.collection("users").get();
+      var userDocs = await _databaseReference.collection("users").get();
       for (var user in userDocs.docs) {
         if (user.id == currUser.uid) {
           final data = user.data();
@@ -78,7 +87,7 @@ class FirebaseAuthService {
   }
 
   void saveUserData(String userId, String firstName, String lastName) {
-    databaseReference.collection('users').doc(userId).set({
+    _databaseReference.collection('users').doc(userId).set({
       'firstName': firstName,
       'lastName': lastName,
     });

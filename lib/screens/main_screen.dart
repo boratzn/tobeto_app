@@ -49,7 +49,11 @@ class _MainScreenState extends ConsumerState<MainScreen> {
               scrollDirection: Axis.vertical,
               children: [
                 screens[index],
-                index != 5 ? const HomePageBottomContainer() : const Center(),
+                index != 5
+                    ? index != 4
+                        ? const HomePageBottomContainer()
+                        : const Center()
+                    : const Center(),
               ],
             ),
             backgroundColor: Theme.of(context).colorScheme.surface,
