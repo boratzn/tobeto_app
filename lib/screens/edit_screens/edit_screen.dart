@@ -17,7 +17,7 @@ class _EditScreenState extends State<EditScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 8, vsync: this); // Toplamda 3 sekme
+    _tabController = TabController(length: 8, vsync: this);
   }
 
   @override
