@@ -1,5 +1,10 @@
+import 'package:dropdown_model_list/dropdown_model_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:tobeto_app/blocs/user_data/user_data_bloc.dart';
 import 'package:tobeto_app/constants/constants.dart';
+import 'package:tobeto_app/models/education.dart';
 import 'package:tobeto_app/widgets/index.dart';
 
 class EducationInformation extends StatefulWidget {
@@ -10,155 +15,254 @@ class EducationInformation extends StatefulWidget {
 }
 
 class _EducationInformationState extends State<EducationInformation> {
-  String _selectedItem = 'Lisans';
+  var startDateController = TextEditingController();
+  var universityController = TextEditingController();
+  var departmentController = TextEditingController();
+  var endDateController = TextEditingController();
+  OptionItem selectedItem = OptionItem(id: "1", title: "Lisans");
   bool checkBoxState = false;
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.width / 15,
-            ),
-            Text(
-              "Eğitim Durumu*",
-              style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            DropdownButton<String>(
-              isExpanded: true,
-              style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
-              value: _selectedItem,
-              onChanged: (String? newValue) {
-                setState(() {
-                  _selectedItem = newValue!;
-                });
-              },
-              items: grades.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width / 15,
-            ),
-            Text(
-              "Üniversite*",
-              style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            TextFormField(
-              style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
-              decoration: InputDecoration(
-                  hintText: "Kampüs 365",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width / 15,
-            ),
-            Text(
-              "Bölüm*",
-              style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            TextFormField(
-              style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
-              initialValue: "",
-              decoration: InputDecoration(
-                  hintText: "Yazılım",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width / 15,
-            ),
-            Text(
-              "Başlangıç Yılı*",
-              style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            TextFormField(
-              style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
-              initialValue: "",
-              decoration: InputDecoration(
-                  hintText: "gg.aa.yyyy",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width / 15,
-            ),
-            Text(
-              "Mezuniyet Yılı*",
-              style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            TextFormField(
-              style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
-              decoration: InputDecoration(
-                  hintText: "gg.aa.yyyy",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width / 20,
-            ),
-            Row(
-              children: [
-                Checkbox(
-                  value: checkBoxState,
-                  onChanged: (value) {
-                    setState(() {
-                      checkBoxState = !checkBoxState;
-                    });
-                  },
-                ),
-                Text(
-                  "Devam Ediyorum",
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 15,
+    return BlocBuilder<UserDataBloc, UserDataState>(
+      builder: (context, state) {
+        if (state is UserDataLoaded) {
+          var education = state.userInfo!.education;
+          initTextFields(education);
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width / 15,
+                  ),
+                  Text(
+                    "Eğitim Durumu*",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 20),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  SelectDropList(
+                    itemSelected: selectedItem,
+                    dropListModel: gradeList,
+                    showIcon: true,
+                    showArrowIcon: true,
+                    showBorder: true,
+                    paddingTop: 0,
+                    paddingLeft: 0,
+                    paddingRight: 0,
+                    paddingBottom: 0,
+                    paddingDropItem: const EdgeInsets.only(
+                        left: 20, top: 10, bottom: 10, right: 20),
+                    suffixIcon: Icons.arrow_drop_down,
+                    containerPadding: const EdgeInsets.all(10),
+                    icon: const Icon(Icons.school, color: Colors.black),
+                    onOptionSelected: (optionItem) {
+                      selectedItem = optionItem;
+                      setState(() {});
+                    },
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width / 15,
+                  ),
+                  Text(
+                    "Üniversite*",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 20),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TextFormField(
+                    controller: universityController,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 18),
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 10),
+                        hintText: "Kampüs 365",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width / 15,
+                  ),
+                  Text(
+                    "Bölüm*",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 20),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TextFormField(
+                    controller: departmentController,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 18),
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 10),
+                        hintText: "Yazılım",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width / 15,
+                  ),
+                  Text(
+                    "Başlangıç Yılı*",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 20),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TextFormField(
+                    controller: startDateController,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 18),
+                    decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                            onPressed: () async {
+                              final DateTime? dt = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(1900),
+                                  lastDate: DateTime(2100));
+
+                              if (dt != null) {
+                                setState(() {
+                                  startDateController.text =
+                                      DateFormat('d/M/y').format(dt).toString();
+                                });
+                              }
+                            },
+                            icon: const Icon(Icons.date_range)),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 10),
+                        hintText: "gg.aa.yyyy",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width / 15,
+                  ),
+                  Text(
+                    "Mezuniyet Yılı*",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 20),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TextFormField(
+                    controller: endDateController,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 18),
+                    decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                            onPressed: () async {
+                              final DateTime? dt = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(1900),
+                                  lastDate: DateTime(2100));
+
+                              if (dt != null) {
+                                setState(() {
+                                  startDateController.text =
+                                      DateFormat('d/M/y').format(dt).toString();
+                                });
+                              }
+                            },
+                            icon: const Icon(Icons.date_range)),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 10),
+                        hintText: "gg.aa.yyyy",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width / 20,
+                  ),
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: checkBoxState,
+                        onChanged: (value) {
+                          setState(() {
+                            checkBoxState = !checkBoxState;
+                          });
+                        },
                       ),
-                ),
-              ],
+                      Text(
+                        "Devam Ediyorum",
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              fontSize: 15,
+                            ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width / 20,
+                  ),
+                  SaveButtonWidget(
+                    onTap: () {
+                      context.read<UserDataBloc>().add(EducationUpdate(
+                              education: Education(
+                            department: departmentController.text,
+                            educationState: selectedItem.title,
+                            startDate: startDateController.text,
+                            endDate: endDateController.text,
+                            university: universityController.text,
+                            isStudying: checkBoxState,
+                          )));
+                    },
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width / 20,
+                  ),
+                ],
+              ),
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width / 20,
-            ),
-            SaveButtonWidget(
-              onTap: () {},
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width / 20,
-            ),
-          ],
-        ),
-      ),
+          );
+        }
+        return const Center(
+          child: Text("Veriler alınırken hata oluştu."),
+        );
+      },
     );
+  }
+
+  void initTextFields(Education? education) {
+    if (education != null) {
+      selectedItem = OptionItem(id: "1", title: education.educationState ?? "");
+      startDateController.text = education.startDate ?? "";
+      endDateController.text = education.endDate ?? "";
+      universityController.text = education.university ?? "";
+      departmentController.text = education.department ?? "";
+      checkBoxState = education.isStudying ?? false;
+    }
   }
 }

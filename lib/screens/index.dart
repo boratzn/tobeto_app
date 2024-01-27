@@ -3,9 +3,12 @@ export '/screens/catalog_screen.dart';
 export '/screens/home_screen.dart';
 export '/screens/login_screen.dart';
 export '/screens/main_screen.dart';
-
 export '/screens/profile_screen.dart';
 export '/screens/reviews_screen.dart';
+export '/screens/anouncement_screen.dart';
+export '/screens/applications_screen.dart';
+export '/screens/classes_screen.dart';
+export '/screens/survey_screen.dart';
 
 //edit_screen
 export '/screens/edit_screens/account_settings.dart';

@@ -20,6 +20,7 @@ class LanguagesWidget extends StatelessWidget {
         title: Text(
           title,
           style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                fontSize: 20,
                 color: MediaQuery.of(context).platformBrightness ==
                         Brightness.light
                     ? Colors.black54

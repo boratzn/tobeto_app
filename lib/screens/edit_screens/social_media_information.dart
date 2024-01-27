@@ -1,6 +1,11 @@
+import 'package:dropdown_model_list/dropdown_model_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tobeto_app/blocs/user_data/user_data_bloc.dart';
 import 'package:tobeto_app/constants/constants.dart';
+import 'package:tobeto_app/models/index.dart';
 import 'package:tobeto_app/widgets/edit_screen/save_button_widget.dart';
+import 'package:tobeto_app/widgets/edit_screen/social_media_card.dart';
 
 class SocialMediaInformation extends StatefulWidget {
   const SocialMediaInformation({super.key});
@@ -10,138 +15,106 @@ class SocialMediaInformation extends StatefulWidget {
 }
 
 class _SocialMediaInformationState extends State<SocialMediaInformation> {
-  String _selectedItem = 'Seçiniz*';
+  OptionItem optionItemSelected = OptionItem(title: "Select Social Media");
+  var urlController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.width / 20,
-            ),
-            DropdownButton<String>(
-              isExpanded: true,
-              style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
-              value: _selectedItem,
-              onChanged: (String? newValue) {
-                setState(() {
-                  _selectedItem = newValue!;
-                });
-              },
-              items: sMediaList.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            TextFormField(
-              style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 17),
-              decoration: InputDecoration(
-                  hintText: "https://",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width / 20,
-            ),
-            SaveButtonWidget(
-              onTap: () {},
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width / 10,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Github",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(fontSize: 17),
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.width / 8,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(5),
+    return BlocBuilder<UserDataBloc, UserDataState>(
+      builder: (context, state) {
+        if (state is UserDataLoaded) {
+          var sMedia = state.userInfo!.socialMedias;
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width / 20,
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.width / 20,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          height: MediaQuery.of(context).size.height,
-                          width: MediaQuery.of(context).size.width * 0.67,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey[300]!),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                SingleChildScrollView(
-                                  child: Text(
-                                    "https://github.com/boratzn",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(fontSize: 15),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {},
-                          child: Container(
-                            height: 25,
-                            width: 25,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFFC6D6D),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Image.asset(trashImagePath),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {},
-                          child: Container(
-                            height: 25,
-                            width: 25,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFFC6D6D),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Image.asset(
-                              editImagePath,
-                              color: Colors.white,
-                            ),
-                          ),
-                        )
-                      ],
+                  Text(
+                    "Sosyal Medya",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 17),
+                  ),
+                  SelectDropList(
+                    itemSelected: optionItemSelected,
+                    dropListModel: sMediaList,
+                    showIcon: false,
+                    showArrowIcon: true,
+                    showBorder: true,
+                    paddingTop: 0,
+                    paddingLeft: 0,
+                    paddingRight: 0,
+                    paddingBottom: 0,
+                    paddingDropItem: const EdgeInsets.only(
+                        left: 20, top: 10, bottom: 10, right: 20),
+                    suffixIcon: Icons.arrow_drop_down,
+                    containerPadding: const EdgeInsets.all(10),
+                    icon: const Icon(Icons.person, color: Colors.black),
+                    onOptionSelected: (optionItem) {
+                      optionItemSelected = optionItem;
+                      setState(() {});
+                    },
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TextFormField(
+                    controller: urlController,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 17),
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 10),
+                        hintText: "https://",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width / 20,
+                  ),
+                  SaveButtonWidget(
+                    onTap: () {
+                      context.read<UserDataBloc>().add(SocialUpdate(
+                              socialMedia: [
+                                SocialMedia(
+                                    name: optionItemSelected.title,
+                                    url: urlController.text)
+                              ]));
+                    },
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width / 10,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 2,
+                    child: ListView.builder(
+                      itemCount: sMedia!.length,
+                      itemBuilder: (context, index) {
+                        var item = sMedia[index];
+                        return Padding(
+                          padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).size.height / 30),
+                          child: SocialMediaCard(
+                              title: item.name ?? "", url: item.url ?? ""),
+                        );
+                      },
                     ),
                   ),
-                )
-              ],
-            )
-          ],
-        ),
-      ),
+                ],
+              ),
+            ),
+          );
+        }
+        return const Center(
+          child: Text("Veriler alınırken hata oluştu."),
+        );
+      },
     );
   }
 }
