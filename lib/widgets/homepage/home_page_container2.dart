@@ -11,9 +11,10 @@ class HomePageContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Container(
         height: MediaQuery.of(context).size.height / 4,
+        width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: colors,
@@ -26,7 +27,6 @@ class HomePageContainer extends StatelessWidget {
             topRight: Radius.circular(50),
           ),
         ),
-        width: MediaQuery.of(context).size.width * 0.67,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -38,6 +38,7 @@ class HomePageContainer extends StatelessWidget {
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
+                textAlign: TextAlign.center,
               ),
               SizedBox(
                 width: double.infinity,

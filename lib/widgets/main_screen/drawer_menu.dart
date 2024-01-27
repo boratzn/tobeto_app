@@ -32,7 +32,7 @@ class DrawerMenu extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: 150,
-                      height: 100,
+                      height: 90,
                       child: Image.asset(
                         "assets/images/tobeto-logo.png",
                         color: Theme.of(context).colorScheme.primary,
@@ -47,6 +47,44 @@ class DrawerMenu extends StatelessWidget {
                           color: Theme.of(context).colorScheme.onSurface,
                         )),
                   ],
+                ),
+                BlocBuilder<UserDataBloc, UserDataState>(
+                  builder: (context, state) {
+                    if (state is UserDataLoaded) {
+                      var user = state.userInfo!.user;
+                      return SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.22,
+                        child: DrawerHeader(
+                          curve: Curves.bounceIn,
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                maxRadius: 50,
+                                backgroundImage: user.imageUrl != null
+                                    ? NetworkImage(user.imageUrl!)
+                                    : null,
+                              ),
+                              Text(
+                                "${user.firstName} ${user.lastName}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(fontSize: 15),
+                              ),
+                              Text("${user.email}",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelSmall!
+                                      .copyWith(fontSize: 15))
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                    return ListTile(
+                      title: generalTexts("Kullanıcı bilgisi yok.", context),
+                    );
+                  },
                 ),
                 DrawerMenuItem(
                     title: "Anasayfa",
@@ -87,31 +125,6 @@ class DrawerMenu extends StatelessWidget {
                   ),
                   trailing: const Icon(Icons.home),
                   onTap: () {},
-                ),
-                BlocBuilder<UserDataBloc, UserDataState>(
-                  builder: (context, state) {
-                    if (state is UserDataLoading) {}
-                    if (state is UserDataLoaded) {
-                      return Card(
-                        color: Theme.of(context).colorScheme.surface,
-                        child: ListTile(
-                          title: generalTexts(
-                            "${state.user!.firstName} ${state.user!.lastName}",
-                            context,
-                          ),
-                          trailing: CircleAvatar(
-                            backgroundColor: Colors.grey,
-                            child: Icon(Icons.person,
-                                color: Theme.of(context).iconTheme.color),
-                          ),
-                          onTap: () {},
-                        ),
-                      );
-                    }
-                    return ListTile(
-                      title: generalTexts("Kullanıcı bilgisi yok.", context),
-                    );
-                  },
                 ),
                 ListTile(
                     title: generalTexts("Çıkış Yap", context),

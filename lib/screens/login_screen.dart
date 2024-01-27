@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tobeto_app/constants/constants.dart';
@@ -160,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 );
                                 authService.auth
                                     .authStateChanges()
-                                    .listen((User? user) {
+                                    .listen((user) {
                                   if (user != null) {
                                     Navigator.pushReplacement(
                                         context,

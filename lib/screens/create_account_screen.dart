@@ -194,8 +194,11 @@ class _CreateAccountState extends State<CreateAccount> {
                                   emailController.text,
                                   passwordController.text);
                           if (userCredantial != null) {
-                            authService.saveUserData(userCredantial.uid,
-                                nameController.text, surNameController.text);
+                            authService.saveUserData(
+                                userCredantial.uid,
+                                nameController.text,
+                                surNameController.text,
+                                emailController.text);
                             authService.auth
                                 .authStateChanges()
                                 .listen((User? user) {
