@@ -21,7 +21,7 @@ class _BusinessInformationState extends State<BusinessInformation> {
   var sectorController = TextEditingController();
   var endDateController = TextEditingController();
   var descriptionController = TextEditingController();
-  bool checkBoxState = false;
+  bool chckBoxState = false;
   OptionItem optionItemSelected = OptionItem(title: "Şehir Seçiniz");
   @override
   Widget build(BuildContext context) {
@@ -238,10 +238,10 @@ class _BusinessInformationState extends State<BusinessInformation> {
                   Row(
                     children: [
                       Checkbox(
-                        value: checkBoxState,
+                        value: chckBoxState,
                         onChanged: (value) {
                           setState(() {
-                            checkBoxState = !checkBoxState;
+                            chckBoxState = !chckBoxState;
                           });
                         },
                       ),
@@ -285,7 +285,7 @@ class _BusinessInformationState extends State<BusinessInformation> {
                         business: Business(
                             companyName: companyNameController.text,
                             endDate: endDateController.text,
-                            isWorking: checkBoxState,
+                            isWorking: chckBoxState,
                             position: positionController.text,
                             province: optionItemSelected.title,
                             sector: sectorController.text,
@@ -313,7 +313,7 @@ class _BusinessInformationState extends State<BusinessInformation> {
       endDateController.text = business.endDate ?? "";
       descriptionController.text = business.workDescription ?? "";
       optionItemSelected = OptionItem(id: "1", title: business.province ?? "");
-      checkBoxState = business.isWorking ?? false;
+      chckBoxState = business.isWorking ?? false;
     }
   }
 }

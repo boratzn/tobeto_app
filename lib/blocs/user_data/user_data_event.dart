@@ -13,6 +13,15 @@ class UploadImage extends UserDataEvent {
 
 class DeleteImage extends UserDataEvent {}
 
+class DeleteUser extends UserDataEvent {}
+
+class ChangePassword extends UserDataEvent {
+  final String newPassword;
+  final String oldPassword;
+
+  ChangePassword({required this.oldPassword, required this.newPassword});
+}
+
 class UserInformationUpdate extends UserDataEvent {
   final UserModel model;
   UserInformationUpdate({

@@ -7,6 +7,7 @@ import 'package:tobeto_app/screens/create_account_screen.dart';
 import 'package:tobeto_app/screens/main_screen.dart';
 import 'package:tobeto_app/screens/reset_password_screen.dart';
 import 'package:tobeto_app/user_auth/firebase_auth_services.dart';
+import 'package:tobeto_app/widgets/login_screen/square_tile.dart';
 
 import '../utils/utils.dart';
 
@@ -181,7 +182,44 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 2,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SquareTile(
+                                imgPath: googleIconImagePath,
+                                onTap: () async {
+                                  var user =
+                                      await authService.signInWithGoogle();
+
+                                  if (user != null) {
+                                    authService.auth
+                                        .authStateChanges()
+                                        .listen((user) {
+                                      if (user != null) {
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const MainScreen(),
+                                            ));
+                                      }
+                                    });
+                                  }
+                                },
+                              ),
+                              SquareTile(
+                                imgPath: githubIconImagePath,
+                                onTap: () {},
+                              )
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
                         ),
                         Divider(color: Theme.of(context).colorScheme.primary),
                         InkWell(
