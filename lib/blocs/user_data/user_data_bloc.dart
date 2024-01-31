@@ -26,6 +26,8 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     on<SkillsUpdate>(_skillsInfoUpdate);
     on<SocialUpdate>(_socialMediaInfoUpdate);
     on<LanguageUpdate>(_languageInfoUpdate);
+    on<DeleteUser>(_deleteUser);
+    on<ChangePassword>(_changePassword);
   }
 
   _fetchData(FetchData event, Emitter<UserDataState> emit) async {
@@ -123,6 +125,22 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       _authService.updateLanguagesInformation(event.language);
       final userData = await _authService.getUserData();
       emit(UserDataLoaded(userInfo: userData));
+    } catch (e) {
+      emit(UserDataError());
+    }
+  }
+
+  _deleteUser(DeleteUser event, Emitter<UserDataState> emit) async {
+    try {
+      _authService.deleteUserAndDocument();
+    } catch (e) {
+      emit(UserDataError());
+    }
+  }
+
+  _changePassword(ChangePassword event, Emitter<UserDataState> emit) async {
+    try {
+      _authService.changePassword(event.newPassword, event.oldPassword);
     } catch (e) {
       emit(UserDataError());
     }

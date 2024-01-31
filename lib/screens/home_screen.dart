@@ -55,7 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       trailing: CircleAvatar(
                         radius: 30,
-                        backgroundImage: NetworkImage(user.imageUrl!),
+                        backgroundImage: user.imageUrl != null
+                            ? NetworkImage(user.imageUrl!)
+                            : null,
                       ),
                     ),
                   ),

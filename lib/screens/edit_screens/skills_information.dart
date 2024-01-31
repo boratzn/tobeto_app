@@ -98,7 +98,7 @@ class _SkillsInformationState extends State<SkillsInformation> {
                       itemBuilder: (context, index) {
                         var item = skills[index];
                         return SkillsCard(
-                          title: item.skillName!,
+                          title: item.skillName ?? "",
                           onTap: () {},
                         );
                       },

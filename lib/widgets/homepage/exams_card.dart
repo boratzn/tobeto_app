@@ -18,8 +18,8 @@ class ExamsCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.25,
-        width: MediaQuery.of(context).size.width * 0.57,
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width * 0.7,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(15),
@@ -45,7 +45,7 @@ class ExamsCard extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall!
-                          .copyWith(fontWeight: FontWeight.bold),
+                          .copyWith(fontWeight: FontWeight.bold, fontSize: 17),
                     ),
                   ),
                   const SizedBox(
@@ -61,7 +61,7 @@ class ExamsCard extends StatelessWidget {
                 ],
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               Expanded(
                 child: Text(
@@ -69,7 +69,7 @@ class ExamsCard extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .bodySmall!
-                      .copyWith(fontWeight: FontWeight.bold, fontSize: 20),
+                      .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
                 ),
               ),
               const SizedBox(
@@ -79,12 +79,12 @@ class ExamsCard extends StatelessWidget {
                 children: [
                   Image.asset(
                     countDownLogoPath,
-                    height: 30,
-                    width: 30,
+                    height: 20,
+                    width: 20,
                   ),
                   const Text(
                     " 45 Dakika",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                   )
                 ],
               )

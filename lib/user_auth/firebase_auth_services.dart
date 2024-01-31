@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tobeto_app/constants/collection_names.dart';
 import 'package:tobeto_app/models/business.dart';
 import 'package:tobeto_app/models/certificate.dart';
@@ -45,6 +46,35 @@ class FirebaseAuthService {
       }
     }
     return null;
+  }
+
+  Future<User?> signInWithGoogle() async {
+    final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+
+    final GoogleSignInAuthentication gAuth = await gUser!.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: gAuth.accessToken,
+      idToken: gAuth.idToken,
+    );
+
+    UserCredential uCredential = await _auth.signInWithCredential(credential);
+
+    if (uCredential.additionalUserInfo!.isNewUser) {
+      List<String> userName = uCredential.user!.displayName!.split(' ');
+      if (userName.length == 2) {
+        saveUserData(uCredential.user!.uid, userName[0], userName[1],
+            uCredential.user!.email!);
+      }
+      if (userName.length == 3) {
+        saveUserData(uCredential.user!.uid, userName[0] + userName[1],
+            userName[2], uCredential.user!.email!);
+      }
+    }
+
+    await getUserData();
+
+    return uCredential.user;
   }
 
   Future<User?> signInWithEmailAndPassword(
@@ -173,7 +203,7 @@ class FirebaseAuthService {
     List<Map<String, dynamic>> skillList =
         List.generate(skills.length, (index) {
       var item = skills[index];
-      return {'name': item.skillName};
+      return {'skillName': item.skillName};
     });
 
     await doc.update({'skills': FieldValue.arrayUnion(skillList)});
@@ -205,6 +235,66 @@ class FirebaseAuthService {
     });
 
     await doc.update({'languages': FieldValue.arrayUnion(languageList)});
+  }
+
+  Future<void> changePassword(String newPassword, String oldPass) async {
+    try {
+      User? user = _auth.currentUser;
+
+      if (user != null) {
+        await user.reauthenticateWithCredential(EmailAuthProvider.credential(
+            email: user.email!, password: oldPass));
+        await user.updatePassword(newPassword);
+        showToast(message: "Şifre başarıyla değiştirildi.");
+      } else {
+        showToast(
+            message: "Mevcut oturum açık değil veya kullanıcı bulunamadı.");
+      }
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        if (e.code == 'invalid-credential') {
+          showToast(message: "Eski şifrenizi yanlış girdiniz!");
+        }
+      } else {
+        showToast(message: "Şifre değiştirme işleminde hata oluştu: $e");
+      }
+    }
+  }
+
+  Future<void> deleteUserAndDocument() async {
+    try {
+      User? user = _auth.currentUser;
+
+      if (user != null) {
+        // Kullanıcının UID'sini al
+        String userID = user.uid;
+        // Firestore'daki users koleksiyonundan belgeyi sil
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userID)
+            .delete();
+
+        // Storage'daki images altındaki kullanıcı resimlerini sil
+        var storageReference = _storage.ref().child('images');
+        var datas = await storageReference.list();
+
+        for (var data in datas.items) {
+          if (data.name == '${user.uid}.png') {
+            await storageReference.delete();
+          }
+        }
+
+        // Kullanıcıyı Firebase Authentication'dan sil
+        await user.delete();
+
+        showToast(message: "Üyelik Başarıyla sonlandırıldı.");
+      } else {
+        showToast(
+            message: "Mevcut oturum açık değil veya kullanıcı bulunamadı.");
+      }
+    } catch (e) {
+      print("Hata oluştu: $e");
+    }
   }
 
   Future<UserAllInfo?> getUserData() async {

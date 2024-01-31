@@ -10,9 +10,10 @@ const String countDownLogoPath = "assets/images/countdown.png";
 const String ecmelPath = "assets/images/ecmel.jpg";
 const String ikImagePath = "assets/images/ik.jpg";
 const String anketImagePath = "assets/images/anket.png";
-
 const String timeStartImagePath = "assets/images/timeStart.png";
 const String timeEndImagePath = "assets/images/timeEnd.png";
+const String googleIconImagePath = "assets/images/google_icon.png";
+const String githubIconImagePath = "assets/images/github_icon.png";
 
 //Profile Screen
 const String cvGithubImagePath = "assets/images/profile_screen/cv-github.png";

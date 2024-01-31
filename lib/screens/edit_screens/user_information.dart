@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +34,7 @@ class _UserInformationsState extends State<UserInformation> {
   var aboutMeController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   File? selectedImage;
+  var countryCode = "";
 
   Future<void> openImagePicker() async {
     var selectedFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -66,14 +68,13 @@ class _UserInformationsState extends State<UserInformation> {
                     child: Stack(
                       children: [
                         CircleAvatar(
-                          backgroundColor: Colors.grey,
-                          radius: MediaQuery.of(context).size.width / 5,
-                          child: user.user.imageUrl != null
-                              ? Image.network(
+                          backgroundImage: user.user.imageUrl != null
+                              ? NetworkImage(
                                   user.user.imageUrl!,
-                                  fit: BoxFit.fitHeight,
                                 )
                               : null,
+                          backgroundColor: Colors.grey,
+                          radius: MediaQuery.of(context).size.width / 5,
                         ),
                         Positioned(
                           bottom: MediaQuery.of(context).size.width / 25,
@@ -205,18 +206,42 @@ class _UserInformationsState extends State<UserInformation> {
                   const SizedBox(
                     height: 5,
                   ),
-                  TextFormField(
-                    controller: phoneNumberController,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(fontSize: 17),
-                    decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 10),
-                        hintText: "+90 *** *** ** **",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10))),
+                  Row(
+                    children: [
+                      CountryCodePicker(
+                        onChanged: (value) {
+                          setState(() {
+                            countryCode = value.dialCode ?? "";
+                          });
+                        },
+                        initialSelection: 'TR',
+                        showCountryOnly: false,
+                        showOnlyCountryWhenClosed: false,
+                        dialogTextStyle: const TextStyle(fontSize: 15),
+                        boxDecoration: const BoxDecoration(),
+                        flagWidth: 20,
+                      ),
+                      Expanded(
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.7,
+                          child: TextFormField(
+                            controller: phoneNumberController,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(fontSize: 17),
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 10),
+                              hintText: "+90 *** *** ** **",
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.width / 15,
@@ -475,7 +500,7 @@ class _UserInformationsState extends State<UserInformation> {
                             lastNameController.text,
                             emailController.text,
                             user.user.imageUrl,
-                            phoneNumberController.text,
+                            countryCode + phoneNumberController.text,
                             birthDateController.text,
                             idController.text,
                             countryController.text,
