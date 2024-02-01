@@ -1,3 +1,4 @@
+import 'package:dropdown_model_list/dropdown_model_list.dart';
 import 'package:flutter/material.dart';
 import 'package:tobeto_app/constants/constants.dart';
 import 'package:tobeto_app/widgets/calender_screen/class_card.dart';
@@ -12,7 +13,7 @@ class CalendarScreen extends StatefulWidget {
 
 class _CalendarScreenState extends State<CalendarScreen> {
   var textController = TextEditingController();
-  String _selectedItem = "Eğitmen Dojo";
+  OptionItem optionItemSelected = OptionItem(title: "Eğitmen Dojo");
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -39,13 +40,15 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   controller: textController,
                   style: const TextStyle(fontSize: 20),
                   decoration: const InputDecoration(
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                     border: OutlineInputBorder(),
                     hintText: "Eğitim arayın...",
                   ),
                 ),
               ),
               const SizedBox(
-                height: 25,
+                height: 15,
               ),
               Text(
                 "Eğitmen",
@@ -57,33 +60,25 @@ class _CalendarScreenState extends State<CalendarScreen> {
               const SizedBox(
                 height: 5,
               ),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.black45)),
-                child: DropdownButton<String>(
-                  menuMaxHeight: MediaQuery.of(context).size.height / 2,
-                  isExpanded: true,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(fontSize: 18),
-                  value: _selectedItem,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      _selectedItem = newValue!;
-                    });
-                  },
-                  items: teachers.map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(value),
-                      ),
-                    );
-                  }).toList(),
-                ),
+              SelectDropList(
+                itemSelected: optionItemSelected,
+                dropListModel: teachers,
+                showIcon: true,
+                showArrowIcon: true,
+                showBorder: true,
+                paddingTop: 0,
+                paddingLeft: 0,
+                paddingRight: 0,
+                paddingBottom: 0,
+                paddingDropItem: const EdgeInsets.only(
+                    left: 20, top: 10, bottom: 10, right: 20),
+                suffixIcon: Icons.arrow_drop_down,
+                containerPadding: const EdgeInsets.all(10),
+                icon: const Icon(Icons.school, color: Colors.black),
+                onOptionSelected: (optionItem) {
+                  optionItemSelected = optionItem;
+                  setState(() {});
+                },
               ),
               const SizedBox(
                 height: 25,

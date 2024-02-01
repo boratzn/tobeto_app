@@ -73,9 +73,9 @@ class MyClassesCard extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0, vertical: 12),
+                        horizontal: 12.0, vertical: 9),
                     child: SizedBox(
-                      width: 300,
+                      width: MediaQuery.of(context).size.width,
                       child: ElevatedButton(
                         style: const ButtonStyle(
                             backgroundColor:

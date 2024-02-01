@@ -27,107 +27,57 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          // Positioned.fill(
-          //   child: Image.asset(
-          //     backgroundImagePath,
-          //     fit: BoxFit.cover,
-          //   ),
-          // ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 35),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface.withOpacity(0),
-                  borderRadius: BorderRadius.circular(15),
-                  // boxShadow: [
-                  //   BoxShadow(
-                  //     color: Colors.grey
-                  //         .withOpacity(0.5), // Gölge rengi ve opaklığı
-                  //     spreadRadius: 5, // Gölge yayılma alanı
-                  //     blurRadius: 7, // Gölge bulanıklık yarıçapı
-                  //     offset:
-                  //         const Offset(0, 3), // Gölge kaydırma miktarı (x, y)
-                  //   ),
-                  // ],
-                ),
-                //height: 410,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Stack(
+            children: [
+              // Positioned.fill(
+              //   child: Image.asset(
+              //     backgroundImagePath,
+              //     fit: BoxFit.cover,
+              //   ),
+              // ),
+              Center(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 150,
-                          height: 100,
-                          child: Hero(
-                            tag: tobetoLogoPath,
-                            child: Image.asset(
-                              tobetoLogoPath,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                          ),
-                        ),
-                        //********************************KULLANICI ADI********************************
-                        TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          style: Theme.of(context).textTheme.titleMedium,
-                          controller: emailController,
-                          decoration: InputDecoration(
-                            prefixIconColor:
-                                Theme.of(context).colorScheme.primary,
-                            prefixIcon: const Icon(Icons.person_pin),
-                            label: generalTexts(
-                              "Kullanıcı Kodu",
-                              context,
-                            ),
-                            border: OutlineInputBorder(
-                                borderSide: const BorderSide(),
-                                borderRadius: BorderRadius.circular(15)),
-                          ),
-                          validator: (value) {
-                            if (value == "") {
-                              return "Alanlar boş bırakılamaz";
-                            }
-                            return null;
-                          },
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Consumer(
-                          builder: (context, ref, child) {
-                            bool isHidePassword =
-                                ref.watch(loginScreenProvider);
-                            //************************ŞİFRE********************************
-                            return TextFormField(
-                              style: Theme.of(context).textTheme.titleMedium,
-                              controller: passwordController,
-                              obscureText: isHidePassword,
-                              obscuringCharacter: "*",
-                              decoration: InputDecoration(
-                                label: generalTexts(
-                                  "Şifre",
-                                  context,
+                  padding: const EdgeInsets.symmetric(horizontal: 35),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color:
+                          Theme.of(context).colorScheme.surface.withOpacity(0),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    //height: 410,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 150,
+                              height: 100,
+                              child: Hero(
+                                tag: tobetoLogoPath,
+                                child: Image.asset(
+                                  tobetoLogoPath,
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
+                              ),
+                            ),
+                            //********************************KULLANICI ADI********************************
+                            TextFormField(
+                              keyboardType: TextInputType.emailAddress,
+                              style: Theme.of(context).textTheme.titleMedium,
+                              controller: emailController,
+                              decoration: InputDecoration(
                                 prefixIconColor:
                                     Theme.of(context).colorScheme.primary,
-                                suffixIconColor:
-                                    Theme.of(context).colorScheme.primary,
-                                prefixIcon: const Icon(Icons.lock_outline),
-                                suffixIcon: IconButton(
-                                    onPressed: () {
-                                      ref
-                                          .read(loginScreenProvider.notifier)
-                                          .changeState();
-                                    },
-                                    icon: isHidePassword
-                                        ? const Icon(Icons.visibility_off)
-                                        : const Icon(Icons.visibility)),
+                                prefixIcon: const Icon(Icons.person_pin),
+                                label: generalTexts(
+                                  "Kullanıcı Kodu",
+                                  context,
+                                ),
                                 border: OutlineInputBorder(
                                     borderSide: const BorderSide(),
                                     borderRadius: BorderRadius.circular(15)),
@@ -138,64 +88,72 @@ class _LoginScreenState extends State<LoginScreen> {
                                 }
                                 return null;
                               },
-                            );
-                          },
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        //************************BUTON ********************************* */
-                        Consumer(
-                          builder: (context, ref, child) {
-                            return MaterialButton(
-                              height: 50,
-                              color: const Color(0xFF850BEC),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              onPressed: () {
-                                authService.signInWithEmailAndPassword(
-                                  emailController.text,
-                                  passwordController.text,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Consumer(
+                              builder: (context, ref, child) {
+                                bool isHidePassword =
+                                    ref.watch(loginScreenProvider);
+                                //************************ŞİFRE********************************
+                                return TextFormField(
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                  controller: passwordController,
+                                  obscureText: isHidePassword,
+                                  obscuringCharacter: "*",
+                                  decoration: InputDecoration(
+                                    label: generalTexts(
+                                      "Şifre",
+                                      context,
+                                    ),
+                                    prefixIconColor:
+                                        Theme.of(context).colorScheme.primary,
+                                    suffixIconColor:
+                                        Theme.of(context).colorScheme.primary,
+                                    prefixIcon: const Icon(Icons.lock_outline),
+                                    suffixIcon: IconButton(
+                                        onPressed: () {
+                                          ref
+                                              .read(
+                                                  loginScreenProvider.notifier)
+                                              .changeState();
+                                        },
+                                        icon: isHidePassword
+                                            ? const Icon(Icons.visibility_off)
+                                            : const Icon(Icons.visibility)),
+                                    border: OutlineInputBorder(
+                                        borderSide: const BorderSide(),
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                  ),
+                                  validator: (value) {
+                                    if (value == "") {
+                                      return "Alanlar boş bırakılamaz";
+                                    }
+                                    return null;
+                                  },
                                 );
-                                authService.auth
-                                    .authStateChanges()
-                                    .listen((user) {
-                                  if (user != null) {
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const MainScreen(),
-                                        ));
-                                  }
-                                });
-
-                                ref.read(pageIndexProvider.notifier).state = 0;
                               },
-                              minWidth: double.infinity,
-                              child: Text(
-                                "GİRİŞ YAP",
-                                style: Theme.of(context).textTheme.titleLarge,
-                              ),
-                            );
-                          },
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 2,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              SquareTile(
-                                imgPath: googleIconImagePath,
-                                onTap: () async {
-                                  var user =
-                                      await authService.signInWithGoogle();
-
-                                  if (user != null) {
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            //************************BUTON ********************************* */
+                            Consumer(
+                              builder: (context, ref, child) {
+                                return MaterialButton(
+                                  height: 50,
+                                  color: const Color(0xFF850BEC),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  onPressed: () {
+                                    authService.signInWithEmailAndPassword(
+                                      emailController.text,
+                                      passwordController.text,
+                                    );
                                     authService.auth
                                         .authStateChanges()
                                         .listen((user) {
@@ -208,72 +166,117 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ));
                                       }
                                     });
-                                  }
-                                },
-                              ),
-                              SquareTile(
-                                imgPath: githubIconImagePath,
-                                onTap: () {},
-                              )
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Divider(color: Theme.of(context).colorScheme.primary),
-                        InkWell(
-                          child: Text(
-                            "Şifremi Unuttum",
-                            style: Theme.of(context).textTheme.labelMedium,
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ResetPasswordScreen(),
-                                ));
-                          },
-                        ),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Henüz üye değil misin?",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelMedium!
-                                    .copyWith(
-                                        color: MediaQuery.of(context)
-                                                    .platformBrightness ==
-                                                Brightness.light
-                                            ? Colors.black
-                                            : Colors.white)),
-                            TextButton(
+                                    ref.read(pageIndexProvider.notifier).state =
+                                        0;
+                                  },
+                                  minWidth: double.infinity,
+                                  child: Text(
+                                    "GİRİŞ YAP",
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                );
+                              },
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  SquareTile(
+                                    imgPath: googleIconImagePath,
+                                    onTap: () async {
+                                      var user =
+                                          await authService.signInWithGoogle();
+
+                                      if (user != null) {
+                                        authService.auth
+                                            .authStateChanges()
+                                            .listen((user) {
+                                          if (user != null) {
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const MainScreen(),
+                                                ));
+                                          }
+                                        });
+                                      }
+                                    },
+                                  ),
+                                  SquareTile(
+                                    imgPath: githubIconImagePath,
+                                    onTap: () {},
+                                  )
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Divider(
+                                color: Theme.of(context).colorScheme.primary),
+                            InkWell(
                               child: Text(
-                                "Kayıt Ol",
+                                "Şifremi Unuttum",
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
-                              onPressed: () {
-                                Navigator.pushReplacement(
+                              onTap: () {
+                                Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const CreateAccount(),
+                                          const ResetPasswordScreen(),
                                     ));
                               },
+                            ),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Henüz üye değil misin?",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium!
+                                        .copyWith(
+                                            color: MediaQuery.of(context)
+                                                        .platformBrightness ==
+                                                    Brightness.light
+                                                ? Colors.black
+                                                : Colors.white)),
+                                TextButton(
+                                  child: Text(
+                                    "Kayıt Ol",
+                                    style:
+                                        Theme.of(context).textTheme.labelMedium,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const CreateAccount(),
+                                        ));
+                                  },
+                                )
+                              ],
                             )
                           ],
-                        )
-                      ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
-          )
-        ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

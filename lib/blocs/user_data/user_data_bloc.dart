@@ -28,6 +28,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     on<LanguageUpdate>(_languageInfoUpdate);
     on<DeleteUser>(_deleteUser);
     on<ChangePassword>(_changePassword);
+    on<ResetPassword>(_resetPassword);
   }
 
   _fetchData(FetchData event, Emitter<UserDataState> emit) async {
@@ -141,6 +142,14 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   _changePassword(ChangePassword event, Emitter<UserDataState> emit) async {
     try {
       _authService.changePassword(event.newPassword, event.oldPassword);
+    } catch (e) {
+      emit(UserDataError());
+    }
+  }
+
+  _resetPassword(ResetPassword event, Emitter<UserDataState> emit) async {
+    try {
+      _authService.resetPassword(event.email);
     } catch (e) {
       emit(UserDataError());
     }

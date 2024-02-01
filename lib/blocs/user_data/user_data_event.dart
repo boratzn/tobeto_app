@@ -15,6 +15,12 @@ class DeleteImage extends UserDataEvent {}
 
 class DeleteUser extends UserDataEvent {}
 
+class ResetPassword extends UserDataEvent {
+  final String email;
+
+  ResetPassword({required this.email});
+}
+
 class ChangePassword extends UserDataEvent {
   final String newPassword;
   final String oldPassword;

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tobeto_app/user_auth/firebase_auth_services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tobeto_app/blocs/user_data/user_data_bloc.dart';
+import 'package:tobeto_app/screens/index.dart';
+import 'package:tobeto_app/utils/utils.dart';
 import 'package:tobeto_app/widgets/index.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -11,7 +14,6 @@ class ResetPasswordScreen extends StatefulWidget {
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   var textController = TextEditingController();
-  final _authService = FirebaseAuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +47,17 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             ),
             SaveButtonWidget(
               onTap: () {
-                _authService.resetPassword(textController.text);
+                context
+                    .read<UserDataBloc>()
+                    .add(ResetPassword(email: textController.text));
+                showToast(
+                    message:
+                        "Şifre sıfırlama linki mailinize başarıyla gönderildi.");
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ));
               },
               title: "Gönder",
             )

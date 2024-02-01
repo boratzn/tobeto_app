@@ -41,7 +41,12 @@ class ClassesScreen extends StatelessWidget {
                     ),
                   );
           }
-          return Container();
+          return Center(
+            child: Text(
+              "Eğitimler yüklenirken sorun oluştu!",
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          );
         },
       ),
     );
