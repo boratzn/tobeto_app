@@ -11,6 +11,7 @@ import 'package:tobeto_app/models/education.dart';
 import 'package:tobeto_app/models/language.dart';
 import 'package:tobeto_app/models/skill.dart';
 import 'package:tobeto_app/models/social_media.dart';
+import 'package:tobeto_app/models/training.dart';
 import 'package:tobeto_app/models/user.dart';
 import 'package:tobeto_app/models/user_all_info.dart';
 import 'package:tobeto_app/utils/utils.dart';
@@ -136,6 +137,31 @@ class FirebaseAuthService {
     await document.update({'imageUrl': null});
 
     await storageRef.delete();
+  }
+
+  Future<List<Training>> getTrainingsByUid(String uid) async {
+    List<Training> listTraining = [];
+    try {
+      // Firestore referansını al
+      final CollectionReference trainingsCollection =
+          databaseReference.collection('trainings');
+
+      // Koleksiyon içinde belirli bir uid'yi içeren belgeleri al
+      QuerySnapshot querySnapshot =
+          await trainingsCollection.where('users', arrayContains: uid).get();
+
+      // Her bir belgeyi işle
+      for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+        var data = documentSnapshot.data() as Map<String, dynamic>;
+        Training training = Training.fromMap(data);
+        listTraining.add(training);
+      }
+
+      return listTraining;
+    } catch (e) {
+      showToast(message: 'Hata: $e');
+    }
+    return <Training>[];
   }
 
   void updateUserInformation(UserModel user) async {
@@ -331,6 +357,8 @@ class FirebaseAuthService {
       List<SocialMedia> socialMediaData =
           socialMedia.map((e) => SocialMedia.fromMap(e)).toList();
 
+      var trainings = await getTrainingsByUid(currUser.uid);
+
       UserAllInfo userModel = UserAllInfo(user: userDataModel);
       userModel.business = businessData;
       userModel.education = educationData;
@@ -338,6 +366,7 @@ class FirebaseAuthService {
       userModel.languages = languagesData;
       userModel.skills = skillsData;
       userModel.socialMedias = socialMediaData;
+      userModel.trainings = trainings;
 
       return userModel;
     } else {
@@ -361,7 +390,7 @@ class FirebaseAuthService {
     });
   }
 
-  signOut() {
-    _auth.signOut();
+  signOut() async {
+    await _auth.signOut();
   }
 }

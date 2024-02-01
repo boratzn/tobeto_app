@@ -27,11 +27,10 @@ class MyClassesCard extends StatelessWidget {
               color: Theme.of(context).colorScheme.surface,
               boxShadow: [
                 BoxShadow(
-                  color:
-                      Colors.grey.withOpacity(0.5), // Gölge rengi ve opaklığı
-                  spreadRadius: 4, // Gölge yayılma alanı
-                  blurRadius: 7, // Gölge bulanıklık yarıçapı
-                  offset: const Offset(0, 3), // Gölge kaydırma miktarı (x, y)
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 4,
+                  blurRadius: 7,
+                  offset: const Offset(0, 3),
                 ),
               ],
             ),
@@ -47,7 +46,7 @@ class MyClassesCard extends StatelessWidget {
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.15,
-                      child: Image.asset(
+                      child: Image.network(
                         imagePath,
                         fit: BoxFit.fitWidth,
                       ),
