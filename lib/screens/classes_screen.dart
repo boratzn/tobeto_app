@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tobeto_app/constants/constants.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tobeto_app/blocs/user_data/user_data_bloc.dart';
 import 'package:tobeto_app/widgets/homepage/my_classes_card.dart';
 
 class ClassesScreen extends StatelessWidget {
@@ -7,26 +8,6 @@ class ClassesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var list = [
-      const MyClassesCard(
-        imagePath: ecmelPath,
-        title: "Dr. Ecmel Ayral'dan Hoşgeldin Mesajı",
-        date: "21 Eylül 2023 15:20",
-      ),
-      const MyClassesCard(
-          imagePath: ikImagePath,
-          title: "Eğitimlere Nasıl Katılırım?",
-          date: "8 Eylül 2023 17:06"),
-      const MyClassesCard(
-          imagePath: ikImagePath,
-          title: "Eğitimlere Nasıl Katılırım?",
-          date: "8 Eylül 2023 17:06"),
-      const MyClassesCard(
-        imagePath: ecmelPath,
-        title: "Dr. Ecmel Ayral'dan Hoşgeldin Mesajı",
-        date: "21 Eylül 2023 15:20",
-      ),
-    ];
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -34,14 +15,33 @@ class ClassesScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.bodySmall,
         ),
       ),
-      body: GridView.builder(
-        itemCount: list.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisExtent: MediaQuery.of(context).size.height * 0.35),
-        itemBuilder: (context, index) {
-          var item = list[index];
-          return item;
+      body: BlocBuilder<UserDataBloc, UserDataState>(
+        builder: (context, state) {
+          if (state is UserDataLoaded) {
+            var trainingList = state.userInfo!.trainings;
+            return trainingList!.isNotEmpty
+                ? GridView.builder(
+                    itemCount: trainingList.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisExtent:
+                            MediaQuery.of(context).size.height * 0.35),
+                    itemBuilder: (context, index) {
+                      var item = trainingList[index];
+                      return MyClassesCard(
+                          imagePath: item.imgUrl!,
+                          title: item.name!,
+                          date: item.date!);
+                    },
+                  )
+                : Center(
+                    child: Text(
+                      "Atanmış bir eğitiminiz bulunmamaktadır.",
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  );
+          }
+          return Container();
         },
       ),
     );
