@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontSize: 17, fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text(
-                        "${user.firstName} ${user.lastName}",
+                        "${user.firstName ?? "Kullanıcı"} ${user.lastName ?? ""}",
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             fontSize: 19, fontWeight: FontWeight.bold),
                       ),

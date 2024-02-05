@@ -1,12 +1,14 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Business {
   String? companyName;
   String? position;
   String? sector;
   String? province;
-  String? startDate;
-  String? endDate;
+  DateTime? startDate;
+  DateTime? endDate;
   bool? isWorking;
   String? workDescription;
   Business({
@@ -57,8 +59,8 @@ class Business {
       position: map['position'],
       sector: map['sector'],
       province: map['province'],
-      startDate: map['startDate'],
-      endDate: map['endDate'],
+      startDate: (map['startDate'] as Timestamp).toDate(),
+      endDate: (map['endDate'] as Timestamp).toDate(),
       isWorking: map['isWorking'],
       workDescription: map['workDescription'],
     );
