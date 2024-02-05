@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:tobeto_app/blocs/user_data/user_data_bloc.dart';
 import 'package:tobeto_app/constants/constants.dart';
 import 'package:tobeto_app/models/user.dart';
+import 'package:tobeto_app/utils/utils.dart';
 import 'package:tobeto_app/widgets/edit_screen/save_button_widget.dart';
 
 class UserInformation extends StatefulWidget {
@@ -35,6 +36,7 @@ class _UserInformationsState extends State<UserInformation> {
   final ImagePicker _picker = ImagePicker();
   File? selectedImage;
   var countryCode = "";
+  DateTime birthDate = DateTime.now();
 
   Future<void> openImagePicker() async {
     var selectedFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -277,8 +279,11 @@ class _UserInformationsState extends State<UserInformation> {
                                   lastDate: DateTime(2100));
 
                               if (dt != null) {
-                                birthDateController.text =
-                                    DateFormat('d/M/y').format(dt).toString();
+                                setState(() {
+                                  birthDateController.text =
+                                      DateFormat('d/M/y').format(dt).toString();
+                                  birthDate = dt;
+                                });
                               }
                             },
                             icon: const Icon(Icons.date_range)),
@@ -501,7 +506,7 @@ class _UserInformationsState extends State<UserInformation> {
                             emailController.text,
                             user.user.imageUrl,
                             countryCode + phoneNumberController.text,
-                            birthDateController.text,
+                            birthDate,
                             idController.text,
                             countryController.text,
                             provinceController.text,
@@ -530,7 +535,7 @@ class _UserInformationsState extends State<UserInformation> {
     firstNameController.text = user.firstName!;
     lastNameController.text = user.lastName!;
     phoneNumberController.text = user.phoneNumber ?? "";
-    birthDateController.text = user.birthDate ?? "";
+    birthDateController.text = getDateStringFormat(user.birthDate);
     idController.text = user.id ?? "";
     emailController.text = user.email ?? "";
     countryController.text = user.country ?? "";

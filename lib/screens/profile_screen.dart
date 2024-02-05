@@ -176,7 +176,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: MediaQuery.of(context).size.height / 60,
                 ),
                 //*************************** MY EDUCATİON AND EXPERİENCES ************************* */
-                EducationAndExperiencesSection(),
+                SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.36,
+                    width: MediaQuery.of(context).size.width,
+                    child: EducationAndExperiencesSection()),
               ],
             ),
           );

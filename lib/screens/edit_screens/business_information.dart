@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:tobeto_app/blocs/user_data/user_data_bloc.dart';
 import 'package:tobeto_app/constants/constants.dart';
 import 'package:tobeto_app/models/business.dart';
+import 'package:tobeto_app/utils/utils.dart';
 import 'package:tobeto_app/widgets/index.dart';
 
 class BusinessInformation extends StatefulWidget {
@@ -23,6 +24,9 @@ class _BusinessInformationState extends State<BusinessInformation> {
   var descriptionController = TextEditingController();
   bool chckBoxState = false;
   OptionItem optionItemSelected = OptionItem(title: "Şehir Seçiniz");
+  DateTime? startDate;
+  DateTime? endDate;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserDataBloc, UserDataState>(
@@ -33,8 +37,7 @@ class _BusinessInformationState extends State<BusinessInformation> {
           );
         }
         if (state is UserDataLoaded) {
-          var businessData = state.userInfo!.business;
-          initTextFields(businessData);
+          var businessList = state.userInfo!.business;
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(12),
@@ -183,6 +186,7 @@ class _BusinessInformationState extends State<BusinessInformation> {
                               if (dt != null) {
                                 startDateController.text =
                                     DateFormat('d/M/y').format(dt).toString();
+                                startDate = dt;
                               }
                             },
                             icon: const Icon(Icons.date_range)),
@@ -223,6 +227,7 @@ class _BusinessInformationState extends State<BusinessInformation> {
                               if (dt != null) {
                                 endDateController.text =
                                     DateFormat('d/M/y').format(dt).toString();
+                                endDate = dt;
                               }
                             },
                             icon: const Icon(Icons.date_range)),
@@ -281,16 +286,17 @@ class _BusinessInformationState extends State<BusinessInformation> {
                     height: MediaQuery.of(context).size.width / 20,
                   ),
                   SaveButtonWidget(onTap: () {
-                    context.read<UserDataBloc>().add(BusinessUpdate(
-                        business: Business(
-                            companyName: companyNameController.text,
-                            endDate: endDateController.text,
-                            isWorking: chckBoxState,
-                            position: positionController.text,
-                            province: optionItemSelected.title,
-                            sector: sectorController.text,
-                            startDate: startDateController.text,
-                            workDescription: descriptionController.text)));
+                    context.read<UserDataBloc>().add(BusinessUpdate(business: [
+                          Business(
+                              companyName: companyNameController.text,
+                              endDate: endDate,
+                              isWorking: chckBoxState,
+                              position: positionController.text,
+                              province: optionItemSelected.title,
+                              sector: sectorController.text,
+                              startDate: startDate,
+                              workDescription: descriptionController.text)
+                        ]));
                   })
                 ],
               ),
@@ -306,11 +312,11 @@ class _BusinessInformationState extends State<BusinessInformation> {
 
   void initTextFields(Business? business) {
     if (business != null) {
-      startDateController.text = business.startDate ?? "";
+      startDateController.text = getDateStringFormat(business.startDate);
       companyNameController.text = business.companyName ?? "";
       positionController.text = business.position ?? "";
       sectorController.text = business.sector ?? "";
-      endDateController.text = business.endDate ?? "";
+      endDateController.text = getDateStringFormat(business.endDate);
       descriptionController.text = business.workDescription ?? "";
       optionItemSelected = OptionItem(id: "1", title: business.province ?? "");
       chckBoxState = business.isWorking ?? false;

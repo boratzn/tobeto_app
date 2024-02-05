@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tobeto_app/constants/constants.dart';
 import 'package:tobeto_app/models/user_all_info.dart';
+import 'package:tobeto_app/utils/utils.dart';
 import 'package:tobeto_app/widgets/profile_screen/information_widget.dart';
 
 class InformationSection extends StatelessWidget {
@@ -43,7 +44,7 @@ class InformationSection extends StatelessWidget {
               imgPath: cvNameImagePath),
           InformationCard(
               title: "Doğum Tarihi",
-              subTitle: userData!.user.birthDate ?? "01/01/2000",
+              subTitle: getDateStringFormat(userData!.user.birthDate),
               imgPath: cvDateImagePath),
           InformationCard(
               title: "E-Posta Adresi",

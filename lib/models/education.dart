@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Education {
   String? educationState;
   String? university;
   String? department;
-  String? startDate;
-  String? endDate;
+  DateTime? startDate;
+  DateTime? endDate;
   bool? isStudying;
   Education({
     this.educationState,
@@ -46,8 +48,8 @@ class Education {
       educationState: map['educationState'],
       university: map['university'],
       department: map['department'],
-      startDate: map['startDate'],
-      endDate: map['endDate'],
+      startDate: (map['startDate'] as Timestamp).toDate(),
+      endDate: (map['endDate'] as Timestamp).toDate(),
       isStudying: map['isStudying'],
     );
   }

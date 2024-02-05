@@ -34,6 +34,8 @@ dependencies:
   art_sweetalert: ^0.0.5
   country_code_picker: ^3.0.0
   google_sign_in: ^6.1.6
+  syncfusion_flutter_calendar: ^22.2.12
+  timeline_tile: ^2.0.0
     
 flutter_icons:
   android: "launcher_icon"

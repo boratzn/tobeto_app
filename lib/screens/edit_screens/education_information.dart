@@ -21,13 +21,15 @@ class _EducationInformationState extends State<EducationInformation> {
   var endDateController = TextEditingController();
   OptionItem selectedItem = OptionItem(id: "1", title: "Lisans");
   bool checkBoxState = false;
+  DateTime? startDate;
+  DateTime? endDate;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserDataBloc, UserDataState>(
       builder: (context, state) {
         if (state is UserDataLoaded) {
           var education = state.userInfo!.education;
-          initTextFields(education);
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(12),
@@ -151,6 +153,7 @@ class _EducationInformationState extends State<EducationInformation> {
                                 setState(() {
                                   startDateController.text =
                                       DateFormat('d/M/y').format(dt).toString();
+                                  startDate = dt;
                                 });
                               }
                             },
@@ -191,8 +194,9 @@ class _EducationInformationState extends State<EducationInformation> {
 
                               if (dt != null) {
                                 setState(() {
-                                  startDateController.text =
+                                  endDateController.text =
                                       DateFormat('d/M/y').format(dt).toString();
+                                  endDate = dt;
                                 });
                               }
                             },
@@ -229,15 +233,18 @@ class _EducationInformationState extends State<EducationInformation> {
                   ),
                   SaveButtonWidget(
                     onTap: () {
-                      context.read<UserDataBloc>().add(EducationUpdate(
-                              education: Education(
-                            department: departmentController.text,
-                            educationState: selectedItem.title,
-                            startDate: startDateController.text,
-                            endDate: endDateController.text,
-                            university: universityController.text,
-                            isStudying: checkBoxState,
-                          )));
+                      context
+                          .read<UserDataBloc>()
+                          .add(EducationUpdate(education: [
+                            Education(
+                              department: departmentController.text,
+                              educationState: selectedItem.title,
+                              startDate: startDate,
+                              endDate: endDate,
+                              university: universityController.text,
+                              isStudying: checkBoxState,
+                            )
+                          ]));
                     },
                   ),
                   SizedBox(
@@ -253,16 +260,5 @@ class _EducationInformationState extends State<EducationInformation> {
         );
       },
     );
-  }
-
-  void initTextFields(Education? education) {
-    if (education != null) {
-      selectedItem = OptionItem(id: "1", title: education.educationState ?? "");
-      startDateController.text = education.startDate ?? "";
-      endDateController.text = education.endDate ?? "";
-      universityController.text = education.university ?? "";
-      departmentController.text = education.department ?? "";
-      checkBoxState = education.isStudying ?? false;
-    }
   }
 }

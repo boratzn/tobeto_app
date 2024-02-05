@@ -1,12 +1,14 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserModel {
   final String? firstName;
   final String? lastName;
   final String? email;
   final String? imageUrl;
   final String? phoneNumber;
-  final String? birthDate;
+  final DateTime? birthDate;
   final String? id;
   final String? country;
   final String? province;
@@ -78,7 +80,7 @@ class UserModel {
       map['email'],
       map['imageUrl'],
       map['phoneNumber'],
-      map['birthDate'],
+      (map['birthDate'] as Timestamp).toDate(),
       map['id'],
       map['country'],
       map['province'],

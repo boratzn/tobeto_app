@@ -9,8 +9,8 @@ import 'package:tobeto_app/models/user.dart';
 
 class UserAllInfo {
   UserModel user;
-  Education? education;
-  Business? business;
+  List<Education>? education;
+  List<Business>? business;
   List<Skill>? skills;
   List<Certificate>? certificates;
   List<SocialMedia>? socialMedias;

@@ -36,13 +36,13 @@ class UserInformationUpdate extends UserDataEvent {
 }
 
 class EducationUpdate extends UserDataEvent {
-  final Education education;
+  final List<Education> education;
 
   EducationUpdate({required this.education});
 }
 
 class BusinessUpdate extends UserDataEvent {
-  final Business business;
+  final List<Business> business;
 
   BusinessUpdate({required this.business});
 }

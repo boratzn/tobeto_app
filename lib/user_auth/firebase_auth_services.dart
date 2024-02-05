@@ -73,7 +73,7 @@ class FirebaseAuthService {
       }
     }
 
-    await getUserData();
+    //await getUserData();
 
     return uCredential.user;
   }
@@ -144,7 +144,7 @@ class FirebaseAuthService {
     try {
       // Firestore referansını al
       final CollectionReference trainingsCollection =
-          databaseReference.collection('trainings');
+          databaseReference.collection(Collections.TRAININGS);
 
       // Koleksiyon içinde belirli bir uid'yi içeren belgeleri al
       QuerySnapshot querySnapshot =
@@ -169,7 +169,7 @@ class FirebaseAuthService {
         .collection(Collections.USERS)
         .doc(auth.currentUser!.uid);
 
-    await doc.update({
+    await doc.set({
       'firstName': user.firstName,
       'lastName': user.lastName,
       'email': user.email,
@@ -182,43 +182,50 @@ class FirebaseAuthService {
       'phoneNumber': user.phoneNumber,
       'neighborhood': user.neighborhood,
       'aboutMe': user.aboutMe
-    });
+    }, SetOptions(merge: true));
   }
 
-  void updateBusinessInformation(Business business) async {
+  void updateBusinessInformation(List<Business> business) async {
     final doc = databaseReference
         .collection(Collections.USERS)
         .doc(auth.currentUser!.uid);
 
-    await doc.update({
-      'business': {
-        'companyName': business.companyName,
-        'position': business.position,
-        'sector': business.sector,
-        'province': business.province,
-        'startDate': business.startDate,
-        'endDate': business.endDate,
-        'isWorking': business.isWorking,
-        'workDescription': business.workDescription
-      }
+    List<Map<String, dynamic>> businessList =
+        List.generate(business.length, (index) {
+      var item = business[index];
+      return {
+        'companyName': item.companyName,
+        'position': item.position,
+        'sector': item.sector,
+        'province': item.province,
+        'startDate': item.startDate,
+        'endDate': item.endDate,
+        'isWorking': item.isWorking,
+        'workDescription': item.workDescription
+      };
     });
+
+    await doc.update({'business': FieldValue.arrayUnion(businessList)});
   }
 
-  void updateEducationInformation(Education education) async {
+  void updateEducationInformation(List<Education> education) async {
     final doc = databaseReference
         .collection(Collections.USERS)
         .doc(auth.currentUser!.uid);
 
-    await doc.update({
-      'education': {
-        'department': education.department,
-        'educationState': education.educationState,
-        'endDate': education.endDate,
-        'isStudying': education.isStudying,
-        'startDate': education.startDate,
-        'university': education.university
-      }
+    List<Map<String, dynamic>> educationList =
+        List.generate(education.length, (index) {
+      var item = education[index];
+      return {
+        'department': item.department,
+        'educationState': item.educationState,
+        'endDate': item.endDate,
+        'isStudying': item.isStudying,
+        'startDate': item.startDate,
+        'university': item.university
+      };
     });
+    await doc.update({'education': FieldValue.arrayUnion(educationList)});
   }
 
   void updateSkillsInformation(List<Skill> skills) async {
@@ -296,12 +303,12 @@ class FirebaseAuthService {
         String userID = user.uid;
         // Firestore'daki users koleksiyonundan belgeyi sil
         await FirebaseFirestore.instance
-            .collection('users')
+            .collection(Collections.USERS)
             .doc(userID)
             .delete();
 
         // Storage'daki images altındaki kullanıcı resimlerini sil
-        var storageReference = _storage.ref().child('images');
+        var storageReference = _storage.ref().child(Collections.IMAGES);
         var datas = await storageReference.list();
 
         for (var data in datas.items) {
@@ -335,14 +342,15 @@ class FirebaseAuthService {
       var userData = userDocs.data();
       UserModel userDataModel = UserModel.fromMap(userData!);
 
-      var education = userData['education'] ?? "";
-      Education educationData = Education.fromMap(education);
+      var education = (userData['education'] as List<dynamic>?) ?? [];
+      List<Education> educationData =
+          education.map((e) => Education.fromMap(e)).toList();
 
-      var business = userData['business'] ?? "";
-      Business businessData = Business.fromMap(business);
+      var business = (userData['business'] as List<dynamic>?) ?? [];
+      List<Business> businessData =
+          business.map((e) => Business.fromMap(e)).toList();
 
       var languages = (userData['languages'] as List<dynamic>?) ?? [];
-
       List<Language> languagesData =
           languages.map((e) => Language.fromMap(e)).toList();
 
@@ -381,9 +389,9 @@ class FirebaseAuthService {
       'firstName': firstName,
       'lastName': lastName,
       'email': email,
-      'business': {},
+      'business': [],
       'certificates': [],
-      'education': {},
+      'education': [],
       'languages': [],
       'skills': [],
       'socialMedia': []
