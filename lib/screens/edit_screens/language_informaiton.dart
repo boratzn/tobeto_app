@@ -4,8 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tobeto_app/blocs/user_data/user_data_bloc.dart';
 import 'package:tobeto_app/constants/constants.dart';
 import 'package:tobeto_app/models/index.dart';
-import 'package:tobeto_app/widgets/edit_screen/save_button_widget.dart';
-import 'package:tobeto_app/widgets/index.dart';
+import 'package:tobeto_app/widgets/widgets_index.dart';
 
 class LanguageInformation extends StatefulWidget {
   const LanguageInformation({super.key});

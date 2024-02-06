@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:tobeto_app/constants/constants.dart';
-import 'package:tobeto_app/screens/index.dart';
+import 'package:tobeto_app/screens/screen_index.dart';
 
 class HomePageContainer1 extends StatefulWidget {
   const HomePageContainer1({

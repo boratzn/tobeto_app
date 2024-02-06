@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tobeto_app/widgets/index.dart';
+import 'package:tobeto_app/widgets/widgets_index.dart';
 
 class Anouncements extends StatelessWidget {
   const Anouncements({super.key});

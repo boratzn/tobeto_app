@@ -2,7 +2,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tobeto_app/constants/constants.dart';
-import 'package:tobeto_app/screens/index.dart';
+import 'package:tobeto_app/screens/screen_index.dart';
 import 'package:tobeto_app/user_auth/firebase_auth_services.dart';
 import 'package:tobeto_app/utils/utils.dart';
 

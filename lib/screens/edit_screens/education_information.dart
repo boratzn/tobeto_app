@@ -5,7 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:tobeto_app/blocs/user_data/user_data_bloc.dart';
 import 'package:tobeto_app/constants/constants.dart';
 import 'package:tobeto_app/models/education.dart';
-import 'package:tobeto_app/widgets/index.dart';
+import 'package:tobeto_app/utils/utils.dart';
+import 'package:tobeto_app/widgets/widgets_index.dart';
 
 class EducationInformation extends StatefulWidget {
   const EducationInformation({super.key});
@@ -229,7 +230,7 @@ class _EducationInformationState extends State<EducationInformation> {
                     ],
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.width / 20,
+                    height: MediaQuery.of(context).size.width * 0.05,
                   ),
                   SaveButtonWidget(
                     onTap: () {
@@ -248,8 +249,155 @@ class _EducationInformationState extends State<EducationInformation> {
                     },
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.width / 20,
+                    height: MediaQuery.of(context).size.width * 0.05,
                   ),
+                  SingleChildScrollView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      child: ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: education!.length,
+                        itemBuilder: (context, index) {
+                          var item = education[index];
+                          return Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.date_range,
+                                            color: Color(0xFFC579FF),
+                                          ),
+                                          Text(
+                                            "${getDateStringFormat(item.startDate)} - ${getDateStringFormat(item.endDate)}",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .copyWith(
+                                                    fontSize: 13,
+                                                    color: MediaQuery.of(
+                                                                    context)
+                                                                .platformBrightness ==
+                                                            Brightness.dark
+                                                        ? const Color(
+                                                            0xFFC579FF)
+                                                        : const Color(
+                                                            0xFF822BD9)),
+                                          ),
+                                        ],
+                                      ),
+                                      Text(item.educationState ?? "",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                  fontSize: 13,
+                                                  color:
+                                                      const Color(0xFF822BD9)))
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.01,
+                                  ),
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.08,
+                                    child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Üniversite",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall!
+                                                      .copyWith(
+                                                          fontSize: 18,
+                                                          color: MediaQuery.of(
+                                                                          context)
+                                                                      .platformBrightness ==
+                                                                  Brightness
+                                                                      .light
+                                                              ? Colors.grey[700]
+                                                              : Colors
+                                                                  .grey[400]),
+                                                ),
+                                                Text(item.university ?? "",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodySmall!
+                                                        .copyWith(fontSize: 18))
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.03,
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Bölüm",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall!
+                                                      .copyWith(
+                                                          fontSize: 18,
+                                                          color: MediaQuery.of(
+                                                                          context)
+                                                                      .platformBrightness ==
+                                                                  Brightness
+                                                                      .light
+                                                              ? Colors.grey[700]
+                                                              : Colors
+                                                                  .grey[400]),
+                                                ),
+                                                Text(item.department ?? "",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodySmall!
+                                                        .copyWith(fontSize: 18))
+                                              ],
+                                            )
+                                          ],
+                                        )),
+                                  ),
+                                  Center(
+                                    child: InkWell(
+                                      onTap: () {},
+                                      child: Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.red,
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(5.0),
+                                            child: Icon(Icons.delete),
+                                          )),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ))
                 ],
               ),
             ),

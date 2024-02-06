@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tobeto_app/constants/constants.dart';
-import 'package:tobeto_app/widgets/index.dart';
+import 'package:tobeto_app/widgets/widgets_index.dart';
 
 class Educations extends StatelessWidget {
   const Educations({super.key});

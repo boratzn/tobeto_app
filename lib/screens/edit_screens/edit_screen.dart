@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tobeto_app/blocs/user_data/user_data_bloc.dart';
 import 'package:tobeto_app/constants/constants.dart';
-import 'package:tobeto_app/screens/edit_screens/language_informaiton.dart';
-import 'package:tobeto_app/screens/index.dart';
+import 'package:tobeto_app/screens/edit_screens/edit_index.dart';
 
 class EditScreen extends StatefulWidget {
   const EditScreen({super.key});
