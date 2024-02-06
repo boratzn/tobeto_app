@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tobeto_app/blocs/user_data/user_data_bloc.dart';
 import 'package:tobeto_app/providers/state_provider.dart';
-import 'package:tobeto_app/screens/index.dart';
+import 'package:tobeto_app/screens/screen_index.dart';
 import 'package:tobeto_app/user_auth/firebase_auth_services.dart';
 import 'package:tobeto_app/utils/utils.dart';
-import 'package:tobeto_app/widgets/index.dart';
+import 'package:tobeto_app/widgets/widgets_index.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({super.key});

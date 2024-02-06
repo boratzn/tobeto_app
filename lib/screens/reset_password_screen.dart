@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tobeto_app/blocs/user_data/user_data_bloc.dart';
-import 'package:tobeto_app/screens/index.dart';
+import 'package:tobeto_app/screens/screen_index.dart';
 import 'package:tobeto_app/utils/utils.dart';
-import 'package:tobeto_app/widgets/index.dart';
+import 'package:tobeto_app/widgets/widgets_index.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});

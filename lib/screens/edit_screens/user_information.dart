@@ -35,8 +35,8 @@ class _UserInformationsState extends State<UserInformation> {
   var aboutMeController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   File? selectedImage;
-  var countryCode = "";
-  DateTime birthDate = DateTime.now();
+  var countryCode = "+90";
+  DateTime? birthDate;
 
   Future<void> openImagePicker() async {
     var selectedFile = await _picker.pickImage(source: ImageSource.gallery);

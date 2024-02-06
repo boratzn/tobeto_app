@@ -1,0 +1,13 @@
+export 'anouncement_screen.dart';
+export 'applications_screen.dart';
+export 'calendar_screen.dart';
+export 'catalog_screen.dart';
+export 'classes_screen.dart';
+export 'create_account_screen.dart';
+export 'home_screen.dart';
+export 'login_screen.dart';
+export 'main_screen.dart';
+export 'profile_screen.dart';
+export 'reset_password_screen.dart';
+export 'reviews_screen.dart';
+export 'survey_screen.dart';
