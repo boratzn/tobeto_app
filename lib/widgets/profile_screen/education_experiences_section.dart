@@ -42,43 +42,51 @@ class EducationAndExperiencesSection extends StatelessWidget {
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
                   const Divider(thickness: 2),
-                  Expanded(
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemCount: list.length,
-                      itemBuilder: (context, index) {
-                        var item = list[index];
-                        if (item is Education) {
-                          return TimeLineWidget(
-                              title: item.university ?? "",
-                              department: item.department ?? "",
-                              startDate: item.startDate != null
-                                  ? item.startDate!.year.toString()
-                                  : "",
-                              endDate: item.endDate != null
-                                  ? item.endDate!.year.toString()
-                                  : "",
-                              index: index,
-                              length: list.length);
-                        }
-                        if (item is Business) {
-                          return TimeLineWidget(
-                              title: item.companyName ?? "",
-                              department: item.position ?? "",
-                              startDate: item.startDate != null
-                                  ? item.startDate!.year.toString()
-                                  : "",
-                              endDate: item.endDate != null
-                                  ? item.endDate!.year.toString()
-                                  : "",
-                              index: index,
-                              length: list.length);
-                        }
-                        return null;
-                      },
-                    ),
-                  )
+                  list.isNotEmpty
+                      ? Expanded(
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: list.length,
+                            itemBuilder: (context, index) {
+                              var item = list[index];
+                              if (item is Education) {
+                                return TimeLineWidget(
+                                    title: item.university ?? "",
+                                    department: item.department ?? "",
+                                    startDate: item.startDate != null
+                                        ? item.startDate!.year.toString()
+                                        : "",
+                                    endDate: item.endDate != null
+                                        ? item.endDate!.year.toString()
+                                        : "",
+                                    index: index,
+                                    length: list.length);
+                              }
+                              if (item is Business) {
+                                return TimeLineWidget(
+                                    title: item.companyName ?? "",
+                                    department: item.position ?? "",
+                                    startDate: item.startDate != null
+                                        ? item.startDate!.year.toString()
+                                        : "",
+                                    endDate: item.endDate != null
+                                        ? item.endDate!.year.toString()
+                                        : "",
+                                    index: index,
+                                    length: list.length);
+                              }
+                              return null;
+                            },
+                          ),
+                        )
+                      : Text(
+                          "Herhangi bir eğitim veya iş deneyimi bilgisi bulunmamaktadır.",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(fontSize: 18),
+                        )
                 ],
               ),
             ),
@@ -120,7 +128,11 @@ class TimeLineWidget extends StatelessWidget {
       axis: TimelineAxis.horizontal,
       alignment: TimelineAlign.center,
       isFirst: index == 0 ? true : false,
-      isLast: index == length - 1,
+      isLast: index != 0
+          ? index == length - 1
+              ? true
+              : false
+          : false,
       indicatorStyle: const IndicatorStyle(
         drawGap: true,
       ),

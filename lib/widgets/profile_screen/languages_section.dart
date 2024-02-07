@@ -30,6 +30,7 @@ class LanguagesSection extends StatelessWidget {
             const Divider(thickness: 2),
             SingleChildScrollView(
               child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: languages!.length,
                 itemBuilder: (context, index) {

@@ -27,21 +27,26 @@ class _CatalogScreenState extends State<CatalogScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 30),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   const Text(
                     "Öğrenmeye başla !",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 60.0,
+                      fontSize: 40.0,
                       fontWeight: FontWeight.w900,
                     ),
                   ),
-                  const SizedBox(height: 30),
-                  TextField(
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                  TextFormField(
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 17),
                     decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 10),
                       hintText: "Eğitim arayın...",
-                      hintStyle: const TextStyle(fontSize: 30),
-                      prefixIcon: const Icon(Icons.search),
+                      suffixIcon: const Icon(Icons.search),
                       fillColor: Colors.white,
                       filled: true,
                       border: OutlineInputBorder(
@@ -49,22 +54,24 @@ class _CatalogScreenState extends State<CatalogScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 40),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.deepPurple,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.deepPurple,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
                       ),
-                      minimumSize: const Size(300, 40),
-                    ),
-                    onPressed: () {},
-                    child: const Text(
-                      "Filtrele",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w900),
+                      onPressed: () {},
+                      child: const Text(
+                        "Filtrele",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w900),
+                      ),
                     ),
                   ),
                 ],
@@ -132,7 +139,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
                       child: Icon(
                         Icons.play_arrow,
                         color: Colors.white,
-                        ),
+                      ),
                     ),
                   )
                 ],
@@ -199,7 +206,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
                       child: Icon(
                         Icons.play_arrow,
                         color: Colors.white,
-                        ),
+                      ),
                     ),
                   )
                 ],

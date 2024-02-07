@@ -146,40 +146,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: MediaQuery.of(context).size.height / 50,
                 ),
                 //******************************* CERTİFİCATES ************************ */
-                CertificatesSection(),
+                const CertificatesSection(),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 50,
                 ),
                 //******************************** SOCIAL MEDYA ************************* */
-                SocialMediaSection(),
+                const SocialMediaSection(),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 50,
                 ),
                 //******************************** ACHIVEMENT MODEL *********************** */
-                AchivementModelSection(),
+                const AchivementModelSection(),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 60,
                 ),
                 //************************* TOBETO EXAMS *************************** */
-                ExamsSection(),
+                const ExamsSection(),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 60,
                 ),
                 //***************************  MY BADGES **************************/
-                BadgesSection(),
+                const BadgesSection(),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 60,
                 ),
                 //*************************** ACTIVITIES MAP *************************** */
-                ActivityMapSection(),
+                const ActivityMapSection(),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 60,
                 ),
                 //*************************** MY EDUCATİON AND EXPERİENCES ************************* */
                 SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.36,
+                    height: userData.business!.isNotEmpty ||
+                            userData.education!.isNotEmpty
+                        ? MediaQuery.of(context).size.height * 0.36
+                        : MediaQuery.of(context).size.height * 0.2,
                     width: MediaQuery.of(context).size.width,
-                    child: EducationAndExperiencesSection()),
+                    child: const EducationAndExperiencesSection()),
               ],
             ),
           );

@@ -6,6 +6,8 @@ export 'calender_screen/class_state_widget.dart';
 export 'edit_screen/save_button_widget.dart';
 export 'edit_screen/skills_card.dart';
 export 'edit_screen/social_media_card.dart';
+export 'edit_screen/business_list_card.dart';
+export 'edit_screen/education_list_card.dart';
 
 //Homepage Screen
 export 'homepage/anouncements.dart';
