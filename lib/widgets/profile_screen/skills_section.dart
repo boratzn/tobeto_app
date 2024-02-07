@@ -31,6 +31,7 @@ class SkillsSection extends StatelessWidget {
             skillList != null
                 ? SingleChildScrollView(
                     child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: skillList!.length,
                       itemBuilder: (context, index) {

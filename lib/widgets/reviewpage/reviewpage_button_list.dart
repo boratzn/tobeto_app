@@ -20,10 +20,9 @@ class _ReviewButtonListState extends State<ReviewButtonList> {
   showAlertDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
       alignment: Alignment.center,
-         title: const Text("Uyarı"),
+      title: const Text("Uyarı"),
       content: const Padding(
         padding: EdgeInsets.only(top: 15),
-     
         child: Text(
           "Lütfen bu sınava başlamak için web tarayıcıdan giriş yapın !",
           textAlign: TextAlign.center,
@@ -48,9 +47,10 @@ class _ReviewButtonListState extends State<ReviewButtonList> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        width: 350,
+        width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height * 0.45,
         child: ListView.separated(
+            physics: NeverScrollableScrollPhysics(),
             separatorBuilder: (context, index) => const SizedBox(height: 10),
             padding: const EdgeInsets.all(8),
             itemCount: exams.length,
@@ -88,28 +88,6 @@ class _ReviewButtonListState extends State<ReviewButtonList> {
                         ))),
               );
               //Text(exams[index].toString());
-            }
-            /*  ListView.builder(
-      padding: const EdgeInsets.all(8),
-      itemCount: exams.length,
-      itemBuilder: (BuildContext context, int index) {
-              //child: Text(exams[index],textAlign: TextAlign.center,),
-        ),
-        SizedBox(
-              width: 350,
-              height: 55,
-              child: ElevatedButton(
-                style: Theme.of(context).elevatedButtonTheme.style,
-                onPressed: () {},
-                child:  Text(exam,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold),
-                ),
-              ), 
-            ); */
-            ));
+            }));
   }
 }

@@ -15,6 +15,7 @@ class _ActivityMapWidgetState extends State<ActivityMapWidget> {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 40,
           crossAxisSpacing: 1,

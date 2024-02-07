@@ -17,6 +17,8 @@ const String githubIconImagePath = "assets/images/github_icon.png";
 
 //Profile Screen
 const String cvGithubImagePath = "assets/images/profile_screen/cv-github.png";
+const String cvInstagramImagePath =
+    "assets/images/profile_screen/cv-instagram.png";
 const String cvLinkedinImagePath =
     "assets/images/profile_screen/cv-linkedn.png";
 const String cvDateImagePath = "assets/images/profile_screen/cv-date.png";
