@@ -3,18 +3,13 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:tobeto_app/constants/collection_names.dart';
-import 'package:tobeto_app/models/business.dart';
-import 'package:tobeto_app/models/certificate.dart';
-import 'package:tobeto_app/models/education.dart';
-import 'package:tobeto_app/models/language.dart';
-import 'package:tobeto_app/models/skill.dart';
-import 'package:tobeto_app/models/social_media.dart';
-import 'package:tobeto_app/models/training.dart';
-import 'package:tobeto_app/models/user.dart';
-import 'package:tobeto_app/models/user_all_info.dart';
+import 'package:tobeto_app/models/index.dart';
 import 'package:tobeto_app/utils/utils.dart';
+import 'package:path/path.dart';
 
 class FirebaseAuthService {
   static FirebaseAuthService? _instance;
@@ -107,6 +102,61 @@ class FirebaseAuthService {
         showToast(message: "Geçersiz E-Posta!");
       } else {
         showToast(message: "Kullanıcı Bulunamadı!");
+      }
+    }
+  }
+
+  Future<void> downloadPDF(Certificate certificate) async {
+    try {
+      // PDF dosyasını indirin
+      var request = await HttpClient().getUrl(Uri.parse(certificate.url!));
+      var response = await request.close();
+      var bytes = await consolidateHttpClientResponseBytes(response);
+
+      // Dosya sistemine kaydedin
+      final downloadsDirectory = await getExternalStorageDirectory();
+      final file = File('${downloadsDirectory!.path}/${certificate.name}');
+      await file.writeAsBytes(bytes);
+
+      // İndirme başarılı mesajı
+      showToast(
+          message: 'PDF dosyası başarıyla indirildi: ${certificate.name}');
+    } catch (e) {
+      // Hata durumunda mesajı yazdırın
+      showToast(message: 'PDF dosyası indirilirken hata oluştu: $e');
+    }
+  }
+
+  Future<void> uploadCertificate(File? file) async {
+    if (file != null) {
+      String fileName = basename(file.path);
+      try {
+        final storageRef = storageInstance
+            .ref()
+            .child('${Collections.CERTIFICATES}/${auth.currentUser!.uid}')
+            .child(fileName);
+
+        DocumentReference userDocRef = databaseReference
+            .collection(Collections.USERS)
+            .doc(auth.currentUser!.uid);
+
+        DocumentSnapshot userDoc = await userDocRef.get();
+        var certificates = userDoc['certificates'] ?? [];
+
+        await storageRef.putFile(file);
+        final url = await storageRef.getDownloadURL();
+
+        // Yeni sertifika öğesini ekleyin
+        var newCertificate = {
+          'name': fileName,
+          'url': url,
+          'createdDate': FieldValue.serverTimestamp()
+        };
+        certificates.add(newCertificate);
+        // Güncellenmiş sertifika dizisini Firestore'a geri yükleyin
+        await userDocRef.update({'certificates': certificates});
+      } catch (e) {
+        showToast(message: "Hata Mesajı: $e");
       }
     }
   }
@@ -326,7 +376,7 @@ class FirebaseAuthService {
             message: "Mevcut oturum açık değil veya kullanıcı bulunamadı.");
       }
     } catch (e) {
-      print("Hata oluştu: $e");
+      showToast(message: "Hata oluştu: $e");
     }
   }
 

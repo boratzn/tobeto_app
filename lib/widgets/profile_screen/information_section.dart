@@ -44,7 +44,8 @@ class InformationSection extends StatelessWidget {
               imgPath: cvNameImagePath),
           InformationCard(
               title: "Doğum Tarihi",
-              subTitle: getDateStringFormat(userData!.user.birthDate),
+              subTitle: getDateStringFormat(
+                  userData!.user.birthDate ?? DateTime(2000, 1, 1)),
               imgPath: cvDateImagePath),
           InformationCard(
               title: "E-Posta Adresi",

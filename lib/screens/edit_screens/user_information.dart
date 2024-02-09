@@ -35,7 +35,7 @@ class _UserInformationsState extends State<UserInformation> {
   var aboutMeController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   File? selectedImage;
-  var countryCode = "+90";
+  var countryCode = "";
   DateTime? birthDate;
 
   Future<void> openImagePicker() async {
@@ -216,7 +216,7 @@ class _UserInformationsState extends State<UserInformation> {
                             countryCode = value.dialCode ?? "";
                           });
                         },
-                        initialSelection: 'TR',
+                        //initialSelection: 'TR',
                         showCountryOnly: false,
                         showOnlyCountryWhenClosed: false,
                         dialogTextStyle: const TextStyle(fontSize: 15),
@@ -516,9 +516,9 @@ class _UserInformationsState extends State<UserInformation> {
                           )));
                     },
                   ),
-                  const SizedBox(
-                    height: 10,
-                  )
+                  // SizedBox(
+                  //   height: MediaQuery.of(context).size.height / 5,
+                  // )
                 ],
               ),
             ),
