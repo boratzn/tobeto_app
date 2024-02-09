@@ -64,3 +64,16 @@ class SocialUpdate extends UserDataEvent {
 
   SocialUpdate({required this.socialMedia});
 }
+
+class UploadCertificate extends UserDataEvent {
+  final File? file;
+
+  UploadCertificate({required this.file});
+}
+
+class DownloadCertificate extends UserDataEvent {
+  final Certificate certificate;
+  DownloadCertificate({
+    required this.certificate,
+  });
+}

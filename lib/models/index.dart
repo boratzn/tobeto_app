@@ -4,3 +4,6 @@ export '/models/education.dart';
 export '/models/language.dart';
 export '/models/skill.dart';
 export '/models/social_media.dart';
+export '/models/user.dart';
+export '/models/training.dart';
+export '/models/user_all_info.dart';

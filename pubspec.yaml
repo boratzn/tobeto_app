@@ -36,6 +36,8 @@ dependencies:
   google_sign_in: ^6.1.6
   syncfusion_flutter_calendar: ^22.2.12
   timeline_tile: ^2.0.0
+  path_provider: ^2.1.2
+  file_picker: ^6.1.1
     
 flutter_icons:
   android: "launcher_icon"

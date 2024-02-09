@@ -80,7 +80,9 @@ class UserModel {
       map['email'],
       map['imageUrl'],
       map['phoneNumber'],
-      (map['birthDate'] as Timestamp).toDate(),
+      map['birthDate'] != null
+          ? (map['birthDate'] as Timestamp).toDate()
+          : null,
       map['id'],
       map['country'],
       map['province'],

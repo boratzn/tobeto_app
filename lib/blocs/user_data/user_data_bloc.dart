@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:tobeto_app/models/business.dart';
 import 'package:tobeto_app/models/education.dart';
+import 'package:tobeto_app/models/index.dart';
 import 'package:tobeto_app/models/language.dart';
 import 'package:tobeto_app/models/skill.dart';
 import 'package:tobeto_app/models/social_media.dart';
@@ -29,6 +30,8 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     on<DeleteUser>(_deleteUser);
     on<ChangePassword>(_changePassword);
     on<ResetPassword>(_resetPassword);
+    on<UploadCertificate>(_uploadCertificate);
+    on<DownloadCertificate>(_downloadCertificate);
   }
 
   _fetchData(FetchData event, Emitter<UserDataState> emit) async {
@@ -150,6 +153,26 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   _resetPassword(ResetPassword event, Emitter<UserDataState> emit) async {
     try {
       _authService.resetPassword(event.email);
+    } catch (e) {
+      emit(UserDataError());
+    }
+  }
+
+  _uploadCertificate(
+      UploadCertificate event, Emitter<UserDataState> emit) async {
+    try {
+      _authService.uploadCertificate(event.file);
+      final userData = await _authService.getUserData();
+      emit(UserDataLoaded(userInfo: userData));
+    } catch (e) {
+      emit(UserDataError());
+    }
+  }
+
+  _downloadCertificate(
+      DownloadCertificate event, Emitter<UserDataState> emit) async {
+    try {
+      _authService.downloadPDF(event.certificate);
     } catch (e) {
       emit(UserDataError());
     }

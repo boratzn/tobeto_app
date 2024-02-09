@@ -48,8 +48,12 @@ class Education {
       educationState: map['educationState'],
       university: map['university'],
       department: map['department'],
-      startDate: (map['startDate'] as Timestamp).toDate(),
-      endDate: (map['endDate'] as Timestamp).toDate(),
+      startDate: map['startDate'] != null
+          ? (map['startDate'] as Timestamp).toDate()
+          : null,
+      endDate: map['endDate'] != null
+          ? (map['endDate'] as Timestamp).toDate()
+          : null,
       isStudying: map['isStudying'],
     );
   }

@@ -59,8 +59,12 @@ class Business {
       position: map['position'],
       sector: map['sector'],
       province: map['province'],
-      startDate: (map['startDate'] as Timestamp).toDate(),
-      endDate: (map['endDate'] as Timestamp).toDate(),
+      startDate: map['startDate'] != null
+          ? (map['startDate'] as Timestamp).toDate()
+          : null,
+      endDate: map['endDate'] != null
+          ? (map['endDate'] as Timestamp).toDate()
+          : null,
       isWorking: map['isWorking'],
       workDescription: map['workDescription'],
     );

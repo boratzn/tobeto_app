@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tobeto_app/blocs/user_data/user_data_bloc.dart';
 import 'package:tobeto_app/widgets/profile_screen/certificate_widget.dart';
 
 class CertificatesSection extends StatelessWidget {
@@ -24,20 +26,25 @@ class CertificatesSection extends StatelessWidget {
                   .copyWith(fontWeight: FontWeight.bold),
             ),
             const Divider(thickness: 2),
-            const CertificateWidget(
-              title: "Flutter_Certificate",
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 60,
-            ),
-            const CertificateWidget(
-              title: "Flutter_Certificate",
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 60,
-            ),
-            const CertificateWidget(
-              title: "Flutter_Certificate",
+            BlocBuilder<UserDataBloc, UserDataState>(
+              builder: (context, state) {
+                if (state is UserDataLoaded) {
+                  var certificates = state.userInfo!.certificates ?? [];
+                  return ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: certificates.length,
+                    itemBuilder: (context, index) {
+                      var item = certificates[index];
+                      return CertificateWidget(title: item.name ?? "");
+                    },
+                  );
+                }
+                return Text(
+                  "Veriler alınamadı!!",
+                  style: Theme.of(context).textTheme.bodySmall,
+                );
+              },
             )
           ],
         ),
