@@ -2,14 +2,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:tobeto_app/models/business.dart';
-import 'package:tobeto_app/models/education.dart';
 import 'package:tobeto_app/models/index.dart';
-import 'package:tobeto_app/models/language.dart';
-import 'package:tobeto_app/models/skill.dart';
-import 'package:tobeto_app/models/social_media.dart';
-import 'package:tobeto_app/models/user.dart';
-import 'package:tobeto_app/models/user_all_info.dart';
 import 'package:tobeto_app/user_auth/firebase_auth_services.dart';
 
 part 'user_data_event.dart';
@@ -32,6 +25,11 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     on<ResetPassword>(_resetPassword);
     on<UploadCertificate>(_uploadCertificate);
     on<DownloadCertificate>(_downloadCertificate);
+    on<DeleteBusinessInfoById>(_deleteBusinessInfoById);
+    on<DeleteEducationInfoById>(_deleteEducationInfoById);
+    on<DeleteSkillInfoById>(_deleteSkillInfoById);
+    on<DeleteSocialMediaInfoById>(_deleteSocialMediaInfoById);
+    on<DeleteLanguageInfoById>(_deleteLanguageInfoById);
   }
 
   _fetchData(FetchData event, Emitter<UserDataState> emit) async {
@@ -173,6 +171,61 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       DownloadCertificate event, Emitter<UserDataState> emit) async {
     try {
       _authService.downloadPDF(event.certificate);
+    } catch (e) {
+      emit(UserDataError());
+    }
+  }
+
+  _deleteBusinessInfoById(
+      DeleteBusinessInfoById event, Emitter<UserDataState> emit) async {
+    try {
+      await _authService.deleteBusinessInfoByIndex(event.index);
+      final userData = await _authService.getUserData();
+      emit(UserDataLoaded(userInfo: userData));
+    } catch (e) {
+      emit(UserDataError());
+    }
+  }
+
+  _deleteEducationInfoById(
+      DeleteEducationInfoById event, Emitter<UserDataState> emit) async {
+    try {
+      await _authService.deleteEducationInfoById(event.index);
+      final userData = await _authService.getUserData();
+      emit(UserDataLoaded(userInfo: userData));
+    } catch (e) {
+      emit(UserDataError());
+    }
+  }
+
+  _deleteSkillInfoById(
+      DeleteSkillInfoById event, Emitter<UserDataState> emit) async {
+    try {
+      await _authService.deleteSkillInfoById(event.index);
+      final userData = await _authService.getUserData();
+      emit(UserDataLoaded(userInfo: userData));
+    } catch (e) {
+      emit(UserDataError());
+    }
+  }
+
+  _deleteSocialMediaInfoById(
+      DeleteSocialMediaInfoById event, Emitter<UserDataState> emit) async {
+    try {
+      await _authService.deleteSocialMediaInfoById(event.index);
+      final userData = await _authService.getUserData();
+      emit(UserDataLoaded(userInfo: userData));
+    } catch (e) {
+      emit(UserDataError());
+    }
+  }
+
+  _deleteLanguageInfoById(
+      DeleteLanguageInfoById event, Emitter<UserDataState> emit) async {
+    try {
+      await _authService.deleteLanguageInfoById(event.index);
+      final userData = await _authService.getUserData();
+      emit(UserDataLoaded(userInfo: userData));
     } catch (e) {
       emit(UserDataError());
     }

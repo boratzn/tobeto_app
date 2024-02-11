@@ -367,6 +367,17 @@ class FirebaseAuthService {
           }
         }
 
+        //Storage'daki certificates altındaki kullanıcı bilgilerini siler
+        var referenceCertificates =
+            _storage.ref().child(Collections.CERTIFICATES);
+        var certificateDatas = await storageReference.list();
+
+        for (var data in certificateDatas.items) {
+          if (data.name == user.uid) {
+            await referenceCertificates.delete();
+          }
+        }
+
         // Kullanıcıyı Firebase Authentication'dan sil
         await user.delete();
 
@@ -446,6 +457,131 @@ class FirebaseAuthService {
       'skills': [],
       'socialMedia': []
     });
+  }
+
+  Future<void> deleteBusinessInfoByIndex(int index) async {
+    try {
+      // Kullanıcının iş bilgilerini al
+      var userRef = databaseReference
+          .collection(Collections.USERS)
+          .doc(_auth.currentUser!.uid);
+      var userData = await userRef.get();
+      var businessList = List.from(userData['business']);
+
+      // Belirli index'teki iş bilgisini diziden kaldır
+      if (index >= 0 && index < businessList.length) {
+        businessList.removeAt(index);
+
+        // Güncellenmiş iş bilgilerini belgeye ata
+        await userRef.update({'business': businessList});
+
+        showToast(message: 'İş bilgisi başarıyla silindi.');
+      } else {
+        showToast(message: 'Geçersiz index: $index');
+      }
+    } catch (e) {
+      showToast(message: 'İş bilgisi silinirken hata oluştu: $e');
+    }
+  }
+
+  Future<void> deleteEducationInfoById(int index) async {
+    try {
+      // Kullanıcının eğitim bilgilerini al
+      var userRef = databaseReference
+          .collection(Collections.USERS)
+          .doc(_auth.currentUser!.uid);
+      var userData = await userRef.get();
+      var educationList = List.from(userData['education']);
+
+      // Belirli index'teki eğitim bilgisini diziden kaldır
+      if (index >= 0 && index < educationList.length) {
+        educationList.removeAt(index);
+
+        // Güncellenmiş eğitim bilgilerini belgeye ata
+        await userRef.update({'education': educationList});
+
+        showToast(message: 'Eğitim bilgisi başarıyla silindi.');
+      } else {
+        showToast(message: 'Geçersiz index: $index');
+      }
+    } catch (e) {
+      showToast(message: 'Eğitim bilgisi silinirken hata oluştu: $e');
+    }
+  }
+
+  Future<void> deleteSkillInfoById(int index) async {
+    try {
+      // Kullanıcının yetenek bilgilerini al
+      var userRef = databaseReference
+          .collection(Collections.USERS)
+          .doc(_auth.currentUser!.uid);
+      var userData = await userRef.get();
+      var skillsList = List.from(userData['skills']);
+
+      // Belirli index'teki yetenek bilgisini diziden kaldır
+      if (index >= 0 && index < skillsList.length) {
+        skillsList.removeAt(index);
+
+        // Güncellenmiş yetenek bilgilerini belgeye ata
+        await userRef.update({'skills': skillsList});
+
+        showToast(message: 'Yetenek bilgisi başarıyla silindi.');
+      } else {
+        showToast(message: 'Geçersiz index: $index');
+      }
+    } catch (e) {
+      showToast(message: 'Yetenek bilgisi silinirken hata oluştu: $e');
+    }
+  }
+
+  Future<void> deleteSocialMediaInfoById(int index) async {
+    try {
+      // Kullanıcının sm bilgilerini al
+      var userRef = databaseReference
+          .collection(Collections.USERS)
+          .doc(_auth.currentUser!.uid);
+      var userData = await userRef.get();
+      var skillsList = List.from(userData['socialMedia']);
+
+      // Belirli index'teki sm bilgisini diziden kaldır
+      if (index >= 0 && index < skillsList.length) {
+        skillsList.removeAt(index);
+
+        // Güncellenmiş sm bilgilerini belgeye ata
+        await userRef.update({'socialMedia': skillsList});
+
+        showToast(message: 'Sosyal Medya bilgisi başarıyla silindi.');
+      } else {
+        showToast(message: 'Geçersiz index: $index');
+      }
+    } catch (e) {
+      showToast(message: 'Sosyla Medya bilgisi silinirken hata oluştu: $e');
+    }
+  }
+
+  Future<void> deleteLanguageInfoById(int index) async {
+    try {
+      // Kullanıcının dil bilgilerini al
+      var userRef = databaseReference
+          .collection(Collections.USERS)
+          .doc(_auth.currentUser!.uid);
+      var userData = await userRef.get();
+      var skillsList = List.from(userData['languages']);
+
+      // Belirli index'teki dil bilgisini diziden kaldır
+      if (index >= 0 && index < skillsList.length) {
+        skillsList.removeAt(index);
+
+        // Güncellenmiş dil bilgilerini belgeye ata
+        await userRef.update({'languages': skillsList});
+
+        showToast(message: 'Dil bilgisi başarıyla silindi.');
+      } else {
+        showToast(message: 'Geçersiz index: $index');
+      }
+    } catch (e) {
+      showToast(message: 'Dil bilgisi silinirken hata oluştu: $e');
+    }
   }
 
   signOut() async {

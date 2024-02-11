@@ -101,7 +101,10 @@ class _SocialMediaInformationState extends State<SocialMediaInformation> {
                           padding: EdgeInsets.only(
                               bottom: MediaQuery.of(context).size.height / 30),
                           child: SocialMediaCard(
-                              title: item.name ?? "", url: item.url ?? ""),
+                            title: item.name ?? "",
+                            url: item.url ?? "",
+                            index: index,
+                          ),
                         );
                       },
                     ),

@@ -45,12 +45,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListTile(
                       title: Text(
                         "TOBETO'ya Hoşgeldin",
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            fontSize: 17, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
                       subtitle: Text(
                         "${user.firstName ?? "Kullanıcı"} ${user.lastName ?? ""}",
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             fontSize: 19, fontWeight: FontWeight.bold),
                       ),
                       trailing: CircleAvatar(
