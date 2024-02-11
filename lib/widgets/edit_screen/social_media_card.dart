@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:tobeto_app/blocs/user_data/user_data_bloc.dart';
 import 'package:tobeto_app/constants/constants.dart';
+import 'package:tobeto_app/utils/utils.dart';
 
 class SocialMediaCard extends StatefulWidget {
-  const SocialMediaCard({super.key, required this.title, required this.url});
+  const SocialMediaCard({
+    Key? key,
+    required this.title,
+    required this.url,
+    required this.index,
+  }) : super(key: key);
 
   final String title;
   final String url;
+  final int index;
 
   @override
   State<SocialMediaCard> createState() => _SocialMediaCardState();
@@ -59,7 +69,58 @@ class _SocialMediaCardState extends State<SocialMediaCard> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text("Uyarı",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(fontSize: 18)),
+                          content: Text(
+                              "Bu bilgiyi silmek istediğinizde emin misiniz?",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(fontSize: 18)),
+                          actions: [
+                            ElevatedButton(
+                              onPressed: () {
+                                showToast(
+                                    message: "Silme işlemi gerçekleşmedi.");
+                              },
+                              child: Text(
+                                "Hayır",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                        fontSize: 18, color: Colors.white),
+                              ),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                context.read<UserDataBloc>().add(
+                                    DeleteSocialMediaInfoById(
+                                        index: widget.index));
+                                Navigator.pop(context);
+                              },
+                              child: Text(
+                                "Evet",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                        fontSize: 18, color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
                   child: Container(
                     height: 25,
                     width: 25,
@@ -84,7 +145,7 @@ class _SocialMediaCardState extends State<SocialMediaCard> {
                       color: Colors.white,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

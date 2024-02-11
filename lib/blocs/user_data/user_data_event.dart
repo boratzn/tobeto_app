@@ -77,3 +77,38 @@ class DownloadCertificate extends UserDataEvent {
     required this.certificate,
   });
 }
+
+class DeleteBusinessInfoById extends UserDataEvent {
+  final int index;
+  DeleteBusinessInfoById({
+    required this.index,
+  });
+}
+
+class DeleteEducationInfoById extends UserDataEvent {
+  final int index;
+  DeleteEducationInfoById({
+    required this.index,
+  });
+}
+
+class DeleteSkillInfoById extends UserDataEvent {
+  final int index;
+  DeleteSkillInfoById({
+    required this.index,
+  });
+}
+
+class DeleteSocialMediaInfoById extends UserDataEvent {
+  final int index;
+
+  DeleteSocialMediaInfoById({
+    required this.index,
+  });
+}
+
+class DeleteLanguageInfoById extends UserDataEvent {
+  final int index;
+
+  DeleteLanguageInfoById({required this.index});
+}

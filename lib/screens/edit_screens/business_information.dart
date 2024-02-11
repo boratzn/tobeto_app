@@ -301,18 +301,20 @@ class _BusinessInformationState extends State<BusinessInformation> {
                   SizedBox(
                     height: MediaQuery.of(context).size.width * 0.05,
                   ),
-                  SingleChildScrollView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      child: ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: businessList!.length,
-                        itemBuilder: (context, index) {
-                          var item = businessList[index];
-                          return BusinessListCard(item: item);
-                        },
-                      ))
+                  businessList!.isNotEmpty
+                      ? SingleChildScrollView(
+                          physics: const NeverScrollableScrollPhysics(),
+                          child: ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: businessList.length,
+                            itemBuilder: (context, index) {
+                              var item = businessList[index];
+                              return BusinessListCard(item: item, index: index);
+                            },
+                          ))
+                      : const Center()
                 ],
               ),
             ),

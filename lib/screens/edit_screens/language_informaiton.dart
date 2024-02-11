@@ -99,8 +99,15 @@ class _LanguageInformationState extends State<LanguageInformation> {
                           padding: EdgeInsets.only(
                               bottom: MediaQuery.of(context).size.height / 50),
                           child: LanguagesWidget(
-                              title: item.language ?? "",
-                              subtitle: item.level ?? ""),
+                            title: item.language ?? "",
+                            subtitle: item.level ?? "",
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                              size: 25,
+                            ),
+                            index: index,
+                          ),
                         );
                       },
                     ),

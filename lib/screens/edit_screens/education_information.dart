@@ -259,7 +259,10 @@ class _EducationInformationState extends State<EducationInformation> {
                         itemCount: education!.length,
                         itemBuilder: (context, index) {
                           var item = education[index];
-                          return EducationListCard(item: item);
+                          return EducationListCard(
+                            item: item,
+                            index: index,
+                          );
                         },
                       ))
                 ],

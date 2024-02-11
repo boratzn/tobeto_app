@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:tobeto_app/blocs/user_data/user_data_bloc.dart';
 import 'package:tobeto_app/models/business.dart';
 import 'package:tobeto_app/utils/utils.dart';
 
 class BusinessListCard extends StatelessWidget {
   const BusinessListCard({
-    super.key,
+    Key? key,
     required this.item,
-  });
+    required this.index,
+  }) : super(key: key);
 
   final Business item;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +49,9 @@ class BusinessListCard extends StatelessWidget {
                         context: context,
                         builder: (context) => Center(
                           child: SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.5,
+                            width: item.workDescription!.isEmpty
+                                ? MediaQuery.of(context).size.width * 0.5
+                                : MediaQuery.of(context).size.width,
                             child: Card(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -60,12 +67,15 @@ class BusinessListCard extends StatelessWidget {
                                           .copyWith(fontSize: 20),
                                     ),
                                     const Divider(),
-                                    Text(
-                                      item.workDescription ?? "",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(fontSize: 18),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        item.workDescription ?? "",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(fontSize: 18),
+                                      ),
                                     ),
                                     Align(
                                       alignment: Alignment.bottomRight,
@@ -212,7 +222,55 @@ class BusinessListCard extends StatelessWidget {
             ),
             Center(
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text("Uyarı",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(fontSize: 18)),
+                        content: Text(
+                            "Bu bilgiyi silmek istediğinizde emin misiniz?",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(fontSize: 18)),
+                        actions: [
+                          ElevatedButton(
+                            onPressed: () {
+                              showToast(message: "Silme işlemi gerçekleşmedi.");
+                            },
+                            child: Text(
+                              "Hayır",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(fontSize: 18, color: Colors.white),
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              context
+                                  .read<UserDataBloc>()
+                                  .add(DeleteBusinessInfoById(index: index));
+                              Navigator.pop(context);
+                            },
+                            child: Text(
+                              "Evet",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(fontSize: 18, color: Colors.white),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
                 child: Container(
                     decoration: BoxDecoration(
                         color: Colors.red,
