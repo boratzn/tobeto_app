@@ -155,7 +155,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                           denyButtonText: "İptal",
                           title: "Hesabı silmek istediğinizden emin misiniz?",
                           text: "Bu işlemi yaptıktan sonra geri alamazsınız!",
-                          confirmButtonText: "Yes, delete it",
+                          confirmButtonText: "Evet, sil",
                           type: ArtSweetAlertType.warning,
                           onConfirm: () async {
                             context.read<UserDataBloc>().add(DeleteUser());

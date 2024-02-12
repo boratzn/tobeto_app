@@ -66,6 +66,13 @@ class FirebaseAuthService {
         saveUserData(uCredential.user!.uid, userName[0] + userName[1],
             userName[2], uCredential.user!.email!);
       }
+      if (userName.length == 4) {
+        saveUserData(
+            uCredential.user!.uid,
+            userName[0] + userName[1] + userName[2],
+            userName[3],
+            uCredential.user!.email!);
+      }
     }
 
     //await getUserData();
@@ -215,109 +222,140 @@ class FirebaseAuthService {
   }
 
   void updateUserInformation(UserModel user) async {
-    final doc = databaseReference
-        .collection(Collections.USERS)
-        .doc(auth.currentUser!.uid);
+    try {
+      final doc = databaseReference
+          .collection(Collections.USERS)
+          .doc(auth.currentUser!.uid);
 
-    await doc.set({
-      'firstName': user.firstName,
-      'lastName': user.lastName,
-      'email': user.email,
-      'imageUrl': user.imageUrl,
-      'id': user.id,
-      'birthDate': user.birthDate,
-      'country': user.country,
-      'province': user.province,
-      'distrinct': user.distrinct,
-      'phoneNumber': user.phoneNumber,
-      'neighborhood': user.neighborhood,
-      'aboutMe': user.aboutMe
-    }, SetOptions(merge: true));
+      await doc.set({
+        'firstName': user.firstName,
+        'lastName': user.lastName,
+        'email': user.email,
+        'imageUrl': user.imageUrl,
+        'id': user.id,
+        'birthDate': user.birthDate,
+        'country': user.country,
+        'province': user.province,
+        'distrinct': user.distrinct,
+        'phoneNumber': user.phoneNumber,
+        'neighborhood': user.neighborhood,
+        'aboutMe': user.aboutMe
+      }, SetOptions(merge: true));
+      showToast(message: "Bilgiler başarıyla güncellendi.");
+    } catch (e) {
+      showToast(message: "Bilgiler güncellenirken bir hata oluştu!");
+    }
   }
 
   void updateBusinessInformation(List<Business> business) async {
-    final doc = databaseReference
-        .collection(Collections.USERS)
-        .doc(auth.currentUser!.uid);
+    try {
+      final doc = databaseReference
+          .collection(Collections.USERS)
+          .doc(auth.currentUser!.uid);
 
-    List<Map<String, dynamic>> businessList =
-        List.generate(business.length, (index) {
-      var item = business[index];
-      return {
-        'companyName': item.companyName,
-        'position': item.position,
-        'sector': item.sector,
-        'province': item.province,
-        'startDate': item.startDate,
-        'endDate': item.endDate,
-        'isWorking': item.isWorking,
-        'workDescription': item.workDescription
-      };
-    });
+      List<Map<String, dynamic>> businessList =
+          List.generate(business.length, (index) {
+        var item = business[index];
+        return {
+          'companyName': item.companyName,
+          'position': item.position,
+          'sector': item.sector,
+          'province': item.province,
+          'startDate': item.startDate,
+          'endDate': item.endDate,
+          'isWorking': item.isWorking,
+          'workDescription': item.workDescription
+        };
+      });
 
-    await doc.update({'business': FieldValue.arrayUnion(businessList)});
+      await doc.update({'business': FieldValue.arrayUnion(businessList)});
+
+      showToast(message: "Bilgiler başarıyla güncellendi.");
+    } catch (e) {
+      showToast(message: "Bilgiler güncellenirken bir hata oluştu!");
+    }
   }
 
   void updateEducationInformation(List<Education> education) async {
-    final doc = databaseReference
-        .collection(Collections.USERS)
-        .doc(auth.currentUser!.uid);
+    try {
+      final doc = databaseReference
+          .collection(Collections.USERS)
+          .doc(auth.currentUser!.uid);
 
-    List<Map<String, dynamic>> educationList =
-        List.generate(education.length, (index) {
-      var item = education[index];
-      return {
-        'department': item.department,
-        'educationState': item.educationState,
-        'endDate': item.endDate,
-        'isStudying': item.isStudying,
-        'startDate': item.startDate,
-        'university': item.university
-      };
-    });
-    await doc.update({'education': FieldValue.arrayUnion(educationList)});
+      List<Map<String, dynamic>> educationList =
+          List.generate(education.length, (index) {
+        var item = education[index];
+        return {
+          'department': item.department,
+          'educationState': item.educationState,
+          'endDate': item.endDate,
+          'isStudying': item.isStudying,
+          'startDate': item.startDate,
+          'university': item.university
+        };
+      });
+      await doc.update({'education': FieldValue.arrayUnion(educationList)});
+      showToast(message: "Bilgiler başarıyla güncellendi.");
+    } catch (e) {
+      showToast(message: "Bilgiler güncellenirken bir hata oluştu!");
+    }
   }
 
   void updateSkillsInformation(List<Skill> skills) async {
-    final doc = databaseReference
-        .collection(Collections.USERS)
-        .doc(auth.currentUser!.uid);
+    try {
+      final doc = databaseReference
+          .collection(Collections.USERS)
+          .doc(auth.currentUser!.uid);
 
-    List<Map<String, dynamic>> skillList =
-        List.generate(skills.length, (index) {
-      var item = skills[index];
-      return {'skillName': item.skillName};
-    });
+      List<Map<String, dynamic>> skillList =
+          List.generate(skills.length, (index) {
+        var item = skills[index];
+        return {'skillName': item.skillName};
+      });
 
-    await doc.update({'skills': FieldValue.arrayUnion(skillList)});
+      await doc.update({'skills': FieldValue.arrayUnion(skillList)});
+      showToast(message: "Bilgiler başarıyla güncellendi.");
+    } catch (e) {
+      showToast(message: "Bilgiler güncellenirken bir hata oluştu!");
+    }
   }
 
   void updateSocialMediaInformation(List<SocialMedia> socialMedias) async {
-    final doc = databaseReference
-        .collection(Collections.USERS)
-        .doc(auth.currentUser!.uid);
+    try {
+      final doc = databaseReference
+          .collection(Collections.USERS)
+          .doc(auth.currentUser!.uid);
 
-    List<Map<String, dynamic>> smList =
-        List.generate(socialMedias.length, (index) {
-      var item = socialMedias[index];
-      return {'name': item.name, 'url': item.url};
-    });
+      List<Map<String, dynamic>> smList =
+          List.generate(socialMedias.length, (index) {
+        var item = socialMedias[index];
+        return {'name': item.name, 'url': item.url};
+      });
 
-    await doc.update({'socialMedia': FieldValue.arrayUnion(smList)});
+      await doc.update({'socialMedia': FieldValue.arrayUnion(smList)});
+      showToast(message: "Bilgiler başarıyla güncellendi1");
+    } catch (e) {
+      showToast(message: "Bilgiler güncellenirken bir hata oluştu!");
+    }
   }
 
   void updateLanguagesInformation(List<Language> languages) async {
-    final doc = databaseReference
-        .collection(Collections.USERS)
-        .doc(auth.currentUser!.uid);
+    try {
+      final doc = databaseReference
+          .collection(Collections.USERS)
+          .doc(auth.currentUser!.uid);
 
-    List<Map<String, dynamic>> languageList =
-        List.generate(languages.length, (index) {
-      var item = languages[index];
-      return {'language': item.language, 'level': item.level};
-    });
+      List<Map<String, dynamic>> languageList =
+          List.generate(languages.length, (index) {
+        var item = languages[index];
+        return {'language': item.language, 'level': item.level};
+      });
 
-    await doc.update({'languages': FieldValue.arrayUnion(languageList)});
+      await doc.update({'languages': FieldValue.arrayUnion(languageList)});
+      showToast(message: "Bilgiler başarıyla güncellendi!");
+    } catch (e) {
+      showToast(message: "Bilgiler güncellenirken bir hata oluştu!");
+    }
   }
 
   Future<void> changePassword(String newPassword, String oldPass) async {
@@ -566,14 +604,14 @@ class FirebaseAuthService {
           .collection(Collections.USERS)
           .doc(_auth.currentUser!.uid);
       var userData = await userRef.get();
-      var skillsList = List.from(userData['languages']);
+      var languageList = List.from(userData['languages']);
 
       // Belirli index'teki dil bilgisini diziden kaldır
-      if (index >= 0 && index < skillsList.length) {
-        skillsList.removeAt(index);
+      if (index >= 0 && index < languageList.length) {
+        languageList.removeAt(index);
 
         // Güncellenmiş dil bilgilerini belgeye ata
-        await userRef.update({'languages': skillsList});
+        await userRef.update({'languages': languageList});
 
         showToast(message: 'Dil bilgisi başarıyla silindi.');
       } else {
@@ -581,6 +619,29 @@ class FirebaseAuthService {
       }
     } catch (e) {
       showToast(message: 'Dil bilgisi silinirken hata oluştu: $e');
+    }
+  }
+
+  Future<void> updateSocialMediaInfoById(int index, SocialMedia sm) async {
+    try {
+      // Kullanıcının sm bilgilerini al
+      var userRef = databaseReference
+          .collection(Collections.USERS)
+          .doc(_auth.currentUser!.uid);
+      var userData = await userRef.get();
+      var smList = List.from(userData['socialMedia']);
+
+      // Belirli index'teki sm bilgisini diziden kaldır
+      if (index >= 0 && index < smList.length) {
+        smList[index] = {'name': sm.name, 'url': sm.url};
+
+        // Güncellenmiş sm bilgilerini belgeye ata
+        await userRef.update({'socialMedia': smList});
+      } else {
+        showToast(message: 'Geçersiz index: $index');
+      }
+    } catch (e) {
+      showToast(message: '${sm.name} bilgisi silinirken hata oluştu: $e');
     }
   }
 

@@ -112,3 +112,12 @@ class DeleteLanguageInfoById extends UserDataEvent {
 
   DeleteLanguageInfoById({required this.index});
 }
+
+class UpdateSocialMediaInfoById extends UserDataEvent {
+  final int index;
+  final SocialMedia sm;
+  UpdateSocialMediaInfoById({
+    required this.index,
+    required this.sm,
+  });
+}
