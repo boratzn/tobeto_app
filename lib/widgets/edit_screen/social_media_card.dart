@@ -11,11 +11,13 @@ class SocialMediaCard extends StatefulWidget {
     required this.title,
     required this.url,
     required this.index,
+    required this.onPressed,
   }) : super(key: key);
 
   final String title;
   final String url;
   final int index;
+  final VoidCallback onPressed;
 
   @override
   State<SocialMediaCard> createState() => _SocialMediaCardState();
@@ -132,7 +134,7 @@ class _SocialMediaCardState extends State<SocialMediaCard> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: widget.onPressed,
                   child: Container(
                     height: 25,
                     width: 25,

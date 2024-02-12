@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tobeto_app/blocs/user_data/user_data_bloc.dart';
 import 'package:tobeto_app/constants/constants.dart';
 import 'package:tobeto_app/models/index.dart';
+import 'package:tobeto_app/utils/utils.dart';
 import 'package:tobeto_app/widgets/edit_screen/save_button_widget.dart';
 import 'package:tobeto_app/widgets/edit_screen/social_media_card.dart';
 
@@ -17,6 +18,7 @@ class SocialMediaInformation extends StatefulWidget {
 class _SocialMediaInformationState extends State<SocialMediaInformation> {
   OptionItem optionItemSelected = OptionItem(title: "Select Social Media");
   var urlController = TextEditingController();
+  var urlUpdateController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserDataBloc, UserDataState>(
@@ -104,6 +106,7 @@ class _SocialMediaInformationState extends State<SocialMediaInformation> {
                             title: item.name ?? "",
                             url: item.url ?? "",
                             index: index,
+                            onPressed: () => openModelSheet(item, index),
                           ),
                         );
                       },
@@ -116,6 +119,67 @@ class _SocialMediaInformationState extends State<SocialMediaInformation> {
         }
         return const Center(
           child: Text("Veriler alınırken hata oluştu."),
+        );
+      },
+    );
+  }
+
+  Future<void> openModelSheet(SocialMedia item, int index) async {
+    urlUpdateController.text = item.url!;
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Güncelle",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(fontSize: 19),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.03,
+                ),
+                TextFormField(
+                  controller: urlUpdateController,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(fontSize: 17),
+                  decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 10),
+                      hintText: "https://",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.03,
+                ),
+                SaveButtonWidget(
+                  onTap: () {
+                    context.read<UserDataBloc>().add(UpdateSocialMediaInfoById(
+                        index: index,
+                        sm: SocialMedia(
+                            name: item.name, url: urlUpdateController.text)));
+                    Navigator.pop(context);
+                    showToast(
+                        message: '${item.name} bilgisi başarıyla güncellendi.');
+                  },
+                  title: "Güncelle",
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.03,
+                ),
+              ],
+            ),
+          ),
         );
       },
     );

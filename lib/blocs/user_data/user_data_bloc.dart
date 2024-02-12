@@ -30,6 +30,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     on<DeleteSkillInfoById>(_deleteSkillInfoById);
     on<DeleteSocialMediaInfoById>(_deleteSocialMediaInfoById);
     on<DeleteLanguageInfoById>(_deleteLanguageInfoById);
+    on<UpdateSocialMediaInfoById>(_updateSocialMediaInfoById);
   }
 
   _fetchData(FetchData event, Emitter<UserDataState> emit) async {
@@ -224,6 +225,17 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       DeleteLanguageInfoById event, Emitter<UserDataState> emit) async {
     try {
       await _authService.deleteLanguageInfoById(event.index);
+      final userData = await _authService.getUserData();
+      emit(UserDataLoaded(userInfo: userData));
+    } catch (e) {
+      emit(UserDataError());
+    }
+  }
+
+  _updateSocialMediaInfoById(
+      UpdateSocialMediaInfoById event, Emitter<UserDataState> emit) async {
+    try {
+      await _authService.updateSocialMediaInfoById(event.index, event.sm);
       final userData = await _authService.getUserData();
       emit(UserDataLoaded(userInfo: userData));
     } catch (e) {
