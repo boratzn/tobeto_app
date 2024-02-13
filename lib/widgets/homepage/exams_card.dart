@@ -6,12 +6,14 @@ class ExamsCard extends StatelessWidget {
     super.key,
     required this.title,
     required this.content,
-    required this.icon,
+    required this.isDone,
+    required this.time,
   });
 
   final String title;
   final String content;
-  final Icon icon;
+  final String time;
+  final bool isDone;
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +57,11 @@ class ExamsCard extends StatelessWidget {
                       height: 25,
                       width: 25,
                       decoration: BoxDecoration(
-                          color: Colors.green,
+                          color: isDone ? Colors.green : Colors.red,
                           borderRadius: BorderRadius.circular(5)),
-                      child: icon)
+                      child: isDone
+                          ? const Icon(Icons.done)
+                          : const Icon(Icons.cancel))
                 ],
               ),
               const SizedBox(
@@ -82,9 +86,10 @@ class ExamsCard extends StatelessWidget {
                     height: 20,
                     width: 20,
                   ),
-                  const Text(
-                    " 45 Dakika",
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                  Text(
+                    " $time",
+                    style: const TextStyle(
+                        fontSize: 17, fontWeight: FontWeight.bold),
                   )
                 ],
               )

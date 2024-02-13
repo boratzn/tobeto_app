@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:tobeto_app/models/index.dart';
 import 'package:tobeto_app/widgets/homepage/exams_card.dart';
 
 class MyExams extends StatelessWidget {
   const MyExams({
     super.key,
+    required this.userInfo,
   });
+
+  final UserAllInfo userInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -38,28 +42,32 @@ class MyExams extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.22,
-                width: MediaQuery.of(context).size.width,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: const [
-                    ExamsCard(
-                        title: "Herkes İçin Kodlama 1B Değerlendirme Sınavı",
-                        content: "Herkes İçin Kodlama - 1B",
-                        icon: Icon(
-                          Icons.done,
-                        )),
-                    SizedBox(
-                      width: 15,
+              userInfo.exams!.isNotEmpty
+                  ? SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.22,
+                      width: MediaQuery.of(context).size.width,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: userInfo.exams!.length,
+                        itemBuilder: (context, index) {
+                          var exam = userInfo.exams![index];
+                          return ExamsCard(
+                              title: exam.title ?? "",
+                              content: exam.subtitle ?? "",
+                              time: exam.time ?? "45 Dakika",
+                              isDone: exam.isDone ?? false);
+                        },
+                      ),
+                    )
+                  : SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      child: Text(
+                          "Henüz atanmış ya da tamamlanan bir sınavınız bulunmamaktadır",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(fontSize: 17)),
                     ),
-                    ExamsCard(
-                        title: "Herkes İçin Kodlama 1B Değerlendirme Sınavı",
-                        content: "Herkes İçin Kodlama - 1B",
-                        icon: Icon(Icons.done)),
-                  ],
-                ),
-              ),
             ],
           ),
         ),

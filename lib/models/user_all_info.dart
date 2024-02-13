@@ -1,6 +1,7 @@
 import 'package:tobeto_app/models/business.dart';
 import 'package:tobeto_app/models/certificate.dart';
 import 'package:tobeto_app/models/education.dart';
+import 'package:tobeto_app/models/exam.dart';
 import 'package:tobeto_app/models/language.dart';
 import 'package:tobeto_app/models/skill.dart';
 import 'package:tobeto_app/models/social_media.dart';
@@ -16,13 +17,16 @@ class UserAllInfo {
   List<SocialMedia>? socialMedias;
   List<Language>? languages;
   List<Training>? trainings;
-  UserAllInfo(
-      {required this.user,
-      this.education,
-      this.business,
-      this.skills,
-      this.certificates,
-      this.socialMedias,
-      this.languages,
-      this.trainings});
+  List<Exam>? exams;
+  UserAllInfo({
+    required this.user,
+    this.education,
+    this.business,
+    this.skills,
+    this.certificates,
+    this.socialMedias,
+    this.languages,
+    this.trainings,
+    this.exams,
+  });
 }
