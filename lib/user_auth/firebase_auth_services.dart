@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tobeto_app/constants/collection_names.dart';
+import 'package:tobeto_app/models/exam.dart';
 import 'package:tobeto_app/models/index.dart';
 import 'package:tobeto_app/utils/utils.dart';
 import 'package:path/path.dart';
@@ -429,6 +430,38 @@ class FirebaseAuthService {
     }
   }
 
+  Future<List<Exam>> getExamsByUid(String uid) async {
+    User? user = _auth.currentUser;
+    List<Exam> examList = [];
+    try {
+      if (user != null) {
+        final CollectionReference examsCollection =
+            databaseReference.collection(Collections.EXAMS);
+
+        QuerySnapshot querySnapshot = await examsCollection.get();
+
+        for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+          if (documentSnapshot.exists) {
+            var data = documentSnapshot.data() as Map<String, dynamic>;
+            var userData = documentSnapshot.get('users') as List<dynamic>;
+
+            userData.forEach((element) {
+              if (element.containsKey('userID') && element['userID'] == uid) {
+                Exam exam = Exam.fromMap(data);
+                exam.isDone = element['isDone'];
+                examList.add(exam);
+              }
+            });
+          }
+        }
+        return examList;
+      }
+    } catch (e) {
+      showToast(message: 'Hata: $e');
+    }
+    return <Exam>[];
+  }
+
   Future<UserAllInfo?> getUserData() async {
     User? currUser = _auth.currentUser;
 
@@ -465,6 +498,7 @@ class FirebaseAuthService {
           socialMedia.map((e) => SocialMedia.fromMap(e)).toList();
 
       var trainings = await getTrainingsByUid(currUser.uid);
+      var exams = await getExamsByUid(currUser.uid);
 
       UserAllInfo userModel = UserAllInfo(user: userDataModel);
       userModel.business = businessData;
@@ -474,6 +508,7 @@ class FirebaseAuthService {
       userModel.skills = skillsData;
       userModel.socialMedias = socialMediaData;
       userModel.trainings = trainings;
+      userModel.exams = exams;
 
       return userModel;
     } else {

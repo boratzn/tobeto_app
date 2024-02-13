@@ -4,4 +4,5 @@ class Collections {
   static const String TRAININGS = "trainings";
   static const String PDFS = "pdfs";
   static const String CERTIFICATES = "certificates";
+  static const String EXAMS = "exams";
 }

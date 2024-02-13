@@ -47,7 +47,7 @@ class _SkillsCardState extends State<SkillsCard> {
                                   .bodySmall!
                                   .copyWith(fontSize: 18)),
                           content: Text(
-                              "Bu bilgiyi silmek istediğinizde emin misiniz?",
+                              "Bu bilgiyi silmek istediğinize emin misiniz?",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall!
@@ -55,6 +55,7 @@ class _SkillsCardState extends State<SkillsCard> {
                           actions: [
                             ElevatedButton(
                               onPressed: () {
+                                Navigator.pop(context);
                                 showToast(
                                     message: "Silme işlemi gerçekleşmedi.");
                               },
