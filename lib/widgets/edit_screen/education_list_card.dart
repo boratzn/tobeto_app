@@ -124,7 +124,7 @@ class EducationListCard extends StatelessWidget {
                                 .bodySmall!
                                 .copyWith(fontSize: 18)),
                         content: Text(
-                            "Bu bilgiyi silmek istediğinizde emin misiniz?",
+                            "Bu bilgiyi silmek istediğinize emin misiniz?",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall!
@@ -132,6 +132,7 @@ class EducationListCard extends StatelessWidget {
                         actions: [
                           ElevatedButton(
                             onPressed: () {
+                              Navigator.pop(context);
                               showToast(message: "Silme işlemi gerçekleşmedi.");
                             },
                             child: Text(
