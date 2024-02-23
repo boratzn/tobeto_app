@@ -22,6 +22,7 @@ class EducationAndExperiencesSection extends StatelessWidget {
 
           educationList.sort((a, b) => a.startDate!.compareTo(b.startDate!));
           businessList.sort((a, b) => a.startDate!.compareTo(b.startDate!));
+          list.clear();
           list.addAll(educationList);
           list.addAll(businessList);
           list.sort((a, b) => a.startDate.compareTo(b.startDate));
@@ -125,6 +126,8 @@ class TimeLineWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TimelineTile(
+      afterLineStyle: const LineStyle(color: Color(0xFF470084)),
+      beforeLineStyle: const LineStyle(color: Color(0xFF470084)),
       axis: TimelineAxis.horizontal,
       alignment: TimelineAlign.center,
       isFirst: index == 0 ? true : false,
@@ -133,9 +136,8 @@ class TimeLineWidget extends StatelessWidget {
               ? true
               : false
           : false,
-      indicatorStyle: const IndicatorStyle(
-        drawGap: true,
-      ),
+      indicatorStyle:
+          const IndicatorStyle(drawGap: true, color: Color(0xFF470084)),
       startChild: index % 2 == 0
           ? Padding(
               padding: const EdgeInsets.all(8.0),

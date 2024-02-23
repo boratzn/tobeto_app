@@ -28,12 +28,14 @@ class InformationSection extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: CircleAvatar(
-                backgroundImage: userData!.user.imageUrl != null
-                    ? NetworkImage(
-                        userData!.user.imageUrl!,
-                      )
-                    : null,
+              child: FittedBox(
+                child: CircleAvatar(
+                  backgroundImage: userData!.user.imageUrl != null
+                      ? NetworkImage(
+                          userData!.user.imageUrl!,
+                        )
+                      : null,
+                ),
               ),
             ),
           ),
