@@ -104,7 +104,8 @@ class FirebaseAuthService {
   Future<void> resetPassword(String email) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);
-      showToast(message: "Mailinize şifre sıfırlama linki gönderildi.");
+      showToast(
+          message: "Şifre sıfırlama linki mailinize başarıyla gönderildi.");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email') {
         showToast(message: "Geçersiz E-Posta!");
