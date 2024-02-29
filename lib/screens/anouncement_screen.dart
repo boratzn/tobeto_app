@@ -17,11 +17,12 @@ class AnouncementScreen extends StatelessWidget {
     ];
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Duyuru ve Haberlerim",
-          style: Theme.of(context).textTheme.bodySmall,
-        ),
-      ),
+          title: Text(
+            "Duyuru ve Haberlerim",
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          shadowColor: Colors.black,
+          elevation: 2),
       body: ListView.builder(
         itemCount: list.length,
         itemBuilder: (context, index) {

@@ -45,6 +45,42 @@ class FirebaseAuthService {
     return null;
   }
 
+  Future<User?> signInWithGithub() async {
+    GithubAuthProvider githubAuthProvider = GithubAuthProvider();
+    try {
+      final credential = await _auth.signInWithProvider(githubAuthProvider);
+
+      if (credential.additionalUserInfo!.isNewUser) {
+        List<String> userName = credential.user!.displayName!.split(' ');
+        if (userName.length == 2) {
+          saveUserData(credential.user!.uid, userName[0], userName[1],
+              credential.user!.email!);
+        }
+        if (userName.length == 3) {
+          saveUserData(credential.user!.uid, userName[0] + userName[1],
+              userName[2], credential.user!.email!);
+        }
+        if (userName.length == 4) {
+          saveUserData(
+              credential.user!.uid,
+              userName[0] + userName[1] + userName[2],
+              userName[3],
+              credential.user!.email!);
+        }
+      }
+
+      return credential.user;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "account-exists-with-different-credential") {
+        showToast(
+            message: "Bu mail başka bir giriş yöntemiyle kullanılmaktadır.");
+      } else {
+        showToast(message: "Giriş İşlemi başarısız.");
+      }
+      return null;
+    }
+  }
+
   Future<User?> signInWithGoogle() async {
     final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
 

@@ -9,11 +9,12 @@ class SurveyScreen extends StatelessWidget {
     var list = [];
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Anketlerim",
-          style: Theme.of(context).textTheme.bodySmall,
-        ),
-      ),
+          title: Text(
+            "Anketlerim",
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          shadowColor: Colors.black,
+          elevation: 2),
       body: list.isNotEmpty
           ? ListView.builder(
               itemCount: list.length,
@@ -21,16 +22,11 @@ class SurveyScreen extends StatelessWidget {
                 return null;
               },
             )
-          : Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: const Color(0xFFE6E6E6),
-                    borderRadius: BorderRadius.circular(15)),
+          : Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Center(
                       child: Image.asset(
@@ -46,6 +42,7 @@ class SurveyScreen extends StatelessWidget {
                           fontSize: 19,
                           color: Color(0xFF6A359F),
                         ),
+                        textAlign: TextAlign.center,
                       ),
                     )
                   ],

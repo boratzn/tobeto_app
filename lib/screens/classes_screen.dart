@@ -10,11 +10,12 @@ class ClassesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Eğitimlerim",
-          style: Theme.of(context).textTheme.bodySmall,
-        ),
-      ),
+          title: Text(
+            "Eğitimlerim",
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          shadowColor: Colors.black,
+          elevation: 2),
       body: BlocBuilder<UserDataBloc, UserDataState>(
         builder: (context, state) {
           if (state is UserDataLoaded) {
@@ -38,6 +39,7 @@ class ClassesScreen extends StatelessWidget {
                     child: Text(
                       "Atanmış bir eğitiminiz bulunmamaktadır.",
                       style: Theme.of(context).textTheme.bodySmall,
+                      textAlign: TextAlign.center,
                     ),
                   );
           }
