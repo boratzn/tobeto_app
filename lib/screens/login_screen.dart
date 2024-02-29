@@ -212,7 +212,25 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   SquareTile(
                                     imgPath: githubIconImagePath,
-                                    onTap: () {},
+                                    onTap: () async {
+                                      var user =
+                                          await authService.signInWithGithub();
+
+                                      if (user != null) {
+                                        authService.auth
+                                            .authStateChanges()
+                                            .listen((user) {
+                                          if (user != null) {
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const MainScreen(),
+                                                ));
+                                          }
+                                        });
+                                      }
+                                    },
                                   )
                                 ],
                               ),

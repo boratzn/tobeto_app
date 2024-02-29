@@ -14,7 +14,7 @@ class ApplicationScreen extends StatelessWidget {
             style: Theme.of(context).textTheme.bodySmall,
           ),
           shadowColor: Colors.black,
-          elevation: 1),
+          elevation: 2),
       body: ListView.builder(
         itemCount: list.length,
         itemBuilder: (context, index) {

@@ -15,13 +15,27 @@ class _CalendarScreenState extends State<CalendarScreen> {
     final DateTime today = DateTime.now();
     final DateTime startTime =
         DateTime(today.year, today.month, today.day, 9, 0, 0);
-    final DateTime endTime = startTime.add(const Duration(hours: 2));
+    final DateTime endTime = startTime.add(const Duration(hours: 3));
     meetings.add(Meeting(
         'C# Programlama', startTime, endTime, const Color(0xFF0F8644), false));
     meetings
         .add(Meeting('Veri Bilimi', startTime, endTime, Colors.blue, false));
     meetings.add(Meeting(
         'Flutter Mobil Programlama', startTime, endTime, Colors.red, false));
+    meetings.add(Meeting(
+        'C# Programlama',
+        startTime.add(const Duration(days: 2)),
+        endTime.add(const Duration(days: 2)),
+        const Color(0xFF0F8644),
+        false));
+    meetings.add(Meeting('Veri Bilimi', startTime.add(const Duration(days: 2)),
+        endTime.add(const Duration(days: 2)), Colors.blue, false));
+    meetings.add(Meeting(
+        'Flutter Mobil Programlama',
+        startTime.add(const Duration(days: 2)),
+        endTime.add(const Duration(days: 2)),
+        Colors.red,
+        false));
     return meetings;
   }
 

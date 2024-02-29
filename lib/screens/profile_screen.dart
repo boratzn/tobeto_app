@@ -17,6 +17,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String selectedOption = "Option 1";
   GlobalKey iconKey = GlobalKey();
   bool isShared = false;
+  List<bool?> isOpen = <bool>[];
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserDataBloc, UserDataState>(
@@ -126,6 +128,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: MediaQuery.of(context).size.height / 50,
                 ),
                 //**************************ABOUT ME******************************* */
+
                 AboutMeSection(userData: userData),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 50,
