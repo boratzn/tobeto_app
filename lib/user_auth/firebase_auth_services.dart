@@ -195,13 +195,16 @@ class FirebaseAuthService {
         var newCertificate = {
           'name': fileName,
           'url': url,
-          'createdDate': FieldValue.serverTimestamp()
+          'createdDate': DateTime.now()
         };
         certificates.add(newCertificate);
         // Güncellenmiş sertifika dizisini Firestore'a geri yükleyin
-        await userDocRef.update({'certificates': certificates});
+        await userDocRef.update({
+          'certificates': FieldValue.arrayUnion(certificates),
+        });
       } catch (e) {
         showToast(message: "Hata Mesajı: $e");
+        print(e);
       }
     }
   }
