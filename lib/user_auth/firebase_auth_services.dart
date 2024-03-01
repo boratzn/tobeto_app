@@ -221,17 +221,23 @@ class FirebaseAuthService {
   }
 
   void delete() async {
-    final storageRef = storageInstance
-        .ref()
-        .child(Collections.IMAGES)
-        .child("${auth.currentUser!.uid}.jpg");
+    try {
+      final storageRef = storageInstance
+          .ref()
+          .child(Collections.IMAGES)
+          .child("${auth.currentUser!.uid}.jpg");
 
-    final document = databaseReference
-        .collection(Collections.USERS)
-        .doc(auth.currentUser!.uid);
-    await document.update({'imageUrl': null});
+      final document = databaseReference
+          .collection(Collections.USERS)
+          .doc(auth.currentUser!.uid);
+      await document.update({'imageUrl': null});
 
-    await storageRef.delete();
+      await storageRef.delete();
+    } catch (e) {
+      showToast(
+          message:
+              "Profil fotoğrafınız olmadığı için silme işlemi gerçekleştirilemedi.");
+    }
   }
 
   Future<List<Training>> getTrainingsByUid(String uid) async {

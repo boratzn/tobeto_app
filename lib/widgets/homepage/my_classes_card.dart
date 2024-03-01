@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tobeto_app/screens/class_detail_screen.dart';
 
 class MyClassesCard extends StatelessWidget {
   const MyClassesCard({
@@ -80,7 +81,13 @@ class MyClassesCard extends StatelessWidget {
                         style: const ButtonStyle(
                             backgroundColor:
                                 MaterialStatePropertyAll(Color(0xFFD9D9D9))),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ClassDetailScreen(),
+                              ));
+                        },
                         child: const Text(
                           "Eğitime Git",
                           style: TextStyle(color: Colors.black, fontSize: 16),
