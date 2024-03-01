@@ -84,7 +84,60 @@ class _UserInformationsState extends State<UserInformation> {
                           child: InkWell(
                             borderRadius: BorderRadius.circular(20),
                             onTap: () {
-                              context.read<UserDataBloc>().add(DeleteImage());
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text("Uyarı",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(fontSize: 18)),
+                                    content: Text(
+                                        "Profil fotoğrafınızı silmek istediğinize emin misiniz?",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(fontSize: 18)),
+                                    actions: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          showToast(
+                                              message:
+                                                  "Silme işlemi gerçekleşmedi.");
+                                        },
+                                        child: Text(
+                                          "Hayır",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                  fontSize: 18,
+                                                  color: Colors.white),
+                                        ),
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          context
+                                              .read<UserDataBloc>()
+                                              .add(DeleteImage());
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text(
+                                          "Evet",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                  fontSize: 18,
+                                                  color: Colors.white),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
                             },
                             child: Container(
                                 decoration: BoxDecoration(
@@ -216,7 +269,7 @@ class _UserInformationsState extends State<UserInformation> {
                             countryCode = value.dialCode ?? "";
                           });
                         },
-                        //initialSelection: 'TR',
+                        initialSelection: 'TR',
                         showCountryOnly: false,
                         showOnlyCountryWhenClosed: false,
                         dialogTextStyle: const TextStyle(fontSize: 15),

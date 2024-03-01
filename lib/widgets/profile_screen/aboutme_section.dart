@@ -28,11 +28,21 @@ class AboutMeSection extends StatelessWidget {
             ),
             const Divider(thickness: 2),
             //Buraya Hakkımdaki bilgiler gelecek
-            Text(
-              userData!.user.aboutMe ?? "Hakkında birşeyler yaz",
-              style:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18),
-            )
+            (userData!.user.aboutMe == null || userData!.user.aboutMe == "")
+                ? Text(
+                    "Hakkında birşeyler yaz...",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 18),
+                  )
+                : Text(
+                    userData!.user.aboutMe!,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 18),
+                  )
           ],
         ),
       ),

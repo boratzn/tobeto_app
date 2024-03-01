@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, duplicate_ignore
+
 import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -152,15 +154,16 @@ class _AccountSettingsState extends State<AccountSettings> {
                       barrierDismissible: false,
                       context: context,
                       artDialogArgs: ArtDialogArgs(
-                          denyButtonText: "İptal",
-                          title: "Hesabı silmek istediğinizden emin misiniz?",
-                          text: "Bu işlemi yaptıktan sonra geri alamazsınız!",
-                          confirmButtonText: "Evet, sil",
-                          type: ArtSweetAlertType.warning,
-                          onConfirm: () async {
-                            context.read<UserDataBloc>().add(DeleteUser());
-                            Navigator.pop(context);
-                          }));
+                        denyButtonText: "İptal",
+                        title: "Hesabı silmek istediğinize emin misiniz?",
+                        text: "Bu işlemi yaptıktan sonra geri alamazsınız!",
+                        confirmButtonText: "Evet, sil",
+                        type: ArtSweetAlertType.warning,
+                        onConfirm: () async {
+                          context.read<UserDataBloc>().add(DeleteUser());
+                          Navigator.pop(context);
+                        },
+                      ));
 
                   if (response.isTapConfirmButton) {
                     // ignore: use_build_context_synchronously
