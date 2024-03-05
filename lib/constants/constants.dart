@@ -14,6 +14,7 @@ const String timeStartImagePath = "assets/images/timeStart.png";
 const String timeEndImagePath = "assets/images/timeEnd.png";
 const String googleIconImagePath = "assets/images/google_icon.png";
 const String githubIconImagePath = "assets/images/github_icon.png";
+const String forgotPassImagePath = "assets/images/forgot-password.png";
 
 //Profile Screen
 const String cvGithubImagePath = "assets/images/profile_screen/cv-github.png";
@@ -44,6 +45,8 @@ const String userImagePath = "assets/images/profile_screen/user.png";
 const String uploadImagePath = "assets/images/profile_screen/upload.png";
 const String certificateImagePath =
     "assets/images/profile_screen/certificates.png";
+
+//Home Screen
 const String anouncementImagePath = "assets/images/home_screen/anouncement.png";
 const String applicationImagePath = "assets/images/home_screen/application.png";
 const String educationImagePath = "assets/images/home_screen/education.png";
