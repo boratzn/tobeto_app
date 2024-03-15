@@ -87,7 +87,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       HomePageContainer(
                         title: "Profilini Oluştur",
                         colors: const [
-                          Color(0xFF1D0B8C),
+                         // Color(0xFF1D0B8C),
+                         Colors.black,
                           Color(0xFF604BBB),
                           Color(0xFFE6E7EC)
                         ],
