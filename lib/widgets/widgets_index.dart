@@ -17,7 +17,6 @@ export 'homepage/exams_card.dart';
 export 'homepage/home_page_container1.dart';
 export 'homepage/home_page_container2.dart';
 export 'homepage/my_applications.dart';
-export 'homepage/my_classes.dart';
 export 'homepage/my_classes_card.dart';
 export 'homepage/my_exams.dart';
 export 'homepage/my_surveys.dart';

@@ -11,3 +11,5 @@ class TrainingsLoaded extends TrainingsState {
 
   TrainingsLoaded({required this.trainings});
 }
+
+class TrainingsError extends TrainingsState {}

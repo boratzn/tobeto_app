@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
+import 'package:tobeto_app/blocs/trainings/trainings_bloc.dart';
 import 'package:tobeto_app/blocs/user_data/user_data_bloc.dart';
 import 'package:tobeto_app/firebase_options.dart';
 import 'package:tobeto_app/screens/screen_index.dart';
@@ -21,6 +22,9 @@ Future<void> main() async {
     providers: [
       BlocProvider(
         create: (context) => UserDataBloc(FirebaseAuthService()),
+      ),
+      BlocProvider(
+        create: (context) => TrainingsBloc(FirebaseAuthService()),
       ),
     ],
     child: const ProviderScope(child: MainApp()),

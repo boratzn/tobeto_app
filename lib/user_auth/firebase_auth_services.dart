@@ -7,7 +7,6 @@ import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tobeto_app/constants/collection_names.dart';
-import 'package:tobeto_app/models/exam.dart';
 import 'package:tobeto_app/models/index.dart';
 import 'package:tobeto_app/utils/utils.dart';
 import 'package:path/path.dart';
@@ -257,7 +256,11 @@ class FirebaseAuthService {
       // Her bir belgeyi işle
       for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
         var data = documentSnapshot.data() as Map<String, dynamic>;
+        List<dynamic> contentList = data['contents'] as List<dynamic>;
+        List<Content> contents =
+            contentList.map((e) => Content.fromMap(e)).toList();
         Training training = Training.fromMap(data);
+        training.contents = contents;
         listTraining.add(training);
       }
 
@@ -491,13 +494,13 @@ class FirebaseAuthService {
             var data = documentSnapshot.data() as Map<String, dynamic>;
             var userData = documentSnapshot.get('users') as List<dynamic>;
 
-            userData.forEach((element) {
+            for (var element in userData) {
               if (element.containsKey('userID') && element['userID'] == uid) {
                 Exam exam = Exam.fromMap(data);
                 exam.isDone = element['isDone'];
                 examList.add(exam);
               }
-            });
+            }
           }
         }
         return examList;
@@ -543,7 +546,6 @@ class FirebaseAuthService {
       List<SocialMedia> socialMediaData =
           socialMedia.map((e) => SocialMedia.fromMap(e)).toList();
 
-      var trainings = await getTrainingsByUid(currUser.uid);
       var exams = await getExamsByUid(currUser.uid);
 
       UserAllInfo userModel = UserAllInfo(user: userDataModel);
@@ -553,7 +555,6 @@ class FirebaseAuthService {
       userModel.languages = languagesData;
       userModel.skills = skillsData;
       userModel.socialMedias = socialMediaData;
-      userModel.trainings = trainings;
       userModel.exams = exams;
 
       return userModel;

@@ -52,6 +52,10 @@ const String applicationImagePath = "assets/images/home_screen/application.png";
 const String educationImagePath = "assets/images/home_screen/education.png";
 const String surveyImagePath = "assets/images/home_screen/survey.png";
 
+//URL
+String classUrl =
+    "https://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/hls/casting_to_future/fileSequence243.ts";
+
 const List<Map<String, dynamic>> pageList = [
   {'Başvurularım': applicationImagePath},
   {'Eğitimlerim': educationImagePath},

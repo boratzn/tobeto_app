@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                const HomePageContainer1(),
+                HomePageContainer1(),
                 const SizedBox(
                   height: 15,
                 ),
