@@ -7,3 +7,4 @@ export '/models/social_media.dart';
 export '/models/user.dart';
 export '/models/training.dart';
 export '/models/user_all_info.dart';
+export '/models/exam.dart';
